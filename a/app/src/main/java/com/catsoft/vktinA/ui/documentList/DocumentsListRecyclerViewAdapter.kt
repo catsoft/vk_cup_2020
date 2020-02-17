@@ -17,6 +17,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.catsoft.vktinA.R
 import com.catsoft.vktinA.utils.CalendarReadableUtil
+import com.catsoft.vktinA.utils.DimensionUtil
 import com.catsoft.vktinA.utils.FileTypeUtil
 import com.catsoft.vktinA.utils.SizeHumanReadableUtil
 import com.catsoft.vktinA.vkApi.documents.model.DocumentType
@@ -38,7 +39,7 @@ class DocumentsListRecyclerViewAdapter(
         val holder = DocumentViewHolder(view)
         holder.itemView.setOnClickListener { }
         holder.dotsImageView.setOnClickListener {
-            showMenuPopup(view, holder)
+            showMenuPopup(holder)
         }
 
         holder.nameEditText.setOnFocusChangeListener { _, hasFocus ->
@@ -100,7 +101,7 @@ class DocumentsListRecyclerViewAdapter(
                 .with(context)
                 .load(item.url)
                 .placeholder(typeIcon)
-                .apply(RequestOptions.bitmapTransform(RoundedCorners(6)))
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(DimensionUtil.convertDpToPixel(6.toFloat(), context).toInt())))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.loadedImage)
             holder.typeImage.visibility = View.GONE
@@ -116,7 +117,7 @@ class DocumentsListRecyclerViewAdapter(
         diffResult.dispatchUpdatesTo(this)
     }
 
-    private fun showMenuPopup(view: View, holder: DocumentViewHolder) {
+    private fun showMenuPopup(holder: DocumentViewHolder) {
         val popup = PopupMenu(context, holder.dotsImageView, Gravity.END, 0, R.style.PopupMenu)
         popup.inflate(R.menu.document_list_context_menu)
         popup.setOnMenuItemClickListener {

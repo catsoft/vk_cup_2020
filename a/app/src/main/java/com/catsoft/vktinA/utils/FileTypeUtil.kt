@@ -2,12 +2,10 @@ package com.catsoft.vktinA.utils
 
 import java.util.*
 
-class FileTypeUtil {
-    companion object {
-        fun isImage(ext: String) : Boolean {
-            val lowerCaseExt = ext.toLowerCase(Locale.getDefault())
+object FileTypeUtil {
+    fun isImage(ext: String) : Boolean {
+        val lowerCaseExt = ext.toLowerCase(Locale.getDefault())
 
-            return lowerCaseExt in listOf("gif", "png", "jpg", "jpeg", "bmp", "webp")
-        }
+        return lowerCaseExt in listOf("gif", "png", "jpg", "jpeg", "bmp", "webp")
     }
 }
