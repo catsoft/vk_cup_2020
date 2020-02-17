@@ -2,6 +2,7 @@ package com.catsoft.vktinA.vkApi.documents.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 
@@ -13,7 +14,8 @@ data class VKApiDocument(
     val ext : String,
     val url : String,
     internal val calendar: Calendar,
-    val type : DocumentType
+    val type : DocumentType,
+    val tags : List<String>
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
@@ -26,7 +28,8 @@ data class VKApiDocument(
         getCalendarFromMilliSec(
             parcel.readLong()
         ),
-        DocumentType.valueOf(parcel.readInt())
+        DocumentType.valueOf(parcel.readInt()),
+        readStringList(parcel)
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -38,6 +41,7 @@ data class VKApiDocument(
         parcel.writeString(url)
         parcel.writeLong(calendar.timeInMillis)
         parcel.writeInt(type.value)
+        parcel.writeStringList(tags)
     }
 
     override fun describeContents(): Int {
@@ -60,6 +64,24 @@ data class VKApiDocument(
             return calendar
         }
 
+        fun readStringList(parcel: Parcel): List<String> {
+            val strList = mutableListOf<String>()
+            parcel.readStringList(strList)
+            return strList
+        }
+
+        private fun getStringList(json: JSONObject): List<String> {
+            if (json.has("tags")) {
+                val jsonArray = json.getJSONArray("tags")
+                val list = mutableListOf<String>()
+                for (i in 0 until jsonArray.length()) {
+                    list.add(jsonArray.getString(i))
+                }
+                return list
+            }
+            return emptyList()
+        }
+
         fun parse(json: JSONObject): VKApiDocument {
             return VKApiDocument(
                 id = json.optInt("id", 0),
@@ -73,7 +95,8 @@ data class VKApiDocument(
                 ),
                 type = DocumentType.valueOf(
                     json.optInt("type", 0)
-                )
+                ),
+                tags = getStringList(json)
             )
         }
     }

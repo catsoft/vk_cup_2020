@@ -14,3 +14,4 @@ class VKDeleteDocumentRequest(docId : Int, ownerId : Int) : VKRequest<Boolean>("
         return true
     }
 }
+

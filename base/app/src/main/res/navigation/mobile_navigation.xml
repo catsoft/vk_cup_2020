@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@+id/navigation_timeRecordsList">
+    
+    <fragment
+        android:id="@+id/navigation_timeRecordsList"
+        android:name="com.catsoft.lifetime.ui.screens.timeRecordsList.TimeRecordsListFragment"
+        android:label="@string/title_timeRecordsList"
+        tools:layout="@layout/fragment_time_records_list" />
+    
+    <fragment
+        android:id="@+id/navigation_graphs"
+        android:name="com.catsoft.lifetime.ui.screens.graphs.GraphsFragment"
+        android:label="@string/title_graph"
+        tools:layout="@layout/fragment_graphs" />
+    
+    <fragment
+        android:id="@+id/navigation_goals"
+        android:name="com.catsoft.lifetime.ui.screens.goals.GoalsFragment"
+        android:label="@string/title_goals"
+        tools:layout="@layout/fragment_goals" />
+    
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.catsoft.lifetime.ui.screens.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
+
+</navigation>

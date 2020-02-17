@@ -4,15 +4,19 @@ import com.catsoft.vktinA.vkApi.documents.model.VKApiDocument
 import com.vk.api.sdk.requests.VKRequest
 import org.json.JSONObject
 
-class VKDocumentListRequest: VKRequest<List<VKApiDocument>>("docs.get") {
+class VKGetDocumentListRequest: VKRequest<List<VKApiDocument>>("docs.get") {
+
+    init {
+        addParam("return_tags", 1)
+    }
 
     override fun parse(r: JSONObject): List<VKApiDocument> {
-        val users = r.getJSONObject("response").getJSONArray("items")
+        val jsonDocuments = r.getJSONObject("response").getJSONArray("items")
         val result = ArrayList<VKApiDocument>()
-        for (i in 0 until users.length()) {
+        for (i in 0 until jsonDocuments.length()) {
             result.add(
                 VKApiDocument.parse(
-                    users.getJSONObject(i)
+                    jsonDocuments.getJSONObject(i)
                 )
             )
         }

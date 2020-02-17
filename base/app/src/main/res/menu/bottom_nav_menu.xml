@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item
+        android:id="@+id/navigation_timeRecordsList"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_timeRecordsList" />
+    
+    <item
+        android:id="@+id/navigation_graphs"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/title_graph" />
+    
+    <item
+        android:id="@+id/navigation_goals"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_goals" />
+    
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_settings" />
+    
+</menu>
