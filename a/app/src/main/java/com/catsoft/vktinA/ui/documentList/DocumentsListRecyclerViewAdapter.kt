@@ -1,19 +1,28 @@
 package com.catsoft.vktinA.ui.documentList
 
+import android.app.DownloadManager
 import android.content.Context
-import android.opengl.Visibility
+import android.net.Uri
 import android.os.Handler
-import android.os.SystemClock
 import android.text.InputType
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.catsoft.vktinA.R
 import com.catsoft.vktinA.utils.CalendarReadableUtil
+import com.catsoft.vktinA.utils.FileTypeUtil
 import com.catsoft.vktinA.utils.SizeHumanReadableUtil
+import com.catsoft.vktinA.utils.ViewLocalFilesUtil
 import com.catsoft.vktinA.vkApi.documents.model.DocumentType
 import com.catsoft.vktinA.vkApi.documents.model.VKApiDocument
 import java.util.*
@@ -51,6 +60,24 @@ class DocumentsListRecyclerViewAdapter(
             true
         }
 
+        holder.itemView.setOnClickListener {
+            val item = documents[holder.adapterPosition]
+
+            val downloadmanager = it.context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager?
+            val uri = Uri.parse(item.url)
+
+            val request = DownloadManager.Request(uri)
+            request.setTitle("My File")
+            request.setDescription("Downloading")
+            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+            var localFile=Uri.parse( it.context.externalCacheDir!!.absolutePath + "/" + uri.lastPathSegment + "." + item.ext)
+            request.setDestinationUri(localFile)
+
+            downloadmanager!!.enqueue(request)
+
+            ViewLocalFilesUtil.openFile(item.url, it.context, localFile)
+        }
+
         return holder
     }
 
@@ -84,9 +111,23 @@ class DocumentsListRecyclerViewAdapter(
 
         val tagsText = item.tags.joinToString(", ")
         holder.tagsTextView.text = tagsText
+
+        if (FileTypeUtil.isImage(item.ext)) {
+            Glide
+                .with(holder.itemView.context)
+                .load(item.url)
+                .centerCrop()
+                .apply(RequestOptions.bitmapTransform(RoundedCorners(6)))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(holder.loadedImage)
+            holder.typeImage.visibility = View.GONE
+        } else{
+            holder.loadedImage.setImageBitmap(null)
+            holder.typeImage.visibility = View.VISIBLE
+        }
     }
 
-    fun updateEmployeeListItems(documents: List<VKApiDocument>) {
+    fun updateDocumentsListItems(documents: List<VKApiDocument>) {
         val diffResult = DiffUtil.calculateDiff(DocumentsDiffCallback(documents, this.documents))
         this.documents = documents.toMutableList()
         diffResult.dispatchUpdatesTo(this)
@@ -148,6 +189,5 @@ class DocumentsListRecyclerViewAdapter(
 
         return values.joinToString(" · ")
     }
-
 }
 

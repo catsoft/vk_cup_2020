@@ -6,7 +6,7 @@
     android:orientation="horizontal"
     android:background="#FFFFFF">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <FrameLayout
         android:id="@+id/type_container"
         android:layout_width="72dp"
         android:layout_height="72dp"
@@ -23,7 +23,13 @@
             android:scaleType="center"
             android:contentDescription="@string/type_image_content_description" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/loadedImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"/>
+
+    </FrameLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="0dp"

@@ -38,7 +38,7 @@ class DocumentListFragment : Fragment() {
 
         viewModel.documents.data.observe(this, Observer {
             if (it != null) {
-                adapter.updateEmployeeListItems(it)
+                adapter.updateDocumentsListItems(it)
             }
         })
 

@@ -12,4 +12,5 @@ class DocumentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val dotsImageView = itemView.dots!!
     val tagsTextView = itemView.tags_text_view!!
     val tagsContainer = itemView.tags_container!!
+    val loadedImage = itemView.loadedImageView!!
 }
