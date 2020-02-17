@@ -1,8 +1,6 @@
 package com.catsoft.vktinA.ui.documentList
 
-import android.app.DownloadManager
 import android.content.Context
-import android.net.Uri
 import android.os.Handler
 import android.text.InputType
 import android.view.Gravity
@@ -15,22 +13,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.catsoft.vktinA.R
 import com.catsoft.vktinA.utils.CalendarReadableUtil
 import com.catsoft.vktinA.utils.FileTypeUtil
 import com.catsoft.vktinA.utils.SizeHumanReadableUtil
-import com.catsoft.vktinA.utils.ViewLocalFilesUtil
 import com.catsoft.vktinA.vkApi.documents.model.DocumentType
 import com.catsoft.vktinA.vkApi.documents.model.VKApiDocument
 import java.util.*
 
-
 class DocumentsListRecyclerViewAdapter(
     private val locale: Locale,
-    private val viewModel: DocumentsListViewModel) : RecyclerView.Adapter<DocumentViewHolder>() {
+    private val viewModel: DocumentsListViewModel,
+    private val context: Context) : RecyclerView.Adapter<DocumentViewHolder>() {
 
     var documents: MutableList<VKApiDocument> = mutableListOf()
 
@@ -62,20 +58,7 @@ class DocumentsListRecyclerViewAdapter(
 
         holder.itemView.setOnClickListener {
             val item = documents[holder.adapterPosition]
-
-            val downloadmanager = it.context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager?
-            val uri = Uri.parse(item.url)
-
-            val request = DownloadManager.Request(uri)
-            request.setTitle("My File")
-            request.setDescription("Downloading")
-            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-            var localFile=Uri.parse( it.context.externalCacheDir!!.absolutePath + "/" + uri.lastPathSegment + "." + item.ext)
-            request.setDestinationUri(localFile)
-
-            downloadmanager!!.enqueue(request)
-
-            ViewLocalFilesUtil.openFile(item.url, it.context, localFile)
+            viewModel.loadFileAndOpen(item, context)
         }
 
         return holder
@@ -114,9 +97,9 @@ class DocumentsListRecyclerViewAdapter(
 
         if (FileTypeUtil.isImage(item.ext)) {
             Glide
-                .with(holder.itemView.context)
+                .with(context)
                 .load(item.url)
-                .centerCrop()
+                .placeholder(typeIcon)
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(6)))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.loadedImage)
@@ -134,7 +117,7 @@ class DocumentsListRecyclerViewAdapter(
     }
 
     private fun showMenuPopup(view: View, holder: DocumentViewHolder) {
-        val popup = PopupMenu(view.context, holder.dotsImageView, Gravity.END, 0, R.style.PopupMenu)
+        val popup = PopupMenu(context, holder.dotsImageView, Gravity.END, 0, R.style.PopupMenu)
         popup.inflate(R.menu.document_list_context_menu)
         popup.setOnMenuItemClickListener {
             val document = documents[holder.adapterPosition]
@@ -147,7 +130,7 @@ class DocumentsListRecyclerViewAdapter(
                     holder.nameEditText.setSelection(holder.nameEditText.text?.length ?: 0)
 
                     Handler().postDelayed({
-                        val imm: InputMethodManager? = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+                        val imm: InputMethodManager? = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
                         imm?.showSoftInput(holder.nameEditText, InputMethodManager.SHOW_FORCED)
                     }, 200)
                 }

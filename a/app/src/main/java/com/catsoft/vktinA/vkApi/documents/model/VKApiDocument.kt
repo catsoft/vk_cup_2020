@@ -2,7 +2,6 @@ package com.catsoft.vktinA.vkApi.documents.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 

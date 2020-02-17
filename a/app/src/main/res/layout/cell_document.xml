@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="84dp"
     android:orientation="horizontal"
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:foreground="@drawable/custom_ripple">
 
     <FrameLayout
         android:id="@+id/type_container"
@@ -27,7 +28,7 @@
             android:id="@+id/loadedImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerInside"/>
 
     </FrameLayout>
 
@@ -46,21 +47,14 @@
             android:hint="@string/name_editText_hint"
             android:imeOptions="actionDone"
             android:inputType="textMultiLine"
-            android:ellipsize="end"
             android:enabled="false"
-            android:maxLines="2"
-            android:fontFamily="Roboto"
-            android:textSize="16sp"
-            android:textColor="#000000"/>
+            style="@style/Title"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/info_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:fontFamily="Roboto"
-            android:textSize="13sp"
-            android:textColor="#818C99"/>
+            style="@style/Subtitle"/>
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/tags_container"
@@ -76,14 +70,10 @@
                 android:layout_marginEnd="6dp"/>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:ellipsize="end"
                 android:id="@+id/tags_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:fontFamily="Roboto"
-                android:textSize="13sp"
-                android:textColor="#818C99"/>
+                style="@style/Subtitle"/>
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -1,15 +1,9 @@
 package com.catsoft.vktinA
 
 import android.content.Intent
-import android.content.res.Resources
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.ConfigurationCompat
-import com.catsoft.vktinA.di.SimpleDi
-import com.catsoft.vktinA.services.CurrentLocaleProvider
 import com.catsoft.vktinA.ui.documentList.DocumentListFragment
-import com.catsoft.vktinA.vkApi.documents.DocumentsApi
-import com.catsoft.vktinA.vkApi.documents.IDocumentsApi
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
@@ -25,18 +19,12 @@ class MainActivity : AppCompatActivity() {
 
         this.setSupportActionBar(toolbar!!)
 
-        SimpleDi.Instance.register(IDocumentsApi::class.java, DocumentsApi())
-        val locale = ConfigurationCompat.getLocales(Resources.getSystem().configuration)[0]
-        SimpleDi.Instance.register(CurrentLocaleProvider::class.java, CurrentLocaleProvider(locale))
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        if (!VK.isLoggedIn()) {
-            VK.login(this, setOf(VKScope.DOCS))
-        } else {
-            showDocumentFragment()
+        if (savedInstanceState == null) {
+            if (!VK.isLoggedIn()) {
+                VK.login(this, setOf(VKScope.DOCS))
+            } else {
+                showDocumentFragment()
+            }
         }
     }
 
