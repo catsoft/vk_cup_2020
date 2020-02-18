@@ -1,14 +1,16 @@
-package com.catsoft.vktinA
+package com.catsoft.vktinE
 
 import android.content.Intent
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.catsoft.vktinA.ui.documentList.DocumentListFragment
+import com.catsoft.vktinE.ui.shareContent.ShareContentFragment
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
 import com.vk.api.sdk.auth.VKScope
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +22,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        this.setSupportActionBar(toolbar!!)
+        val window = window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        window.statusBarColor = Color.TRANSPARENT
 
         if (savedInstanceState == null) {
             tryInit()
@@ -61,7 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showDocumentFragment() {
         if (_isLogin && !_isInit) {
-            supportFragmentManager.beginTransaction().add(R.id.root, DocumentListFragment()).commit()
+            supportFragmentManager.beginTransaction().add(R.id.root, ShareContentFragment()).commit()
             _isInit = true
         }
     }
