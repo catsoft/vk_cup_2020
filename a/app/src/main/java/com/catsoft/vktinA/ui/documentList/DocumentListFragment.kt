@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.catsoft.vktinA.R
 import com.catsoft.vktinA.di.SimpleDi
 import com.catsoft.vktinA.services.CurrentLocaleProvider
-import com.catsoft.vktinA.vkApi.documents.IDocumentsApi
 import kotlinx.android.synthetic.main.fragment_documents_list.*
 
 class DocumentListFragment : Fragment() {
@@ -48,7 +47,7 @@ class DocumentListFragment : Fragment() {
 
         var state = savedInstanceState?.getParcelable<Parcelable>("scroll")
 
-        viewModel.documents.data.observe(this, Observer {
+        viewModel.documents.data.observe(this as LifecycleOwner, Observer {
             if (it != null) {
                 adapter.updateDocumentsListItems(it)
                 if (state != null){

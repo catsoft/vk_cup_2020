@@ -48,6 +48,8 @@
             android:imeOptions="actionDone"
             android:inputType="textMultiLine"
             android:enabled="false"
+            android:clickable="false"
+            android:longClickable="false"
             style="@style/Title"/>
 
         <androidx.appcompat.widget.AppCompatTextView
