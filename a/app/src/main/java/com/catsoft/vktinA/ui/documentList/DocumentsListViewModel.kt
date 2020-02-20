@@ -3,6 +3,7 @@ package com.catsoft.vktinA.ui.documentList
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModel
+import com.catsoft.vktinA.di.SimpleDi
 import com.catsoft.vktinA.vkApi.documents.IDocumentsApi
 import com.catsoft.vktinA.ui.base.MutableStateData
 import com.catsoft.vktinA.ui.base.StateData
@@ -19,7 +20,9 @@ import java.io.FileOutputStream
 import java.lang.Exception
 import java.net.URL
 
-class DocumentsListViewModel(private val documentsApi: IDocumentsApi) : ViewModel() {
+class DocumentsListViewModel() : ViewModel() {
+
+    private val documentsApi: IDocumentsApi = SimpleDi.Instance.resolve(IDocumentsApi::class.java)
 
     private val compositeDisposable = CompositeDisposable()
 

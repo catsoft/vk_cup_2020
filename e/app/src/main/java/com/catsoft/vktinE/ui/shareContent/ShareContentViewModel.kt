@@ -9,47 +9,63 @@ import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.catsoft.vktinE.vkApi.documents.IVKWallApi
+import com.catsoft.vktinE.di.SimpleDi
+import com.catsoft.vktinE.vkApi.IVKWallApi
 import io.reactivex.Observable
-import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 import java.io.File
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ShareContentViewModel(private val vkWallApi: IVKWallApi) : ViewModel() {
+class ShareContentViewModel : ViewModel() {
+
+    private val vkWallApi: IVKWallApi = SimpleDi.Instance.resolve(IVKWallApi::class.java)
 
     private val compositeDisposable = CompositeDisposable()
 
-    private val _selectedImage = MutableLiveData<Uri>()
+    private val _selectedImage = MutableLiveData<File>()
 
-    val selectedImage : LiveData<Uri?> = _selectedImage
+    val selectedImage: LiveData<File> = _selectedImage
 
     fun selectPhoto(selectedImage: Uri, context: Context) {
-        Observable.create<Uri> {
+
+        Observable.create<File> {
             val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
             val cursor = context.contentResolver?.query(selectedImage, filePathColumn, null, null, null)
             if (cursor != null) {
                 cursor.moveToFirst()
                 val columnIndex: Int = cursor.getColumnIndex(filePathColumn[0])
-                val imgDecodableString: String = cursor.getString(columnIndex)
+                val imgDecodeString: String = cursor.getString(columnIndex)
                 cursor.close()
-                val image = BitmapFactory.decodeFile(imgDecodableString)!!
+                val image = BitmapFactory.decodeFile(imgDecodeString)!!
 
                 val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
                 val imageFileName = "$timeStamp.img"
-                val storageFile = File(context!!.cacheDir.absolutePath + "/" + imageFileName)
+                val storageFile = File(context.cacheDir.absolutePath + "/" + imageFileName)
                 FileOutputStream(storageFile).run {
                     image.compress(Bitmap.CompressFormat.JPEG, 70, this)
-                    it.onNext(storageFile.toUri())
+                    it.onNext(storageFile)
                 }
             }
-        }.subscribeBy {
-            _selectedImage.value = selectedImage
-        }.addTo(compositeDisposable)
+        }.observeOn(Schedulers.newThread()).subscribeOn(AndroidSchedulers.mainThread()).subscribe {
+                _selectedImage.postValue(it)
+            }.addTo(compositeDisposable)
+    }
+
+    fun sendPost(text: String) {
+        val uri = _selectedImage.value!!.toUri()
+        _selectedImage.postValue(null)
+        vkWallApi.post(text, listOf(uri))
+            .subscribe()
+            .addTo(compositeDisposable)
+    }
+
+    fun clear() {
+        _selectedImage.value = null
     }
 
     override fun onCleared() {

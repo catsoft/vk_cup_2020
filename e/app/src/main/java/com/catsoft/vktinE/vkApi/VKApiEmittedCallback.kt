@@ -1,4 +1,4 @@
-package com.catsoft.vktinE.vkApi.documents
+package com.catsoft.vktinE.vkApi
 
 import com.vk.api.sdk.VKApiCallback
 import com.vk.api.sdk.exceptions.VKApiExecutionException

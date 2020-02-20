@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.catsoft.vktinA.R
 import com.catsoft.vktinA.di.SimpleDi
@@ -29,9 +31,9 @@ class DocumentListFragment : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = DocumentsListViewModel(SimpleDi.Instance.resolve(IDocumentsApi::class.java))
+        viewModel = ViewModelProvider(this).get(DocumentsListViewModel::class.java)
 
-        viewModel.documents.error.observe(this, Observer {
+        viewModel.documents.error.observe(this as LifecycleOwner, Observer {
             if(it != null) {
                 Toast.makeText(activity, "Произошла ошибка", Toast.LENGTH_LONG).show()
             }

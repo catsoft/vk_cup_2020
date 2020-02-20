@@ -1,13 +1,11 @@
 package com.catsoft.vktinE
 
-import android.content.Context
 import android.content.res.Resources
-import android.view.WindowManager
 import androidx.core.os.ConfigurationCompat
 import com.catsoft.vktinE.di.SimpleDi
 import com.catsoft.vktinE.services.CurrentLocaleProvider
-import com.catsoft.vktinE.vkApi.documents.VKWallApi
-import com.catsoft.vktinE.vkApi.documents.IVKWallApi
+import com.catsoft.vktinE.vkApi.IVKWallApi
+import com.catsoft.vktinE.vkApi.VKWallApi
 import com.vk.api.sdk.VK
 
 class CustomApplication : android.app.Application() {

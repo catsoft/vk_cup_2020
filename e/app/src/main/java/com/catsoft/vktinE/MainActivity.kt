@@ -2,7 +2,6 @@ package com.catsoft.vktinE
 
 import android.content.Intent
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -41,12 +40,13 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val activity = this
         val callback = object : VKAuthCallback {
+
             override fun onLogin(token: VKAccessToken) {
                 _isLogin = true
             }
 
             override fun onLoginFailed(errorCode: Int) {
-                VK.login(activity, setOf(VKScope.DOCS))
+                VK.login(activity, setOf(VKScope.WALL))
             }
         }
 
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun tryInit(){
         if (!VK.isLoggedIn()) {
-            VK.login(this, setOf(VKScope.DOCS))
+            VK.login(this, setOf(VKScope.WALL, VKScope.PHOTOS))
         } else {
             _isLogin = true
             showDocumentFragment()
