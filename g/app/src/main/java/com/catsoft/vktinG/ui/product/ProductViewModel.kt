@@ -16,27 +16,12 @@ class ProductViewModel : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    private var groupId : Int = 0
+    private val _groups = MutableStateData<VKProduct>()
 
-    private val _groups = MutableStateData<List<VKProduct>>()
+    val groups: StateData<VKProduct> = _groups
 
-    private var _groupList = mutableListOf<VKProduct>()
-
-    val groups: StateData<List<VKProduct>> = _groups
-
-    fun setId(id : Int) {
-        groupId = id
-    }
-
-    fun loadProducts() {
-        _groups.loading()
-        vkApi.getProductsList(groupId)
-            .subscribeBy({
-            _groups.error(it)
-        }) {
-            _groupList = it.toMutableList()
-            _groups.success(_groupList)
-        }.addTo(compositeDisposable)
+    fun setProduct(product : VKProduct) {
+        _groups.success(product)
     }
 
     override fun onCleared() {

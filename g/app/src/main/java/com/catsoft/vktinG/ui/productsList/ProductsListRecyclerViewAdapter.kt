@@ -33,7 +33,7 @@ class ProductsListRecyclerViewAdapter(
         holder.itemView.setOnClickListener {
             val item = documents[holder.adapterPosition]
             val nav = view.findNavController()
-            val bundle = bundleOf(Pair("title", item.title), Pair("id", item.id))
+            val bundle = bundleOf(Pair("item", item))
             nav.navigate(R.id.action_navigation_products_to_navigation_product, bundle)
         }
 

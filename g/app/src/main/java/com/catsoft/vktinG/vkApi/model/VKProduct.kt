@@ -1,5 +1,7 @@
 package com.catsoft.vktinG.vkApi.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import org.json.JSONObject
 
 data class VKProduct(
@@ -13,9 +15,43 @@ data class VKProduct(
 //    val date : Int,
     val availability : Int,
     val isFavorite : Boolean
-)
+) : Parcelable
 {
-    companion object {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readParcelable(VKPrice::class.java.classLoader)!!,
+        parcel.readString()!!,
+        parcel.readInt(),
+        parcel.readByte() != 0.toByte()
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeInt(ownerId)
+        parcel.writeString(title)
+        parcel.writeString(description)
+        parcel.writeString(thumb_photo)
+        parcel.writeInt(availability)
+        parcel.writeByte(if (isFavorite) 1 else 0)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<VKProduct> {
+        override fun createFromParcel(parcel: Parcel): VKProduct {
+            return VKProduct(parcel)
+        }
+
+        override fun newArray(size: Int): Array<VKProduct?> {
+            return arrayOfNulls(size)
+        }
+
         fun parse(json: JSONObject?): VKProduct {
             if(json == null) return VKProduct(0, 0, "", "", VKPrice(0F, VKCurrency(0, "RU"),""), "", 0, false)
             return VKProduct(
