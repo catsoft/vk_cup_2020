@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#3F8AE0</color>
+    <color name="audioType">#293F8AE0</color>
+    <color name="videoType">#29AB75E0</color>
+    <color name="bookType">#29FFA000</color>
+    <color name="textType">#293F8AE0</color>
+    <color name="otherType">#293F8AE0</color>
+    <color name="zipType">#294BB34B</color>
+    <color name="typeMixing1">#F2F3F5</color>
+    <color name="ripple">#AAAAAA</color>
+</resources>

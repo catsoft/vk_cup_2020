@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Товары</string>
+    <string name="documentListContextMenu_remove">Удалить документ</string>
+    <string name="documentListContextMenu_rename">Переименовать</string>
+    <string name="type_image_content_description">Изображение типа документа</string>
+    <string name="dots_content_description">Иконка действия</string>
+    <string name="name_editText_hint">Название документа</string>
+    <integer name="com_vk_sdk_AppId" tools:ignore="UnusedResources">7328586</integer>
+</resources>
