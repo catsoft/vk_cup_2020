@@ -41,7 +41,7 @@ class ProductFragment : Fragment() {
 
         viewModel.setProduct(item)
 
-        viewModel.groups.error.observe(this as LifecycleOwner, Observer {
+        viewModel.product.error.observe(this as LifecycleOwner, Observer {
             if(it != null) {
                 Toast.makeText(activity, "Произошла ошибка", Toast.LENGTH_LONG).show()
             }
@@ -49,7 +49,7 @@ class ProductFragment : Fragment() {
 
         val locale = SimpleDi.Instance.resolve<CurrentLocaleProvider>(CurrentLocaleProvider::class.java).currentLocale
 
-        viewModel.groups.data.observe(this as LifecycleOwner, Observer {
+        viewModel.product.data.observe(this as LifecycleOwner, Observer {
 
             if (it == null) return@Observer
 
@@ -69,5 +69,30 @@ class ProductFragment : Fragment() {
 
             this.description!!.text = it.description
         })
+
+        viewModel.isFavorite.observe(this as LifecycleOwner, Observer {
+            when(it){
+                null -> {
+                    addButton.visibility = View.GONE
+                    removeButton.visibility = View.GONE
+                }
+                true -> {
+                    addButton.visibility = View.GONE
+                    removeButton.visibility = View.VISIBLE
+                }
+                false -> {
+                    addButton.visibility = View.VISIBLE
+                    removeButton.visibility = View.GONE
+                }
+            }
+        })
+
+        addButton.setOnClickListener {
+            viewModel.toggleIsFavorite()
+        }
+
+        removeButton.setOnClickListener {
+            viewModel.toggleIsFavorite()
+        }
     }
 }

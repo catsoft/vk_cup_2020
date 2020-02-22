@@ -4,20 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.catsoft.vktinG.MainActivity
 import com.catsoft.vktinG.R
 import com.catsoft.vktinG.di.SimpleDi
 import com.catsoft.vktinG.services.CurrentLocaleProvider
+import com.catsoft.vktinG.ui.cities.CitiesSelectListFragment
+import com.catsoft.vktinG.ui.cities.IOnSelectCallback
+import com.catsoft.vktinG.vkApi.model.VKCity
+import io.reactivex.rxkotlin.addTo
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_markets.*
 
-class MarketsListFragment : Fragment() {
+class MarketsListFragment : Fragment(), IOnSelectCallback {
 
     private lateinit var viewModel: MarketsListViewModel
+    private lateinit var dropDownImage : ImageView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -31,12 +36,6 @@ class MarketsListFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(MarketsListViewModel::class.java)
 
-        viewModel.groups.error.observe(this as LifecycleOwner, Observer {
-            if(it != null) {
-                Toast.makeText(activity, "Произошла ошибка", Toast.LENGTH_LONG).show()
-            }
-        })
-
         val locale = SimpleDi.Instance.resolve<CurrentLocaleProvider>(CurrentLocaleProvider::class.java).currentLocale
         val adapter = MarketsListRecyclerViewAdapter(locale, viewModel, activity!!)
         val list = market_list_recycler_view
@@ -44,12 +43,38 @@ class MarketsListFragment : Fragment() {
         list.layoutManager = layoutManager
         list.adapter = adapter
 
-        viewModel.groups.data.observe(this as LifecycleOwner, Observer {
+        viewModel.viewGroups.subscribe{
             if (it != null) {
                 adapter.updateMarketsListItems(it)
             }
-        })
+        }.addTo(viewModel.compositeDisposable)
 
-        viewModel.loadMarkets()
+        viewModel.load()
+
+        val toolbar = (activity as MainActivity).toolbar!!
+
+        viewModel.cityPublisher.subscribe {
+            toolbar.title = if (it?.title?.isNotEmpty() != true) "Магазины" else "Магазины в ${it.title}"
+        }.addTo(viewModel.compositeDisposable)
+
+        dropDownImage = ImageView(activity!!)
+        dropDownImage.setImageResource(R.drawable.ic_dropdown)
+        toolbar.addView(dropDownImage)
+
+        toolbar.setOnClickListener {
+            val dialogFragment = CitiesSelectListFragment(this, viewModel.citiesList, viewModel.selectedCity)
+            dialogFragment.show(activity!!.supportFragmentManager, "signature")
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        val toolbar = (activity as MainActivity).toolbar!!
+        toolbar.removeView(dropDownImage)
+    }
+
+    override fun select(city: VKCity) {
+        viewModel.selectCity(city)
     }
 }

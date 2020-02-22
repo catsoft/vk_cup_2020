@@ -8,4 +8,10 @@ interface IVkApi {
     fun getMarketsList(id: Int): Observable<List<VKGroup>>
 
     fun getProductsList(idMarket: Int): Observable<List<VKProduct>>
+
+    fun addProductToFavorite(ownerId: Int, idProduct: Int): Observable<Int>
+
+    fun removeProductFromFavorite(ownerId: Int, idProduct: Int): Observable<Int>
+
+    fun isLikedProduct(ownerId: Int, idProduct: Int): Observable<Boolean>
 }

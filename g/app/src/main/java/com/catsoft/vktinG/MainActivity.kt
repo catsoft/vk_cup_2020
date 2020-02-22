@@ -3,7 +3,9 @@ package com.catsoft.vktinG
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.whenCreated
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -18,18 +20,18 @@ class MainActivity : AppCompatActivity() {
 
     private var _isLogin : Boolean = false
     private var _isInit : Boolean = false
-    private var _isCreated = false
 
     lateinit var navController: NavController
-    lateinit var navFragment: NavHostFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        _isCreated = true
-
         this.setSupportActionBar(toolbar!!)
+
+        navController = findNavController(R.id.host_fragment)
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_markets))
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
         if (savedInstanceState == null) {
             tryInit()
@@ -40,8 +42,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
 
         showDocumentFragment()
-
-        trySetNavBar()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun tryInit(){
         if (!VK.isLoggedIn()) {
-            VK.login(this, setOf(VKScope.GROUPS, VKScope.MARKET))
+            VK.login(this, setOf(VKScope.GROUPS, VKScope.MARKET, VKScope.WALL))
         } else {
             _isLogin = true
             showDocumentFragment()
@@ -71,22 +71,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showDocumentFragment() {
-        if (_isLogin && !_isInit && _isCreated) {
+        if (_isLogin && !_isInit) {
 
-            val hostFragment = NavHostFragment.create(R.navigation.mobile_navigation)
-            navFragment = hostFragment
-            supportFragmentManager.beginTransaction().add(R.id.root, hostFragment).commit()
+            val inflater = navController.navInflater
+            val graph = inflater.inflate(R.navigation.mobile_navigation)
+            navController.graph = graph
 
             _isInit = true
-        }
-    }
-
-    private fun trySetNavBar() {
-        if (_isInit && _isCreated){
-
-            navController = navFragment.navController
-            val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_markets))
-            setupActionBarWithNavController(navController, appBarConfiguration)
         }
     }
 

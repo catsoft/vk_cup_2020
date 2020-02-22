@@ -6,6 +6,6 @@
         android:id="@android:id/mask"
         android:drawable="@drawable/button_ripple_mask" />
 
-    <item android:drawable="@drawable/button_reversed_item"/>
+    <item android:drawable="@drawable/button_item"/>
 
 </ripple>

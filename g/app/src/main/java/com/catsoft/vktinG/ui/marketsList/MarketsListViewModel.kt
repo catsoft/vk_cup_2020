@@ -1,47 +1,67 @@
 package com.catsoft.vktinG.ui.marketsList
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.catsoft.vktinG.di.SimpleDi
 import com.catsoft.vktinG.vkApi.IVkApi
-import com.catsoft.vktinG.ui.base.MutableStateData
-import com.catsoft.vktinG.ui.base.StateData
 import com.catsoft.vktinG.vkApi.model.VKCity
 import com.catsoft.vktinG.vkApi.model.VKGroup
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.subjects.PublishSubject
 
 class MarketsListViewModel : ViewModel() {
 
     private val vkApi: IVkApi = SimpleDi.Instance.resolve(IVkApi::class.java)
 
-    private val compositeDisposable = CompositeDisposable()
+    val compositeDisposable = CompositeDisposable()
 
-    private val _groups = MutableStateData<List<VKGroup>>()
+    private var _emitter = PublishSubject.create<Int>()
+    var cityPublisher = PublishSubject.create<VKCity?>()
 
-    private var _groupList = mutableListOf<VKGroup>()
-
-    val groups: StateData<List<VKGroup>> = _groups
-
-
-    private val _cities = MutableLiveData<List<VKCity>>()
-
-    val cities : LiveData<List<VKCity>> = _cities
-
-
-    fun loadMarkets() {
-        _groups.loading()
+    private val cityToGroups = _emitter.flatMap {
         vkApi.getMarketsList(0)
-            .map { it.filter { vkGroup -> vkGroup.market.enabled && vkGroup.deactivated.isEmpty() } }
-            .subscribeBy({
-            _groups.error(it)
-        }) {
-            _groupList = it.toMutableList()
-            _groups.success(_groupList)
-            _cities.postValue(_groupList.map { vkGroup -> vkGroup.city }.distinctBy { city -> city.id })
+    }.map {
+        it.filter { vkGroup -> vkGroup.market.enabled && vkGroup.deactivated.isEmpty() }.groupBy {
+            it.city
+        }
+    }
+
+    private val cities = cityToGroups.map {
+        it.map { group ->
+            group.key
+        }
+    }
+
+    var citiesList = listOf<VKCity>()
+    lateinit var selectedCity : VKCity
+
+    val viewGroups = Observable.combineLatest(cityPublisher, cityToGroups, BiFunction<VKCity?, Map<VKCity, List<VKGroup>>, List<VKGroup>> { t1, t2 ->
+        t2[t1] ?: error("Не по тому рельсу пошло")
+    })
+
+    init {
+        cities.subscribe {
+            if (it != null && it.isNotEmpty()) {
+                selectCity(it.first())
+                citiesList = it.toMutableList()
+            }
         }.addTo(compositeDisposable)
+
+        cityPublisher.subscribe {
+            if (it != null) {
+                selectedCity = it
+            }
+        }.addTo(compositeDisposable)
+    }
+
+    fun load() {
+        _emitter.onNext(1)
+    }
+
+    fun selectCity(city: VKCity) {
+        cityPublisher.onNext(city)
     }
 
     override fun onCleared() {

@@ -74,18 +74,21 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatButton
-                style="@style/RobotoButtonStyle"
+                style="@style/Button"
+                android:id="@+id/addButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="Добавить в избранное" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/removeButton"
                 android:theme="?android:attr/borderlessButtonStyle"
                 style="@style/ButtonReversed"
+                android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:text="Удалить из избранного"
-                android:textAllCaps="false" />
+                android:layout_height="wrap_content"
+                android:text="Удалить из избранного" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
