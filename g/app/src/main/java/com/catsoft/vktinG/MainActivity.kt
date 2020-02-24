@@ -18,10 +18,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var _isLogin : Boolean = false
-    private var _isInit : Boolean = false
+    private var _isLogin: Boolean = false
+    private var _isInit: Boolean = false
 
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +33,7 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_markets))
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        if (savedInstanceState == null) {
-            tryInit()
-        }
+        tryInit()
     }
 
     override fun onResume() {
@@ -61,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun tryInit(){
+    private fun tryInit() {
         if (!VK.isLoggedIn()) {
             VK.login(this, setOf(VKScope.GROUPS, VKScope.MARKET, VKScope.WALL))
         } else {

@@ -7,7 +7,7 @@ class VKRemoveProductFromFavoriteRequest(ownerId: Int, productId : Int): VKReque
 
     init {
         addParam("item_id", productId)
-        addParam("type","market")
+        addParam("type", "market")
         addParam("owner_id", ownerId)
     }
 

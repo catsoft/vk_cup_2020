@@ -1,47 +1,35 @@
 package com.catsoft.vktinG.ui.productsList
 
-import androidx.lifecycle.ViewModel
-import com.catsoft.vktinG.di.SimpleDi
-import com.catsoft.vktinG.vkApi.IVkApi
-import com.catsoft.vktinG.ui.base.MutableStateData
-import com.catsoft.vktinG.ui.base.StateData
+import com.catsoft.vktinG.ui.base.BaseViewModel
 import com.catsoft.vktinG.vkApi.model.VKProduct
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.subjects.PublishSubject
 
-class ProductsListViewModel : ViewModel() {
+class ProductsListViewModel : BaseViewModel() {
 
-    private val vkApi: IVkApi = SimpleDi.Instance.resolve(IVkApi::class.java)
+    private val _loadPublisher = PublishSubject.create<Int>()
 
-    private val compositeDisposable = CompositeDisposable()
+    private var _groupId: Int = 0
 
-    private var groupId : Int = 0
+    val products: Observable<List<VKProduct>> = _loadPublisher.flatMap { vkApi.getProductsList(_groupId) }
 
-    private val _groups = MutableStateData<List<VKProduct>>()
-
-    private var _groupList = mutableListOf<VKProduct>()
-
-    val groups: StateData<List<VKProduct>> = _groups
-
-    fun setId(id : Int) {
-        groupId = id
-    }
-
-    fun loadProducts() {
-        _groups.loading()
-        vkApi.getProductsList(groupId)
-            .subscribeBy({
-            _groups.error(it)
-        }) {
-            _groupList = it.toMutableList()
-            _groups.success(_groupList)
+    override fun initInner() {
+        products.subscribeBy({ setOnError(it) }) {
+            if (it.isNotEmpty()) {
+                setSuccess()
+            } else {
+                setIsEmpty()
+            }
         }.addTo(compositeDisposable)
     }
 
-    override fun onCleared() {
-        super.onCleared()
+    fun start(id: Int) {
+        start()
 
-        compositeDisposable.dispose()
+        _groupId = id
+
+        _loadPublisher.onNext(1)
     }
 }

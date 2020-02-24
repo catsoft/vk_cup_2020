@@ -8,7 +8,7 @@ class VKIsLikedRequest(ownerId: Int, idProduct: Int): VKRequest<Boolean>("likes.
     init {
         addParam("item_id", idProduct)
         addParam("owner_id", ownerId)
-        addParam("type","market")
+        addParam("type", "market")
     }
 
     override fun parse(r: JSONObject): Boolean {

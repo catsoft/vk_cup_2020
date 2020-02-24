@@ -8,12 +8,10 @@ class VKAddProductToFavoriteRequest(ownerId: Int, idProduct: Int): VKRequest<Int
     init {
         addParam("item_id", idProduct)
         addParam("owner_id", ownerId)
-        addParam("type","market")
+        addParam("type", "market")
     }
 
     override fun parse(r: JSONObject): Int {
         return r.optInt("likes")
     }
 }
-
-

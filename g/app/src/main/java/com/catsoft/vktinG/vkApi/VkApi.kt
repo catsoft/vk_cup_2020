@@ -8,7 +8,7 @@ import io.reactivex.Observable
 
 class VkApi : IVkApi {
 
-    override fun getMarketsList(id:Int): Observable<List<VKGroup>> = Observable.create<List<VKGroup>> {
+    override fun getMarketsList(id: Int): Observable<List<VKGroup>> = Observable.create<List<VKGroup>> {
         VK.execute(VKGetGroupListRequest(id), VKApiEmittedCallback<List<VKGroup>>(it))
     }
 
@@ -28,4 +28,3 @@ class VkApi : IVkApi {
         val i = VK.execute(VKIsLikedRequest(ownerId, idProduct), VKApiEmittedCallback<Boolean>(it))
     }
 }
-

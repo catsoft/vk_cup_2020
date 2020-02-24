@@ -2,6 +2,6 @@ package com.catsoft.vktinG.ui.cities
 
 import com.catsoft.vktinG.vkApi.model.VKCity
 
-interface IOnSelectCallback {
+interface IOnSelectCityCallback {
     fun select(city : VKCity)
 }

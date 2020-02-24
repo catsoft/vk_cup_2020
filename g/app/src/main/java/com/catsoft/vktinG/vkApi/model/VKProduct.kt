@@ -15,8 +15,7 @@ data class VKProduct(
 //    val date : Int,
     val availability : Int,
     val isFavorite : Boolean
-) : Parcelable
-{
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),
@@ -53,7 +52,7 @@ data class VKProduct(
         }
 
         fun parse(json: JSONObject?): VKProduct {
-            if(json == null) return VKProduct(0, 0, "", "", VKPrice(0F, VKCurrency(0, "RU"),""), "", 0, false)
+            if (json == null) return VKProduct(0, 0, "", "", VKPrice(0F, VKCurrency(0, "RU"), ""), "", 0, false)
             return VKProduct(
                 id = json.optInt("id"),
                 ownerId = json.optInt("owner_id"),

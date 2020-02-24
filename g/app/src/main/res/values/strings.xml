@@ -6,5 +6,8 @@
     <string name="dots_content_description">Иконка действия</string>
     <string name="name_editText_hint">Название документа</string>
     <string name="select_city_title">Город</string>
+    <string name="loading_text">Подождите, идет загрузка…</string>
+    <string name="emptyState_text">На данный момент данные отсутствуют</string>
+    <string name="error_title">Что-то пошло не так</string>
     <integer name="com_vk_sdk_AppId" tools:ignore="UnusedResources">7328586</integer>
 </resources>

@@ -10,9 +10,7 @@ data class VKPrice(
     val text : String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readFloat(),
-        parcel.readParcelable(VKCurrency::class.java.classLoader)!!,
-        parcel.readString()!!
+        parcel.readFloat(), parcel.readParcelable(VKCurrency::class.java.classLoader)!!, parcel.readString()!!
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -34,12 +32,10 @@ data class VKPrice(
             return arrayOfNulls(size)
         }
 
-        fun parse(json: JSONObject?) : VKPrice {
-            if (json == null) return VKPrice(0F, VKCurrency(0,"RU"), "")
+        fun parse(json: JSONObject?): VKPrice {
+            if (json == null) return VKPrice(0F, VKCurrency(0, "RU"), "")
             return VKPrice(
-                amount = json.optInt("amount") / 100F,
-                text = json.optString("text"),
-                currency = VKCurrency.parse(json.optJSONObject("currency"))
+                amount = json.optInt("amount") / 100F, text = json.optString("text"), currency = VKCurrency.parse(json.optJSONObject("currency"))
             )
         }
     }

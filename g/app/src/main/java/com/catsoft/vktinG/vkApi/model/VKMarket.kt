@@ -11,7 +11,7 @@ data class VKMarket(
     val currencyText : String) {
     companion object {
         fun parse(json: JSONObject?): VKMarket {
-            if(json == null) return VKMarket(false, 0, 0, 0, 0, "")
+            if (json == null) return VKMarket(false, 0, 0, 0, 0, "")
             return VKMarket(
                 enabled = json.optInt("enabled") == 1,
                 priceMax = json.optInt("price_max", 0),
@@ -23,4 +23,3 @@ data class VKMarket(
         }
     }
 }
-

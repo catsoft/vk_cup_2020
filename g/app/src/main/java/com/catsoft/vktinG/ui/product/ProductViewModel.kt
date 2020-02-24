@@ -1,61 +1,55 @@
 package com.catsoft.vktinG.ui.product
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.catsoft.vktinG.di.SimpleDi
-import com.catsoft.vktinG.vkApi.IVkApi
-import com.catsoft.vktinG.ui.base.MutableStateData
-import com.catsoft.vktinG.ui.base.StateData
+import com.catsoft.vktinG.ui.base.BaseViewModel
 import com.catsoft.vktinG.vkApi.model.VKProduct
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.PublishSubject
 
-class ProductViewModel : ViewModel() {
+class ProductViewModel : BaseViewModel() {
 
-    private val vkApi: IVkApi = SimpleDi.Instance.resolve(IVkApi::class.java)
+    private val _productPublisher = PublishSubject.create<VKProduct>()
+    private val _changeFavoritePublisher = PublishSubject.create<Boolean>()
+    private val _isFavoritePublisher = PublishSubject.create<Boolean?>()
 
-    private val compositeDisposable = CompositeDisposable()
+    val product: Observable<VKProduct> = _productPublisher
+    private lateinit var currentProduct: VKProduct
+    private var _isFavorite: Boolean? = false
 
-    private val _product = MutableStateData<VKProduct>()
+    val isFavorite: Observable<Boolean?> = _isFavoritePublisher
 
-    val product: StateData<VKProduct> = _product
+    override fun initInner() {
+        _productPublisher.subscribe {
+            currentProduct = it
+            vkApi.isLikedProduct(it.ownerId, it.id).observeOn(Schedulers.newThread()).subscribe { isFavoriteResponse ->
+                    _isFavoritePublisher.onNext(isFavoriteResponse)
+                }.addTo(compositeDisposable)
+        }.addTo(compositeDisposable)
 
-    private val _isFavorite = MutableLiveData<Boolean?>()
+        _changeFavoritePublisher.subscribeBy(onError = { setOnError(it) }) {
+            val product = currentProduct
+            (if (_isFavorite!!) vkApi.removeProductFromFavorite(product.ownerId, product.id)
+            else vkApi.addProductToFavorite(product.ownerId, product.id)).observeOn(Schedulers.newThread()).subscribe {
+                val newValue = !_isFavorite!!
+                _isFavoritePublisher.onNext(newValue)
+            }.addTo(compositeDisposable)
+        }.addTo(compositeDisposable)
 
-    val isFavorite: LiveData<Boolean?> = _isFavorite
-
-    init {
-        _isFavorite.postValue(null)
-    }
-
-    fun setProduct(product: VKProduct) {
-        _product.success(product)
-        _isFavorite.postValue(product.isFavorite)
-
-        vkApi.isLikedProduct(product.ownerId, product.id)
-            .observeOn(Schedulers.newThread())
-            .subscribe {
-                _isFavorite.postValue(it)
-            }
-            .addTo(compositeDisposable)
-    }
-
-    fun toggleIsFavorite() {
-        val product = _product.data.value!!
-        (if (_isFavorite.value!!) vkApi.removeProductFromFavorite(product.ownerId, product.id)
-        else vkApi.addProductToFavorite(product.ownerId, product.id))
-            .observeOn(Schedulers.newThread())
-            .subscribe {
-            val newValue = !_isFavorite.value!!
-            _isFavorite.postValue(newValue)
+        _isFavoritePublisher.subscribe {
+            _isFavorite = it
         }.addTo(compositeDisposable)
     }
 
-    override fun onCleared() {
-        super.onCleared()
+    fun start(product: VKProduct) {
 
-        compositeDisposable.dispose()
+        _productPublisher.onNext(product)
+
+        start()
+    }
+
+    fun toggleIsFavorite() {
+        _changeFavoritePublisher.onNext(true)
     }
 }

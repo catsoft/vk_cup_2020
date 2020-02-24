@@ -5,24 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.fragment.app.Fragment
+import androidx.core.view.contains
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.catsoft.vktinG.MainActivity
 import com.catsoft.vktinG.R
 import com.catsoft.vktinG.di.SimpleDi
 import com.catsoft.vktinG.services.CurrentLocaleProvider
+import com.catsoft.vktinG.ui.base.StateFragment
 import com.catsoft.vktinG.ui.cities.CitiesSelectListFragment
-import com.catsoft.vktinG.ui.cities.IOnSelectCallback
+import com.catsoft.vktinG.ui.cities.IOnSelectCityCallback
 import com.catsoft.vktinG.vkApi.model.VKCity
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_markets.*
 
-class MarketsListFragment : Fragment(), IOnSelectCallback {
+class MarketsListFragment : StateFragment(), IOnSelectCityCallback {
 
     private lateinit var viewModel: MarketsListViewModel
-    private lateinit var dropDownImage : ImageView
+    private var dropDownImage : ImageView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -36,42 +37,70 @@ class MarketsListFragment : Fragment(), IOnSelectCallback {
 
         viewModel = ViewModelProvider(this).get(MarketsListViewModel::class.java)
 
+        subscribeToState(viewModel)
+
+        viewModel.init()
+
+        initList(view)
+
+        initToolbar()
+
+        viewModel.start()
+    }
+
+    private fun initList(view: View) {
         val locale = SimpleDi.Instance.resolve<CurrentLocaleProvider>(CurrentLocaleProvider::class.java).currentLocale
-        val adapter = MarketsListRecyclerViewAdapter(locale, viewModel, activity!!)
+        val adapter = MarketsListRecyclerViewAdapter(activity!!)
         val list = market_list_recycler_view
         val layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
         list.layoutManager = layoutManager
         list.adapter = adapter
 
-        viewModel.viewGroups.subscribe{
+        viewModel.viewGroups.subscribe {
             if (it != null) {
                 adapter.updateMarketsListItems(it)
             }
-        }.addTo(viewModel.compositeDisposable)
+        }.addTo(compositeDisposable)
+    }
 
-        viewModel.load()
+    private fun initToolbar() {
 
         val toolbar = (activity as MainActivity).toolbar!!
 
-        viewModel.cityPublisher.subscribe {
+        viewModel.selectedCityObserver.subscribe {
             toolbar.title = if (it?.title?.isNotEmpty() != true) "Магазины" else "Магазины в ${it.title}"
-        }.addTo(viewModel.compositeDisposable)
+        }.addTo(compositeDisposable)
 
-        dropDownImage = ImageView(activity!!)
-        dropDownImage.setImageResource(R.drawable.ic_dropdown)
-        toolbar.addView(dropDownImage)
+        viewModel.isSuccess.filter { it }.subscribe {
+            clearToolbar()
 
-        toolbar.setOnClickListener {
-            val dialogFragment = CitiesSelectListFragment(this, viewModel.citiesList, viewModel.selectedCity)
-            dialogFragment.show(activity!!.supportFragmentManager, "signature")
-        }
+            dropDownImage = ImageView(activity!!)
+            dropDownImage?.setImageResource(R.drawable.ic_dropdown)
+
+            toolbar.addView(dropDownImage)
+
+            toolbar.setOnClickListener {
+                val dialogFragment = CitiesSelectListFragment(this, viewModel.citiesList, viewModel.selectedCity!!)
+                dialogFragment.show(activity!!.supportFragmentManager, "signature")
+            }
+        }.addTo(compositeDisposable)
     }
 
     override fun onPause() {
         super.onPause()
 
+        clearToolbar()
+    }
+
+    private fun clearToolbar() {
         val toolbar = (activity as MainActivity).toolbar!!
-        toolbar.removeView(dropDownImage)
+        dropDownImage?.let {
+            if (toolbar.contains(it)) {
+                toolbar.removeView(it)
+            }
+        }
+
+        toolbar.setOnClickListener { }
     }
 
     override fun select(city: VKCity) {

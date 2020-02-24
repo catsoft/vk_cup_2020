@@ -9,8 +9,7 @@ data class VKCurrency(
     val name : String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
-        parcel.readString()!!
+        parcel.readInt(), parcel.readString()!!
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
