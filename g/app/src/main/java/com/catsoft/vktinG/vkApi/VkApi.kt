@@ -25,6 +25,6 @@ class VkApi : IVkApi {
     }
 
     override fun isLikedProduct(ownerId: Int, idProduct: Int): Observable<Boolean> = Observable.create<Boolean> {
-        val i = VK.execute(VKIsLikedRequest(ownerId, idProduct), VKApiEmittedCallback<Boolean>(it))
+        VK.execute(VKIsLikedRequest(ownerId, idProduct), VKApiEmittedCallback<Boolean>(it))
     }
 }

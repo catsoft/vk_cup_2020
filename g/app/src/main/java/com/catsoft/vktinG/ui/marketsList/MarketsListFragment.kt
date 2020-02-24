@@ -49,7 +49,6 @@ class MarketsListFragment : StateFragment(), IOnSelectCityCallback {
     }
 
     private fun initList(view: View) {
-        val locale = SimpleDi.Instance.resolve<CurrentLocaleProvider>(CurrentLocaleProvider::class.java).currentLocale
         val adapter = MarketsListRecyclerViewAdapter(activity!!)
         val list = market_list_recycler_view
         val layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
