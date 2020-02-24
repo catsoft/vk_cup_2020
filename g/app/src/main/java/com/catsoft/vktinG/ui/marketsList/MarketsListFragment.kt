@@ -12,6 +12,7 @@ import com.catsoft.vktinG.MainActivity
 import com.catsoft.vktinG.R
 import com.catsoft.vktinG.di.SimpleDi
 import com.catsoft.vktinG.services.CurrentLocaleProvider
+import com.catsoft.vktinG.services.WindowsInsetProvider
 import com.catsoft.vktinG.ui.base.StateFragment
 import com.catsoft.vktinG.ui.cities.CitiesSelectListFragment
 import com.catsoft.vktinG.ui.cities.IOnSelectCityCallback
@@ -41,17 +42,17 @@ class MarketsListFragment : StateFragment(), IOnSelectCityCallback {
 
         viewModel.init()
 
-        initList(view)
+        initList()
 
         initToolbar()
 
         viewModel.start()
     }
 
-    private fun initList(view: View) {
+    private fun initList() {
         val adapter = MarketsListRecyclerViewAdapter(activity!!)
         val list = market_list_recycler_view
-        val layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(activity!!, LinearLayoutManager.VERTICAL, false)
         list.layoutManager = layoutManager
         list.adapter = adapter
 

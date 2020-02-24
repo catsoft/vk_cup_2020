@@ -8,4 +8,6 @@
     <color name="white">#FFFFFF</color>
     <color name="subTitleText">#818C99</color>
     <color name="backgrounds">#96000000</color>
+    <color name="background">#FFFFFF</color>
+    <color name="button_primary">#4986CC</color>
 </resources>

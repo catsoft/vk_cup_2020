@@ -2,16 +2,15 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayoutCompat"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
-    android:paddingTop="16dp"
-    android:paddingBottom="4dp"
-    android:paddingEnd="6dp"
+    android:background="@color/background"
+    android:foreground="@drawable/custom_ripple"
     android:paddingStart="6dp"
-    android:foreground="@drawable/custom_ripple">
+    android:paddingTop="16dp"
+    android:paddingEnd="6dp"
+    android:paddingBottom="4dp">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/type_image"
@@ -28,10 +27,10 @@
         style="@style/Subtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
+        android:layout_marginTop="4dp"
         android:lines="1"
         android:singleLine="true"
-        android:layout_marginTop="4dp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/info_textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -58,7 +58,7 @@ class ShareContentFragment : Fragment() {
         val button = pickPhotoButton
         button.setOnClickListener {
             if (ContextCompat.checkSelfPermission(context!!, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-               requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), requestCodeForPermission)
+                requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), requestCodeForPermission)
             } else {
                 pickImage()
             }
@@ -97,8 +97,8 @@ class ShareContentFragment : Fragment() {
             alpha = 1F
 
             animate().alpha(0F).setDuration(animateDuration).setListener(null).withEndAction {
-                    visibility = View.GONE
-                }.start()
+                visibility = View.GONE
+            }.start()
         }
 
         scrollView!!.apply {

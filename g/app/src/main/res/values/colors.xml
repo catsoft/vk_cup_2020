@@ -3,12 +3,12 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#3F8AE0</color>
-    <color name="audioType">#293F8AE0</color>
-    <color name="videoType">#29AB75E0</color>
-    <color name="bookType">#29FFA000</color>
-    <color name="textType">#293F8AE0</color>
-    <color name="otherType">#293F8AE0</color>
-    <color name="zipType">#294BB34B</color>
-    <color name="typeMixing1">#F2F3F5</color>
     <color name="ripple">#AAAAAA</color>
+    <color name="reversed_button_back">#0D001C3D</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="background">#FFFFFF</color>
+    <color name="gray_back">#989898</color>
+    <color name="text_color">#000000</color>
+    <color name="error_red">#fF0000</color>
 </resources>

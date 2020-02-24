@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -49,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:textColor="#000000"
+                    android:textColor="@color/text_color"
                     android:textSize="15sp" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
@@ -74,21 +73,21 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatButton
-                style="@style/Button"
                 android:id="@+id/addButton"
+                style="@style/Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:text="Добавить в избранное" />
+                android:text="@string/add_to_favorite_text"
+                android:visibility="gone" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/removeButton"
-                android:theme="?android:attr/borderlessButtonStyle"
                 style="@style/ButtonReversed"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Удалить из избранного" />
+                android:text="@string/remove_from_favorite_text"
+                android:theme="?android:attr/borderlessButtonStyle"
+                android:visibility="gone" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 

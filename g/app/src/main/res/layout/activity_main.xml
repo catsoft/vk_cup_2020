@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:clipToPadding="false"
     android:fitsSystemWindows="true">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -17,10 +20,10 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                android:theme="@style/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"/>
+                android:background="?attr/colorPrimary"
+                android:theme="@style/toolbar" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -28,19 +31,19 @@
             android:id="@+id/root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:id="@+id/host_fragment"
                 android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 app:defaultNavHost="true" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

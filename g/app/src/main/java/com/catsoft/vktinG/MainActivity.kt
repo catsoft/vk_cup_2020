@@ -2,13 +2,17 @@ package com.catsoft.vktinG
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.whenCreated
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.catsoft.vktinG.di.SimpleDi
+import com.catsoft.vktinG.services.WindowsInsetProvider
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
@@ -28,6 +32,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         this.setSupportActionBar(toolbar!!)
+
+        ViewCompat.setOnApplyWindowInsetsListener(root_coordinator!!) { _, i ->
+            val s = i.systemWindowInsets
+            if (s.top != 0) {
+                SimpleDi.Instance.register(WindowsInsetProvider::class.java, WindowsInsetProvider(s))
+                root_coordinator.setPadding(0, s.top, 0 , s.bottom)
+            }
+            i.consumeSystemWindowInsets()
+        }
 
         navController = findNavController(R.id.host_fragment)
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_markets))

@@ -14,8 +14,8 @@ import com.vk.api.sdk.auth.VKScope
 
 class MainActivity : AppCompatActivity() {
 
-    private var _isLogin : Boolean = false
-    private var _isInit : Boolean = false
+    private var _isLogin: Boolean = false
+    private var _isInit: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun tryInit(){
+    private fun tryInit() {
         if (!VK.isLoggedIn()) {
             VK.login(this, setOf(VKScope.WALL, VKScope.PHOTOS))
         } else {
@@ -71,5 +71,3 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
-
-

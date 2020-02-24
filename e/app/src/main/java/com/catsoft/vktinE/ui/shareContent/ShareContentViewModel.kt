@@ -52,16 +52,14 @@ class ShareContentViewModel : ViewModel() {
                 }
             }
         }.observeOn(Schedulers.newThread()).subscribeOn(AndroidSchedulers.mainThread()).subscribe {
-                _selectedImage.postValue(it)
-            }.addTo(compositeDisposable)
+            _selectedImage.postValue(it)
+        }.addTo(compositeDisposable)
     }
 
     fun sendPost(text: String) {
         val uri = _selectedImage.value!!.toUri()
         _selectedImage.postValue(null)
-        vkWallApi.post(text, listOf(uri))
-            .subscribe()
-            .addTo(compositeDisposable)
+        vkWallApi.post(text, listOf(uri)).subscribe().addTo(compositeDisposable)
     }
 
     fun clear() {
