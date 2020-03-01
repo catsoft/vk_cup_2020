@@ -11,9 +11,7 @@ data class VKGroup (
     val isClosed : Int,
     val photo50 : String,
     val photo100 : String,
-    val photo200 : String,
-    val city : VKCity,
-    val market : VKMarket) {
+    val photo200 : String) {
 
     companion object {
 
@@ -27,9 +25,7 @@ data class VKGroup (
                 isMember = json.optInt("is_member") == 1,
                 photo50 = json.optString("photo_50"),
                 photo100 = json.optString("photo_100"),
-                photo200 = json.optString("photo_200"),
-                city = VKCity.parse(json.optJSONObject("city")),
-                market = VKMarket.parse(json.optJSONObject("market"))
+                photo200 = json.optString("photo_200")
             )
         }
     }

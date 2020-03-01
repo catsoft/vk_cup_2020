@@ -2,6 +2,7 @@ package com.catsoft.vktinG.ui.base
 
 import android.view.View
 import androidx.fragment.app.Fragment
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_markets.*
@@ -15,31 +16,31 @@ open class StateFragment : Fragment() {
         private set
 
     fun subscribeToState(viewModel: BaseViewModel) {
-        viewModel.isError.subscribe {
+        viewModel.isError.observeOn(AndroidSchedulers.mainThread()).subscribe {
             if (errorState_root != null) {
                 errorState_root.visibility = if (it) View.VISIBLE else View.GONE
             }
         }.addTo(compositeDisposable)
 
-        viewModel.error.subscribe {
+        viewModel.error.observeOn(AndroidSchedulers.mainThread()).subscribe {
             if (errorState_text != null) {
                 errorState_text.text = it?.toString()
             }
         }.addTo(compositeDisposable)
 
-        viewModel.isProgress.subscribe {
+        viewModel.isProgress.observeOn(AndroidSchedulers.mainThread()).subscribe {
             if (loadingState_root != null) {
                 loadingState_root.visibility = if (it) View.VISIBLE else View.GONE
             }
         }.addTo(compositeDisposable)
 
-        viewModel.isSuccess.subscribe {
+        viewModel.isSuccess.observeOn(AndroidSchedulers.mainThread()).subscribe {
             if (normal_state != null) {
                 normal_state.visibility = if (it) View.VISIBLE else View.GONE
             }
         }.addTo(compositeDisposable)
 
-        viewModel.isEmpty.subscribe {
+        viewModel.isEmpty.observeOn(AndroidSchedulers.mainThread()).subscribe {
             if (emptyState_root != null) {
                 emptyState_root.visibility = if (it) View.VISIBLE else View.GONE
             }

@@ -56,7 +56,7 @@ class MarketsListFragment : StateFragment(), IOnSelectCityCallback {
         list.layoutManager = layoutManager
         list.adapter = adapter
 
-        viewModel.viewGroups.subscribe {
+        viewModel.groups.subscribe {
             if (it != null) {
                 adapter.updateMarketsListItems(it)
             }
@@ -67,7 +67,7 @@ class MarketsListFragment : StateFragment(), IOnSelectCityCallback {
 
         val toolbar = (activity as MainActivity).toolbar!!
 
-        viewModel.selectedCityObserver.subscribe {
+        viewModel.selectedCityObservable.subscribe {
             toolbar.title = if (it?.title?.isNotEmpty() != true) "Магазины" else "Магазины в ${it.title}"
         }.addTo(compositeDisposable)
 
@@ -80,7 +80,7 @@ class MarketsListFragment : StateFragment(), IOnSelectCityCallback {
             toolbar.addView(dropDownImage)
 
             toolbar.setOnClickListener {
-                val dialogFragment = CitiesSelectListFragment(this, viewModel.citiesList, viewModel.selectedCity!!)
+                val dialogFragment = CitiesSelectListFragment(this, viewModel.selectedCity!!)
                 dialogFragment.show(activity!!.supportFragmentManager, "signature")
             }
         }.addTo(compositeDisposable)

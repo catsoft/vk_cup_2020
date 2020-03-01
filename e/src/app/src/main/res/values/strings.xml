@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Шаринг контента</string>
+    <string name="icon_share_content_description">Иконка поделиться</string>
+    <string name="share_title">Делитесь фотографиями</string>
+    <string name="share_subtitle">Поделитесь фотографией на стене и добавьте к ней описание</string>
+    <string name="pick_photo_button_title">Выбрать фото</string>
+    <string name="share_fragment_title">Поделиться на стене</string>
+    <string name="input_share_hint">Добавить комментарий</string>
+    <string name="send_button_title">Отправить</string>
+    <integer name="com_vk_sdk_AppId" tools:ignore="UnusedResources">7324697</integer>
+</resources>

@@ -1,5 +1,6 @@
 package com.catsoft.vktinG.vkApi
 
+import com.catsoft.vktinG.vkApi.model.VKCity
 import com.catsoft.vktinG.vkApi.model.VKGroup
 import com.catsoft.vktinG.vkApi.model.VKProduct
 import com.catsoft.vktinG.vkApi.requests.*
@@ -24,7 +25,11 @@ class VkApi : IVkApi {
         VK.execute(VKRemoveProductFromFavoriteRequest(ownerId, idProduct), VKApiEmittedCallback<Int>(it))
     }
 
-    override fun isLikedProduct(ownerId: Int, idProduct: Int): Observable<Boolean> = Observable.create<Boolean> {
-        VK.execute(VKIsLikedRequest(ownerId, idProduct), VKApiEmittedCallback<Boolean>(it))
+    override fun getProduct(ownerId: Int, idProduct: Int): Observable<VKProduct> = Observable.create<VKProduct> {
+        VK.execute(VKGetProductRequest(ownerId, idProduct), VKApiEmittedCallback<VKProduct>(it))
+    }
+
+    override fun getCitiesList(): Observable<List<VKCity>> = Observable.create<List<VKCity>> {
+        VK.execute(VKGetCityListRequest(), VKApiEmittedCallback<List<VKCity>>(it))
     }
 }

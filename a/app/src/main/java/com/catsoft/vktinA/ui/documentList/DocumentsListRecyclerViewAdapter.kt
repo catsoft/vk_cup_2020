@@ -18,7 +18,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.catsoft.vktinA.R
 import com.catsoft.vktinA.utils.CalendarReadableUtil
 import com.catsoft.vktinA.utils.DimensionUtil
-import com.catsoft.vktinA.utils.FileTypeUtil
 import com.catsoft.vktinA.utils.SizeHumanReadableUtil
 import com.catsoft.vktinA.vkApi.documents.model.DocumentType
 import com.catsoft.vktinA.vkApi.documents.model.VKApiDocument
@@ -96,10 +95,10 @@ class DocumentsListRecyclerViewAdapter(
         val tagsText = item.tags.joinToString(", ")
         holder.tagsTextView.text = tagsText
 
-        if (FileTypeUtil.isImage(item.ext)) {
+        if (item.preview.isNotEmpty()) {
             Glide
                 .with(context)
-                .load(item.url)
+                .load(item.preview)
                 .placeholder(typeIcon)
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(DimensionUtil.convertDpToPixel(6.toFloat(), context).toInt())))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

@@ -11,13 +11,8 @@ import io.reactivex.rxkotlin.addTo
 
 class CitiesListRecyclerViewAdapter(
     private val onSelectCallback: IOnSelectCityCallback,
-    cities: List<VKCity>,
     private var selectedCity: VKCity
 ) : BaseAdapter<CityViewHolder, VKCity>() {
-
-    init {
-        items = cities.toMutableList()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CityViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cell_city, parent, false)
@@ -44,6 +39,11 @@ class CitiesListRecyclerViewAdapter(
         holder.title.text = if (item.title.isEmpty()) "Без города" else item.title
 
         holder.checkImage.visibility = if (item == selectedCity) View.VISIBLE else View.GONE
+    }
+
+    fun update(cities : List<VKCity>) {
+        items = cities.toMutableList()
+        notifyDataSetChanged()
     }
 }
 

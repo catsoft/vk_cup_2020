@@ -14,6 +14,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.catsoft.vktinG.di.SimpleDi
 import com.catsoft.vktinG.services.WindowsInsetProvider
 import com.vk.api.sdk.VK
+import com.vk.api.sdk.VKApiConfig
+import com.vk.api.sdk.VKDefaultValidationHandler
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
 import com.vk.api.sdk.auth.VKScope
@@ -46,6 +48,8 @@ class MainActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_markets))
         setupActionBarWithNavController(navController, appBarConfiguration)
 
+        VK.setConfig(VKApiConfig(context = this,appId= resources.getInteger(R.integer.com_vk_sdk_AppId), validationHandler = VKDefaultValidationHandler(this), version = "5.103"))
+
         tryInit()
     }
 
@@ -63,7 +67,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onLoginFailed(errorCode: Int) {
-                VK.login(activity, setOf(VKScope.DOCS))
+                VK.login(activity, setOf(VKScope.GROUPS, VKScope.MARKET, VKScope.WALL))
             }
         }
 

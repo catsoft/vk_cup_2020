@@ -1,5 +1,6 @@
 package com.catsoft.vktinG.vkApi
 
+import com.catsoft.vktinG.vkApi.model.VKCity
 import com.catsoft.vktinG.vkApi.model.VKGroup
 import com.catsoft.vktinG.vkApi.model.VKProduct
 import io.reactivex.Observable
@@ -13,5 +14,7 @@ interface IVkApi {
 
     fun removeProductFromFavorite(ownerId: Int, idProduct: Int): Observable<Int>
 
-    fun isLikedProduct(ownerId: Int, idProduct: Int): Observable<Boolean>
+    fun getProduct(ownerId: Int, idProduct: Int): Observable<VKProduct>
+
+    fun getCitiesList() : Observable<List<VKCity>>
 }

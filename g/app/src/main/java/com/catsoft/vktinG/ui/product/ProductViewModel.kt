@@ -23,8 +23,8 @@ class ProductViewModel : BaseViewModel() {
     override fun initInner() {
         _productPublisher.subscribe {
             currentProduct = it
-            vkApi.isLikedProduct(it.ownerId, it.id).observeOn(Schedulers.newThread()).subscribe { isFavoriteResponse ->
-                    _isFavoritePublisher.onNext(isFavoriteResponse)
+            vkApi.getProduct(it.ownerId, it.id).observeOn(Schedulers.newThread()).subscribe { isFavoriteResponse ->
+                    _isFavoritePublisher.onNext(isFavoriteResponse!!.isFavorite)
                 }.addTo(compositeDisposable)
         }.addTo(compositeDisposable)
 
@@ -39,6 +39,7 @@ class ProductViewModel : BaseViewModel() {
 
         _isFavoritePublisher.subscribe {
             _isFavorite = it
+            setSuccess()
         }.addTo(compositeDisposable)
     }
 

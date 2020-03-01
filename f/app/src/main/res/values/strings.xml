@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Сообщества</string>
+    <string name="loading_text">Подождите, идет загрузка…</string>
+    <string name="emptyState_text">На данный момент данные отсутствуют</string>
+    <string name="error_title">Что-то пошло не так</string>
+    <string name="add_to_favorite_text">Добавить в избранное</string>
+    <string name="remove_from_favorite_text">Удалить из избранного</string>
+    <string name="open_button_title">Открыть</string>
+    <string name="unsubscribe_text">Отписаться</string>
+    <integer name="com_vk_sdk_AppId" tools:ignore="UnusedResources">7334726</integer>
+</resources>

@@ -3,15 +3,14 @@ package com.catsoft.vktinG.vkApi.requests
 import com.vk.api.sdk.requests.VKRequest
 import org.json.JSONObject
 
-class VKAddProductToFavoriteRequest(ownerId: Int, idProduct: Int): VKRequest<Int>("likes.add") {
+class VKAddProductToFavoriteRequest(ownerId: Int, idProduct: Int): VKBaseRequest<Int>("fave.addProduct") {
 
     init {
-        addParam("item_id", idProduct)
+        addParam("id", idProduct)
         addParam("owner_id", ownerId)
-        addParam("type", "market")
     }
 
     override fun parse(r: JSONObject): Int {
-        return r.optInt("likes")
+        return 1
     }
 }

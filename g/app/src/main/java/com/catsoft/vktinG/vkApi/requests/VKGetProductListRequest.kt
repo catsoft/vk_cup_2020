@@ -4,7 +4,7 @@ import com.catsoft.vktinG.vkApi.model.VKProduct
 import com.vk.api.sdk.requests.VKRequest
 import org.json.JSONObject
 
-class VKGetProductListRequest(owner : Int): VKRequest<List<VKProduct>>("market.get") {
+class VKGetProductListRequest(owner : Int): VKBaseRequest<List<VKProduct>>("market.get") {
 
     init {
         addParam("owner_id", -owner)

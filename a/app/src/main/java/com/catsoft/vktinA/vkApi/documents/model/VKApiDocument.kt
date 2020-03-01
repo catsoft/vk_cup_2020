@@ -14,6 +14,7 @@ data class VKApiDocument(
     val url : String,
     internal val calendar: Calendar,
     val type : DocumentType,
+    val preview : String,
     val tags : List<String>
 ) : Parcelable {
 
@@ -28,6 +29,7 @@ data class VKApiDocument(
             parcel.readLong()
         ),
         DocumentType.valueOf(parcel.readInt()),
+        parcel.readString()!!,
         readStringList(parcel)
     )
 
@@ -40,6 +42,7 @@ data class VKApiDocument(
         parcel.writeString(url)
         parcel.writeLong(calendar.timeInMillis)
         parcel.writeInt(type.value)
+        parcel.writeString(preview)
         parcel.writeStringList(tags)
     }
 
@@ -95,6 +98,13 @@ data class VKApiDocument(
                 type = DocumentType.valueOf(
                     json.optInt("type", 0)
                 ),
+                preview = json.optJSONObject("preview")?.optJSONObject("photo")?.optJSONArray("sizes")?.let {
+                    if(it.length() > 0) {
+                        it.optJSONObject(0)?.optString("src")
+                    } else {
+                        ""
+                    }
+                } ?: "",
                 tags = getStringList(json)
             )
         }
