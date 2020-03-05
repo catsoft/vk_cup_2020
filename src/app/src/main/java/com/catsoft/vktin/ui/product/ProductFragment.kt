@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.catsoft.vktin.R
 import com.catsoft.vktin.ui.base.StateFragment
-import com.jakewharton.rxbinding2.view.RxView
 
 class ProductFragment : StateFragment() {
 
@@ -28,5 +27,7 @@ class ProductFragment : StateFragment() {
         subscribeToState(viewModel)
 
         viewModel.init()
+
+        viewModel.start()
     }
 }

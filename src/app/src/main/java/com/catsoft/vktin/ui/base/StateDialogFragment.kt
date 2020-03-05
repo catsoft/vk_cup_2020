@@ -1,11 +1,11 @@
-package com.catsoft.vktin.ui.base
+﻿package com.catsoft.vktin.ui.base
 
 import android.view.View
 import androidx.fragment.app.DialogFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_groups.*
+import kotlinx.android.synthetic.main.fragment_markets.*
 import kotlinx.android.synthetic.main.fragments_states_empty.*
 import kotlinx.android.synthetic.main.fragments_states_error.*
 import kotlinx.android.synthetic.main.fragments_states_loading.*

@@ -1,16 +1,19 @@
-package com.catsoft.vktin.vkApi.requests
+﻿package com.catsoft.vktin.vkApi.requests
 
 import com.catsoft.vktin.vkApi.model.VKGroup
 import com.vk.api.sdk.requests.VKRequest
 import org.json.JSONObject
 
-class VKGetGroupListRequest(userId : Int): VKRequest<List<VKGroup>>("groups.get") {
+class VKSearchGroupListRequest(cityId: Int): VKRequest<List<VKGroup>>("groups.search") {
 
     init {
-        addParam("user_id", userId)
-        addParam("extended", 1)
-        addParam("fields", listOf("status", "is_hidden_from_feed", "description", "members_count").joinToString(","))
-
+        addParam("country_id", 1)
+        if (cityId != -1) {
+            addParam("city_id", cityId)
+        }
+        addParam("q", " ")
+        addParam("market", 1)
+        addParam("count", 200)
     }
 
     override fun parse(r: JSONObject): List<VKGroup> {

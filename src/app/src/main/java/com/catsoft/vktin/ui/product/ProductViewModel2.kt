@@ -1,4 +1,4 @@
-package com.catsoft.vktin.ui.product
+﻿package com.catsoft.vktin.ui.product
 
 import com.catsoft.vktin.ui.base.BaseViewModel
 import com.catsoft.vktin.vkApi.model.VKProduct
@@ -8,7 +8,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 
-class ProductViewModel : BaseViewModel() {
+class ProductViewModel2 : BaseViewModel() {
 
     private val _productPublisher = PublishSubject.create<VKProduct>()
     private val _changeFavoritePublisher = PublishSubject.create<Boolean>()

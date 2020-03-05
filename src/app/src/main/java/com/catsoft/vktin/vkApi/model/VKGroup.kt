@@ -1,4 +1,4 @@
-package com.catsoft.vktin.vkApi.model
+﻿package com.catsoft.vktin.vkApi.model
 
 import org.json.JSONObject
 

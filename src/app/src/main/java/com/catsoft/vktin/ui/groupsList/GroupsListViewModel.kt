@@ -51,7 +51,7 @@ class GroupsListViewModel : BaseViewModel() {
     fun unsubscribe() {
         setIsProgress()
 
-        Observable.zip(subscibtionList.map { vkApi.groupLeave(it) }, {i -> ""})
+        Observable.zip(subscibtionList.map { vkApi.groupLeave(it) }) { ""}
             .subscribe {
                 _loadPublisher.onNext(1)
                 subscibtionList.clear()

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_features">
+
+    <fragment
+        android:id="@+id/navigation_markets"
+        android:name="com.catsoft.vktin.ui.marketsList.MarketsListFragment"
+        android:label="Магазины"
+        tools:layout="@layout/fragment_markets" >
+
+        <action
+            android:id="@+id/action_navigation_markets_to_navigation_products"
+            app:destination="@id/navigation_products" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_products"
+        android:name="com.catsoft.vktin.ui.productsList.ProductsListFragment"
+        android:label="Товары"
+        tools:layout="@layout/fragment_products" >
+        <action
+            android:id="@+id/action_navigation_products_to_navigation_product"
+            app:destination="@id/navigation_product" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_product"
+        android:name="com.catsoft.vktin.ui.product.ProductFragment2"
+        android:label="Продукт"
+        tools:layout="@layout/fragment_product2" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_features"
+        android:name="com.catsoft.vktin.ui.features.FeaturesFragment"
+        android:label="Клиет ВК"
+        tools:layout="@layout/fragment_features" >
+        <action
+            android:id="@+id/action_navigation_features_to_navigation_markets"
+            app:destination="@id/navigation_markets" />
+        <action
+            android:id="@+id/action_navigation_features_to_navigation_groupsList"
+            app:destination="@id/navigation_groupsList" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_groupsList"
+        android:name="com.catsoft.vktin.ui.groupsList.GroupsListFragment"
+        android:label="Группы"
+        tools:layout="@layout/fragment_groups" >
+    </fragment>
+
+</navigation>

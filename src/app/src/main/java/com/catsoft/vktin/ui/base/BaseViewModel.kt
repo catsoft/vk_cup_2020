@@ -1,4 +1,4 @@
-package com.catsoft.vktin.ui.base
+﻿package com.catsoft.vktin.ui.base
 
 import androidx.lifecycle.ViewModel
 import com.catsoft.vktin.di.SimpleDi
@@ -77,5 +77,4 @@ abstract class BaseViewModel : ViewModel() {
     open fun start() {
         setIsProgress()
     }
-
 }
