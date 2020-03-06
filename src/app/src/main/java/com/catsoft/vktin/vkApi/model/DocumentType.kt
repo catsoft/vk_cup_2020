@@ -1,4 +1,4 @@
-package com.catsoft.vktin.vkApi.documents.model
+package com.catsoft.vktin.vkApi.model
 
 enum class DocumentType(var value: Int) {
     TextDocument(1), Zip(2), Gif(3), Image(4), Audio(5), Video(6), Book(7), Other(8);

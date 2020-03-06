@@ -1,6 +1,6 @@
-package com.catsoft.vktin.vkApi.documents.requests
+package com.catsoft.vktin.vkApi.requests
 
-import com.catsoft.vktin.vkApi.documents.model.VKApiDocument
+import com.catsoft.vktin.vkApi.model.VKApiDocument
 import com.vk.api.sdk.requests.VKRequest
 import org.json.JSONObject
 

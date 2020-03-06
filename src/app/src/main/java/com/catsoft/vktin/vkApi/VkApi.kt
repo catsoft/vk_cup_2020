@@ -1,5 +1,9 @@
 ﻿package com.catsoft.vktin.vkApi
 
+import com.catsoft.vktin.vkApi.model.VKApiDocument
+import com.catsoft.vktin.vkApi.requests.VKDeleteDocumentRequest
+import com.catsoft.vktin.vkApi.requests.VKEditDocumentRequest
+import com.catsoft.vktin.vkApi.requests.VKGetDocumentListRequest
 import com.catsoft.vktin.vkApi.model.VKCity
 import com.catsoft.vktin.vkApi.model.VKGroup
 import com.catsoft.vktin.vkApi.model.VKPost
@@ -48,5 +52,34 @@ class VkApi : IVkApi {
 
     override fun groupLeave(id: Int): Observable<Int> = Observable.create {
         VK.execute(VKGroupLeaveRequest(id), VKApiEmittedCallback(it))
+    }
+
+    override fun getList(): Observable<List<VKApiDocument>> = Observable.create<List<VKApiDocument>> {
+        VK.execute(
+            VKGetDocumentListRequest(),
+            VKApiEmittedCallback<List<VKApiDocument>>(it)
+        )
+    }
+
+    override fun deleteDocument(id: Int, ownerId: Int): Observable<Boolean> = Observable.create<Boolean> {
+        VK.execute(
+            VKDeleteDocumentRequest(
+                id,
+                ownerId
+            ),
+            VKApiEmittedCallback<Boolean>(it)
+        )
+    }
+
+    override fun editDocument(id: Int, ownerId: Int, title: String, tags: List<String>): Observable<Boolean> = Observable.create<Boolean> {
+        VK.execute(
+            VKEditDocumentRequest(
+                id,
+                ownerId,
+                title,
+                tags
+            ),
+            VKApiEmittedCallback<Boolean>(it)
+        )
     }
 }

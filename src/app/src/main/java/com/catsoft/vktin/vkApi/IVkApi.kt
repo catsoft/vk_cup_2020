@@ -1,5 +1,6 @@
 ﻿package com.catsoft.vktin.vkApi
 
+import com.catsoft.vktin.vkApi.model.VKApiDocument
 import com.catsoft.vktin.vkApi.model.VKCity
 import com.catsoft.vktin.vkApi.model.VKGroup
 import com.catsoft.vktin.vkApi.model.VKPost
@@ -26,4 +27,10 @@ interface IVkApi {
     fun getCountFriendsInGroupPost(id: Int) : Observable<Int>
 
     fun groupLeave(id: Int) : Observable<Int>
+
+    fun getList(): Observable<List<VKApiDocument>>
+
+    fun deleteDocument(id: Int, ownerId: Int): Observable<Boolean>
+
+    fun editDocument(id: Int, ownerId: Int, title: String, tags: List<String>): Observable<Boolean>
 }

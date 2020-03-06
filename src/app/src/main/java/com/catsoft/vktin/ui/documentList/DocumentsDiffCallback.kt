@@ -1,7 +1,7 @@
 package com.catsoft.vktin.ui.documentList
 
 import androidx.recyclerview.widget.DiffUtil
-import com.catsoft.vktin.vkApi.documents.model.VKApiDocument
+import com.catsoft.vktin.vkApi.model.VKApiDocument
 
 class DocumentsDiffCallback(private val newDocuments: List<VKApiDocument>,
                             private val oldDocuments: List<VKApiDocument>)

@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.catsoft.vktin.di.SimpleDi
 import com.catsoft.vktin.services.WindowsInsetProvider
+import com.catsoft.vktin.vkApi.VkApi
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKApiConfig
 import com.vk.api.sdk.VKDefaultValidationHandler
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         navController = findNavController(R.id.host_fragment)
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_markets))
+        val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_features))
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         VK.setConfig(VKApiConfig(context = this,appId= resources.getInteger(R.integer.com_vk_sdk_AppId), validationHandler = VKDefaultValidationHandler(this), version = "5.103"))
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onLoginFailed(errorCode: Int) {
-                VK.login(activity, setOf(VKScope.GROUPS, VKScope.MARKET, VKScope.WALL))
+                VK.login(activity, setOf(VKScope.GROUPS, VKScope.MARKET, VKScope.WALL, VKScope.DOCS))
             }
         }
 
@@ -76,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun tryInit() {
         if (!VK.isLoggedIn()) {
-            VK.login(this, setOf(VKScope.GROUPS, VKScope.MARKET, VKScope.WALL))
+            VK.login(this, setOf(VKScope.GROUPS, VKScope.MARKET, VKScope.WALL, VKScope.DOCS))
         } else {
             _isLogin = true
             showDocumentFragment()

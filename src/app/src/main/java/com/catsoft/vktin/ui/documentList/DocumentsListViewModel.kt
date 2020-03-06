@@ -4,11 +4,11 @@ import android.content.Context
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModel
 import com.catsoft.vktin.di.SimpleDi
-import com.catsoft.vktin.vkApi.documents.IDocumentsApi
 import com.catsoft.vktin.ui.base.MutableStateData
 import com.catsoft.vktin.ui.base.StateData
 import com.catsoft.vktin.utils.ViewLocalFilesUtil
-import com.catsoft.vktin.vkApi.documents.model.VKApiDocument
+import com.catsoft.vktin.vkApi.IVkApi
+import com.catsoft.vktin.vkApi.model.VKApiDocument
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -22,7 +22,7 @@ import java.net.URL
 
 class DocumentsListViewModel() : ViewModel() {
 
-    private val documentsApi: IDocumentsApi = SimpleDi.Instance.resolve(IDocumentsApi::class.java)
+    private val documentsApi: IVkApi = SimpleDi.Instance.resolve(IVkApi::class.java)
 
     private val compositeDisposable = CompositeDisposable()
 

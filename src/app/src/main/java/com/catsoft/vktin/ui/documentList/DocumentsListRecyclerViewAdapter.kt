@@ -19,8 +19,8 @@ import com.catsoft.vktin.R
 import com.catsoft.vktin.utils.CalendarReadableUtil
 import com.catsoft.vktin.utils.DimensionUtil
 import com.catsoft.vktin.utils.SizeHumanReadableUtil
-import com.catsoft.vktin.vkApi.documents.model.DocumentType
-import com.catsoft.vktin.vkApi.documents.model.VKApiDocument
+import com.catsoft.vktin.vkApi.model.DocumentType
+import com.catsoft.vktin.vkApi.model.VKApiDocument
 import java.util.*
 
 class DocumentsListRecyclerViewAdapter(

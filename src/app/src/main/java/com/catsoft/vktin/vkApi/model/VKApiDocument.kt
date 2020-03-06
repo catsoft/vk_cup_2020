@@ -1,4 +1,4 @@
-package com.catsoft.vktin.vkApi.documents.model
+package com.catsoft.vktin.vkApi.model
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -98,14 +98,17 @@ data class VKApiDocument(
                 type = DocumentType.valueOf(
                     json.optInt("type", 0)
                 ),
-                preview = json.optJSONObject("preview")?.optJSONObject("photo")?.optJSONArray("sizes")?.let {
-                    if(it.length() > 0) {
+                preview = json.optJSONObject("preview")?.optJSONObject("photo")
+                    ?.optJSONArray("sizes")?.let {
+                    if (it.length() > 0) {
                         it.optJSONObject(0)?.optString("src")
                     } else {
                         ""
                     }
                 } ?: "",
-                tags = getStringList(json)
+                tags = getStringList(
+                    json
+                )
             )
         }
     }
