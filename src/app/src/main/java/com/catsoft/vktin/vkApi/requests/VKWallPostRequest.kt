@@ -1,9 +1,9 @@
 package com.catsoft.vktin.vkApi.requests
 
 import android.net.Uri
-import com.catsoft.vktin.vkApi.models.VKFileUploadInfo
-import com.catsoft.vktin.vkApi.models.VKSaveInfo
-import com.catsoft.vktin.vkApi.models.VKServerUploadInfo
+import com.catsoft.vktin.vkApi.model.VKFileUploadInfo
+import com.catsoft.vktin.vkApi.model.VKSaveInfo
+import com.catsoft.vktin.vkApi.model.VKServerUploadInfo
 import com.vk.api.sdk.VKApiManager
 import com.vk.api.sdk.VKApiResponseParser
 import com.vk.api.sdk.VKHttpPostCall

@@ -73,4 +73,10 @@
         tools:layout="@layout/fragment_documents_list" >
     </fragment>
 
+    <fragment
+        android:id="@+id/navigation_auth"
+        android:name="com.catsoft.vktin.ui.auth.AuthFragment"
+        android:label="Авторизация"
+        tools:layout="@layout/fragment_auth" />
+
 </navigation>

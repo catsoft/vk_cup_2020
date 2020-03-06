@@ -10,7 +10,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.catsoft.vktin.di.SimpleDi
-import com.catsoft.vktin.vkApi.IVKWallApi
+import com.catsoft.vktin.vkApi.IVkApi
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -23,7 +23,7 @@ import java.util.*
 
 class ShareContentViewModel : ViewModel() {
 
-    private val vkWallApi: IVKWallApi = SimpleDi.Instance.resolve(IVKWallApi::class.java)
+    private val vkWallApi: IVkApi = SimpleDi.Instance.resolve(IVkApi::class.java)
 
     private val compositeDisposable = CompositeDisposable()
 

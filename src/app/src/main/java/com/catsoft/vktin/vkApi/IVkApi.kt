@@ -1,5 +1,6 @@
 ﻿package com.catsoft.vktin.vkApi
 
+import android.net.Uri
 import com.catsoft.vktin.vkApi.model.VKApiDocument
 import com.catsoft.vktin.vkApi.model.VKCity
 import com.catsoft.vktin.vkApi.model.VKGroup
@@ -33,4 +34,6 @@ interface IVkApi {
     fun deleteDocument(id: Int, ownerId: Int): Observable<Boolean>
 
     fun editDocument(id: Int, ownerId: Int, title: String, tags: List<String>): Observable<Boolean>
+
+    fun post(string: String, images: List<Uri>): Observable<Int>
 }

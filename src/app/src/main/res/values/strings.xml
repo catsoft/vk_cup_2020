@@ -1,5 +1,5 @@
 ﻿<resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">ВК Клиент</string>
+    <string name="app_name">Dark VK</string>
     <string name="icon_share_content_description">Иконка поделиться</string>
     <string name="share_title">Делитесь фотографиями</string>
     <string name="share_subtitle">Поделитесь фотографией на стене и добавьте к ней описание</string>

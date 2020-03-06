@@ -1,85 +1,51 @@
 ﻿package com.catsoft.vktin.vkApi
 
-import com.catsoft.vktin.vkApi.model.VKApiDocument
-import com.catsoft.vktin.vkApi.requests.VKDeleteDocumentRequest
-import com.catsoft.vktin.vkApi.requests.VKEditDocumentRequest
-import com.catsoft.vktin.vkApi.requests.VKGetDocumentListRequest
-import com.catsoft.vktin.vkApi.model.VKCity
-import com.catsoft.vktin.vkApi.model.VKGroup
-import com.catsoft.vktin.vkApi.model.VKPost
-import com.catsoft.vktin.vkApi.model.VKProduct
+import android.net.Uri
+import com.catsoft.vktin.vkApi.model.*
 import com.catsoft.vktin.vkApi.requests.*
 import com.vk.api.sdk.VK
+import com.vk.api.sdk.internal.ApiCommand
 import io.reactivex.Observable
 
 class VkApi : IVkApi {
 
-    override fun getMarketsList(id: Int): Observable<List<VKGroup>> = Observable.create<List<VKGroup>> {
-        VK.execute(VKSearchGroupListRequest(id), VKApiEmittedCallback<List<VKGroup>>(it))
-    }
+    override fun getMarketsList(id: Int): Observable<List<VKGroup>> = createObservable(VKSearchGroupListRequest(id))
 
-    override fun getProductsList(idMarket: Int): Observable<List<VKProduct>> = Observable.create<List<VKProduct>> {
-        VK.execute(VKGetProductListRequest(idMarket), VKApiEmittedCallback<List<VKProduct>>(it))
-    }
+    override fun getProductsList(idMarket: Int): Observable<List<VKProduct>> = createObservable(VKGetProductListRequest(idMarket))
 
-    override fun addProductToFavorite(ownerId: Int, idProduct: Int): Observable<Int> = Observable.create<Int> {
-        VK.execute(VKAddProductToFavoriteRequest(ownerId, idProduct), VKApiEmittedCallback<Int>(it))
-    }
+    override fun addProductToFavorite(ownerId: Int, idProduct: Int): Observable<Int> = createObservable(
+        VKAddProductToFavoriteRequest(ownerId, idProduct)
+    )
 
-    override fun removeProductFromFavorite(ownerId: Int, idProduct: Int): Observable<Int> = Observable.create<Int> {
-        VK.execute(VKRemoveProductFromFavoriteRequest(ownerId, idProduct), VKApiEmittedCallback<Int>(it))
-    }
+    override fun removeProductFromFavorite(ownerId: Int, idProduct: Int): Observable<Int> = createObservable(
+        VKRemoveProductFromFavoriteRequest(ownerId, idProduct)
+    )
 
-    override fun getProduct(ownerId: Int, idProduct: Int): Observable<VKProduct> = Observable.create<VKProduct> {
-        VK.execute(VKGetProductRequest(ownerId, idProduct), VKApiEmittedCallback<VKProduct>(it))
-    }
+    override fun getProduct(ownerId: Int, idProduct: Int): Observable<VKProduct> = createObservable(VKGetProductRequest(ownerId, idProduct))
 
-    override fun getCitiesList(): Observable<List<VKCity>> = Observable.create<List<VKCity>> {
-        VK.execute(VKGetCityListRequest(), VKApiEmittedCallback<List<VKCity>>(it))
-    }
+    override fun getCitiesList(): Observable<List<VKCity>> = createObservable(VKGetCityListRequest())
 
-    override fun getGroupsList(id: Int): Observable<List<VKGroup>> = Observable.create<List<VKGroup>> {
-        VK.execute(VKGetGroupListRequest(id), VKApiEmittedCallback<List<VKGroup>>(it))
-    }
+    override fun getGroupsList(id: Int): Observable<List<VKGroup>> = createObservable(VKGetGroupListRequest(id))
 
-    override fun getLastPost(id: Int): Observable<VKPost?> = Observable.create {
-        VK.execute(VKGetLastPostRequest(id), VKApiEmittedCallback(it))
-    }
+    override fun getLastPost(id: Int): Observable<VKPost?> = createObservable(VKGetLastPostRequest(id))
 
-    override fun getCountFriendsInGroupPost(id: Int): Observable<Int> = Observable.create {
-        VK.execute(VKGetFriendsRequest(id), VKApiEmittedCallback(it))
-    }
+    override fun getCountFriendsInGroupPost(id: Int): Observable<Int> = createObservable(VKGetFriendsRequest(id))
 
-    override fun groupLeave(id: Int): Observable<Int> = Observable.create {
-        VK.execute(VKGroupLeaveRequest(id), VKApiEmittedCallback(it))
-    }
+    override fun groupLeave(id: Int): Observable<Int> = createObservable(VKGroupLeaveRequest(id))
 
-    override fun getList(): Observable<List<VKApiDocument>> = Observable.create<List<VKApiDocument>> {
-        VK.execute(
-            VKGetDocumentListRequest(),
-            VKApiEmittedCallback<List<VKApiDocument>>(it)
+    override fun getList(): Observable<List<VKApiDocument>> = createObservable(VKGetDocumentListRequest())
+
+    override fun deleteDocument(id: Int, ownerId: Int): Observable<Boolean> = createObservable(VKDeleteDocumentRequest(id, ownerId))
+
+    override fun editDocument(id: Int, ownerId: Int, title: String, tags: List<String>): Observable<Boolean> = createObservable(
+        VKEditDocumentRequest(
+            id, ownerId, title, tags
         )
-    }
+    )
 
-    override fun deleteDocument(id: Int, ownerId: Int): Observable<Boolean> = Observable.create<Boolean> {
-        VK.execute(
-            VKDeleteDocumentRequest(
-                id,
-                ownerId
-            ),
-            VKApiEmittedCallback<Boolean>(it)
-        )
-    }
+    override fun post(string: String, images: List<Uri>): Observable<Int> = createObservable(VKWallPostRequest(string, images, 141454621))
 
-    override fun editDocument(id: Int, ownerId: Int, title: String, tags: List<String>): Observable<Boolean> = Observable.create<Boolean> {
-        VK.execute(
-            VKEditDocumentRequest(
-                id,
-                ownerId,
-                title,
-                tags
-            ),
-            VKApiEmittedCallback<Boolean>(it)
-        )
+    private fun <T> createObservable(request: ApiCommand<T>): Observable<T> = Observable.create<T> {
+        VK.execute(request, VKApiEmittedCallback<T>(it))
     }
 }

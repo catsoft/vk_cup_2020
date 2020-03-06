@@ -4,16 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.catsoft.vktin.R
+import com.catsoft.vktin.ui.auth.AuthViewModel
 import com.catsoft.vktin.ui.base.StateFragment
 import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.internal.operators.observable.ObservableElementAt
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_features.*
 
 class FeaturesFragment : StateFragment() {
-    private lateinit var viewModel: FeaturesViewModel
+    private val viewModel: FeaturesViewModel by activityViewModels()
+
+    private val authViewModel : AuthViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -25,11 +31,15 @@ class FeaturesFragment : StateFragment() {
 
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(FeaturesViewModel::class.java)
-
         subscribeToState(viewModel)
 
         viewModel.init()
+
+        authViewModel.isLogin.observe(viewLifecycleOwner, Observer {
+            if (!it) {
+                findNavController().navigate(R.id.navigation_auth)
+            }
+        })
 
         RxView.clicks(features_products_button).subscribe {
             findNavController().navigate(R.id.navigation_markets)

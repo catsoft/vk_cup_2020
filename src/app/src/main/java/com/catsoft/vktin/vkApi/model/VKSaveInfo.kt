@@ -1,4 +1,4 @@
-package com.catsoft.vktin.vkApi.models
+package com.catsoft.vktin.vkApi.model
 
 class VKSaveInfo(val id: Int,
                  val albumId: Int,
