@@ -12,4 +12,7 @@
     <color name="gray_back">#66000000</color>
     <color name="text_color">#000000</color>
     <color name="error_red">#fF0000</color>
+  	<color name="subTitleText">#818C99</color>
+    <color name="backgrounds">#96000000</color>
+    <color name="button_primary">#4986CC</color>
 </resources>

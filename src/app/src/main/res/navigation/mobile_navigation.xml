@@ -44,6 +44,9 @@
         <action
             android:id="@+id/action_navigation_features_to_navigation_groupsList"
             app:destination="@id/navigation_groupsList" />
+        <action
+            android:id="@+id/action_navigation_features_to_navigation_share"
+            app:destination="@id/navigation_share" />
     </fragment>
 
     <fragment
@@ -51,6 +54,13 @@
         android:name="com.catsoft.vktin.ui.groupsList.GroupsListFragment"
         android:label="Группы"
         tools:layout="@layout/fragment_groups" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_share"
+        android:name="com.catsoft.vktin.ui.shareContent.ShareContentFragment"
+        android:label="Шаринг"
+        tools:layout="@layout/fragment_share_content" >
     </fragment>
 
 </navigation>

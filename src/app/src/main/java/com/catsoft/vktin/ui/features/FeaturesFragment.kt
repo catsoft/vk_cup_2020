@@ -40,7 +40,7 @@ class FeaturesFragment : StateFragment() {
         }.addTo(compositeDisposable)
 
         RxView.clicks(features_share_button).subscribe {
-
+            findNavController().navigate(R.id.navigation_share)
         }.addTo(compositeDisposable)
 
         RxView.clicks(features_documents_button).subscribe {

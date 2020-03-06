@@ -1,5 +1,14 @@
 ﻿<resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Клиент ВК</string>
+    <string name="app_name">Шаринг контента</string>
+    <string name="icon_share_content_description">Иконка поделиться</string>
+    <string name="share_title">Делитесь фотографиями</string>
+    <string name="share_subtitle">Поделитесь фотографией на стене и добавьте к ней описание</string>
+    <string name="pick_photo_button_title">Выбрать фото</string>
+    <string name="share_fragment_title">Поделиться на стене</string>
+    <string name="input_share_hint">Добавить комментарий</string>
+    <string name="send_button_title">Отправить</string>
+    <integer name="com_vk_sdk_AppId" tools:ignore="UnusedResources">7347519</integer>
+
     <string name="select_city_title">Город</string>
     <string name="loading_text">Подождите, идет загрузка…</string>
     <string name="emptyState_text">На данный момент данные отсутствуют</string>
@@ -8,5 +17,4 @@
     <string name="remove_from_favorite_text">Удалить из избранного</string>
     <string name="open_button_title">Открыть</string>
     <string name="unsubscribe_text">Отписаться</string>
-    <integer name="com_vk_sdk_AppId" tools:ignore="UnusedResources">7347519</integer>
 </resources>

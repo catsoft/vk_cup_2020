@@ -1,4 +1,4 @@
-package com.catsoft.vktin
+﻿package com.catsoft.vktin
 
 import android.content.res.Resources
 import androidx.core.os.ConfigurationCompat

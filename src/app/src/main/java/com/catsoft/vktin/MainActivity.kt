@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val activity = this
         val callback = object : VKAuthCallback {
+
             override fun onLogin(token: VKAccessToken) {
                 _isLogin = true
             }
@@ -92,15 +93,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()
-    }
-
     override fun onBackPressed() {
         if (!navController.navigateUp()) {
             super.onBackPressed()
         }
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
 }
-
-
