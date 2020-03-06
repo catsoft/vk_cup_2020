@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.catsoft.vktin.R
 import com.catsoft.vktin.ui.auth.AuthViewModel
 import com.catsoft.vktin.ui.base.StateFragment
 import com.jakewharton.rxbinding2.view.RxView
-import io.reactivex.internal.operators.observable.ObservableElementAt
 import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_features.*
 
@@ -42,19 +40,19 @@ class FeaturesFragment : StateFragment() {
         })
 
         RxView.clicks(features_products_button).subscribe {
-            findNavController().navigate(R.id.navigation_markets)
+            findNavController().navigate(FeaturesFragmentDirections.actionNavigationFeaturesToNavigationMarkets())
         }.addTo(compositeDisposable)
 
         RxView.clicks(features_unsubscribe_button).subscribe {
-            findNavController().navigate(R.id.navigation_groupsList)
+            findNavController().navigate(FeaturesFragmentDirections.actionNavigationFeaturesToNavigationGroupsList())
         }.addTo(compositeDisposable)
 
         RxView.clicks(features_share_button).subscribe {
-            findNavController().navigate(R.id.navigation_share)
+            findNavController().navigate(FeaturesFragmentDirections.actionNavigationFeaturesToNavigationShare())
         }.addTo(compositeDisposable)
 
         RxView.clicks(features_documents_button).subscribe {
-            findNavController().navigate(R.id.navigation_documents)
+            findNavController().navigate(FeaturesFragmentDirections.actionNavigationFeaturesToNavigationDocuments())
         }.addTo(compositeDisposable)
 
         viewModel.start()
