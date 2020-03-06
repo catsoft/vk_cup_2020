@@ -1,5 +1,5 @@
 ﻿<resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">Шаринг контента</string>
+    <string name="app_name">ВК Клиент</string>
     <string name="icon_share_content_description">Иконка поделиться</string>
     <string name="share_title">Делитесь фотографиями</string>
     <string name="share_subtitle">Поделитесь фотографией на стене и добавьте к ней описание</string>
@@ -17,4 +17,10 @@
     <string name="remove_from_favorite_text">Удалить из избранного</string>
     <string name="open_button_title">Открыть</string>
     <string name="unsubscribe_text">Отписаться</string>
+
+    <string name="documentListContextMenu_remove">Удалить документ</string>
+    <string name="documentListContextMenu_rename">Переименовать</string>
+    <string name="type_image_content_description">Изображение типа документа</string>
+    <string name="dots_content_description">Иконка действия</string>
+    <string name="name_editText_hint">Название документа</string>
 </resources>

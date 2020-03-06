@@ -47,6 +47,9 @@
         <action
             android:id="@+id/action_navigation_features_to_navigation_share"
             app:destination="@id/navigation_share" />
+        <action
+            android:id="@+id/action_navigation_features_to_navigation_documents"
+            app:destination="@id/navigation_documents" />
     </fragment>
 
     <fragment
@@ -61,6 +64,13 @@
         android:name="com.catsoft.vktin.ui.shareContent.ShareContentFragment"
         android:label="Шаринг"
         tools:layout="@layout/fragment_share_content" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_documents"
+        android:name="com.catsoft.vktin.ui.documentList.DocumentListFragment"
+        android:label="Документы"
+        tools:layout="@layout/fragment_documents_list" >
     </fragment>
 
 </navigation>

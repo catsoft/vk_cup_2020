@@ -44,9 +44,8 @@ class FeaturesFragment : StateFragment() {
         }.addTo(compositeDisposable)
 
         RxView.clicks(features_documents_button).subscribe {
-
+            findNavController().navigate(R.id.navigation_documents)
         }.addTo(compositeDisposable)
-
 
         viewModel.start()
     }

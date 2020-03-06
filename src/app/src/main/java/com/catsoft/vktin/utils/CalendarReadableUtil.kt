@@ -1,4 +1,4 @@
-package com.catsoft.vktin.utils
+﻿package com.catsoft.vktin.utils
 
 import com.catsoft.vktin.di.SimpleDi
 import com.catsoft.vktin.services.CurrentLocaleProvider
