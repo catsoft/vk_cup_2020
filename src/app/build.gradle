@@ -2,8 +2,6 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
@@ -22,6 +20,10 @@ android {
 
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    viewBinding {
+        enabled = true
     }
 
     kotlinOptions {
@@ -44,13 +46,19 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
 
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
 
     implementation 'com.google.android.material:material:1.1.0'
+
+    // Lifecycle component
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
 
     // Rx components
     implementation 'io.reactivex.rxjava2:rxkotlin:2.4.0'

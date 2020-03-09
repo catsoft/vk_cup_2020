@@ -33,7 +33,7 @@ class VkApi : IVkApi {
 
     override fun groupLeave(id: Int): Observable<Int> = createObservable(VKGroupLeaveRequest(id))
 
-    override fun getList(): Observable<List<VKApiDocument>> = createObservable(VKGetDocumentListRequest())
+    override fun getList(): Observable<List<VKDocument>> = createObservable(VKGetDocumentListRequest())
 
     override fun deleteDocument(id: Int, ownerId: Int): Observable<Boolean> = createObservable(VKDeleteDocumentRequest(id, ownerId))
 
@@ -45,7 +45,7 @@ class VkApi : IVkApi {
 
     override fun post(string: String, images: List<Uri>): Observable<Int> = createObservable(VKWallPostRequest(string, images, 141454621))
 
-    private fun <T> createObservable(request: ApiCommand<T>): Observable<T> = Observable.create<T> {
+    private fun <T> createObservable(request: ApiCommand<T>): Observable<T> = Observable.create {
         VK.execute(request, VKApiEmittedCallback<T>(it))
     }
 }

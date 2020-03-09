@@ -8,22 +8,18 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.catsoft.vktin.R
+import com.catsoft.vktin.databinding.FragmentFeaturesBinding
 import com.catsoft.vktin.ui.auth.AuthViewModel
 import com.catsoft.vktin.ui.base.StateFragment
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_features.*
 
-class FeaturesFragment : StateFragment() {
+class FeaturesFragment : StateFragment<FragmentFeaturesBinding>() {
     private val viewModel: FeaturesViewModel by activityViewModels()
 
     private val authViewModel : AuthViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        return layoutInflater.inflate(R.layout.fragment_features, container, false)
-    }
+    override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentFeaturesBinding = FragmentFeaturesBinding::inflate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -39,19 +35,19 @@ class FeaturesFragment : StateFragment() {
             }
         })
 
-        RxView.clicks(features_products_button).subscribe {
+        RxView.clicks(viewBinding.featuresProductsButton).subscribe {
             findNavController().navigate(FeaturesFragmentDirections.actionNavigationFeaturesToNavigationMarkets())
         }.addTo(compositeDisposable)
 
-        RxView.clicks(features_unsubscribe_button).subscribe {
+        RxView.clicks(viewBinding.featuresUnsubscribeButton).subscribe {
             findNavController().navigate(FeaturesFragmentDirections.actionNavigationFeaturesToNavigationGroupsList())
         }.addTo(compositeDisposable)
 
-        RxView.clicks(features_share_button).subscribe {
+        RxView.clicks(viewBinding.featuresShareButton).subscribe {
             findNavController().navigate(FeaturesFragmentDirections.actionNavigationFeaturesToNavigationShare())
         }.addTo(compositeDisposable)
 
-        RxView.clicks(features_documents_button).subscribe {
+        RxView.clicks(viewBinding.featuresDocumentsButton).subscribe {
             findNavController().navigate(FeaturesFragmentDirections.actionNavigationFeaturesToNavigationDocuments())
         }.addTo(compositeDisposable)
 

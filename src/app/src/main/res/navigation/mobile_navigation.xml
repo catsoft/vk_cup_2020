@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/navigation_markets"
-        android:name="com.catsoft.vktin.ui.marketsList.MarketsListFragment"
+        android:name="com.catsoft.vktin.ui.markets_flow.market_list.MarketListFragment"
         android:label="Магазины"
-        tools:layout="@layout/fragment_markets" >
+        tools:layout="@layout/fragment_market_list" >
 
         <action
             android:id="@+id/action_navigation_markets_to_navigation_products"
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/navigation_products"
-        android:name="com.catsoft.vktin.ui.productsList.ProductsListFragment"
+        android:name="com.catsoft.vktin.ui.markets_flow.product_list.ProductListFragment"
         android:label="Товары"
         tools:layout="@layout/fragment_products" >
         <action
@@ -28,9 +28,9 @@
 
     <fragment
         android:id="@+id/navigation_product"
-        android:name="com.catsoft.vktin.ui.product.ProductFragment2"
+        android:name="com.catsoft.vktin.ui.markets_flow.product.ProductFragment"
         android:label="Продукт"
-        tools:layout="@layout/fragment_product2" >
+        tools:layout="@layout/fragment_product" >
     </fragment>
 
     <fragment
@@ -54,21 +54,21 @@
 
     <fragment
         android:id="@+id/navigation_groupsList"
-        android:name="com.catsoft.vktin.ui.groupsList.GroupsListFragment"
+        android:name="com.catsoft.vktin.ui.unsubscribing_flow.group_list.GroupListFragment"
         android:label="Группы"
         tools:layout="@layout/fragment_groups" >
     </fragment>
 
     <fragment
         android:id="@+id/navigation_share"
-        android:name="com.catsoft.vktin.ui.shareContent.ShareContentFragment"
+        android:name="com.catsoft.vktin.ui.sharing_flow.shareContent.ShareContentFragment"
         android:label="Шаринг"
         tools:layout="@layout/fragment_share_content" >
     </fragment>
 
     <fragment
         android:id="@+id/navigation_documents"
-        android:name="com.catsoft.vktin.ui.documentList.DocumentListFragment"
+        android:name="com.catsoft.vktin.ui.documents_flow.document_list.DocumentListFragment"
         android:label="Документы"
         tools:layout="@layout/fragment_documents_list" >
     </fragment>

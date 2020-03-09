@@ -1,7 +1,7 @@
 ﻿package com.catsoft.vktin.vkApi
 
 import android.net.Uri
-import com.catsoft.vktin.vkApi.model.VKApiDocument
+import com.catsoft.vktin.vkApi.model.VKDocument
 import com.catsoft.vktin.vkApi.model.VKCity
 import com.catsoft.vktin.vkApi.model.VKGroup
 import com.catsoft.vktin.vkApi.model.VKPost
@@ -29,7 +29,7 @@ interface IVkApi {
 
     fun groupLeave(id: Int) : Observable<Int>
 
-    fun getList(): Observable<List<VKApiDocument>>
+    fun getList(): Observable<List<VKDocument>>
 
     fun deleteDocument(id: Int, ownerId: Int): Observable<Boolean>
 

@@ -9,23 +9,26 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.catsoft.vktin.databinding.ActivityMainBinding
 import com.catsoft.vktin.di.SimpleDi
 import com.catsoft.vktin.services.WindowsInsetProvider
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKApiConfig
 import com.vk.api.sdk.VKDefaultValidationHandler
-import kotlinx.android.synthetic.main.activity_main.*
-
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var viewBinding: ActivityMainBinding
 
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
-        this.setSupportActionBar(toolbar!!)
+        viewBinding = ActivityMainBinding.inflate(layoutInflater, null, false)
+        setContentView(viewBinding.getRoot())
+
+        this.setSupportActionBar(viewBinding.toolbar)
 
         initOffsets()
 
@@ -53,13 +56,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initOffsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(root_coordinator!!) { _, i ->
+        ViewCompat.setOnApplyWindowInsetsListener(viewBinding.rootCoordinator) { _, i ->
             val s = i.systemWindowInsets
             if (s.top != 0) {
                 SimpleDi.Instance.register(
                     WindowsInsetProvider::class.java, WindowsInsetProvider(s)
                 )
-                root_coordinator.setPadding(0, s.top, 0, s.bottom)
+                viewBinding.rootCoordinator.setPadding(0, s.top, 0, s.bottom)
             }
             i.consumeSystemWindowInsets()
         }

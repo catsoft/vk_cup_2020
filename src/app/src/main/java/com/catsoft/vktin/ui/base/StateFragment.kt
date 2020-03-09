@@ -1,48 +1,60 @@
 ﻿package com.catsoft.vktin.ui.base
 
 import android.view.View
-import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
+import com.catsoft.vktin.databinding.FragmentsStatesEmptyBinding
+import com.catsoft.vktin.databinding.FragmentsStatesErrorBinding
+import com.catsoft.vktin.databinding.FragmentsStatesLoadingBinding
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
-import kotlinx.android.synthetic.main.fragment_markets.*
-import kotlinx.android.synthetic.main.fragments_states_empty.*
-import kotlinx.android.synthetic.main.fragments_states_error.*
-import kotlinx.android.synthetic.main.fragments_states_loading.*
 
-open class StateFragment : Fragment() {
+abstract class StateFragment<TViewBinding : ViewBinding> : ViewBindingFragment<TViewBinding>() {
 
     protected var compositeDisposable = CompositeDisposable()
         private set
 
+    open fun getErrorStateViewBinding() : FragmentsStatesErrorBinding? = null
+
+    open fun getEmptyStateViewBinding() : FragmentsStatesEmptyBinding? = null
+
+    open fun getLoadingStateViewBinding() : FragmentsStatesLoadingBinding? = null
+
+    open fun getNormalStateView() : View? = null
+
     fun subscribeToState(viewModel: BaseViewModel) {
         viewModel.isError.observeOn(AndroidSchedulers.mainThread()).subscribe {
-            if (errorState_root != null) {
-                errorState_root.visibility = if (it) View.VISIBLE else View.GONE
+            val errorState = getErrorStateViewBinding()
+            if (errorState != null) {
+                errorState.root.visibility = if (it) View.VISIBLE else View.GONE
             }
         }.addTo(compositeDisposable)
 
         viewModel.error.observeOn(AndroidSchedulers.mainThread()).subscribe {
-            if (errorState_text != null) {
-                errorState_text.text = it?.toString()
+            val errorState = getErrorStateViewBinding()
+            if (errorState != null) {
+                errorState.errorStateText.text = it?.toString()
             }
         }.addTo(compositeDisposable)
 
         viewModel.isProgress.observeOn(AndroidSchedulers.mainThread()).subscribe {
-            if (loadingState_root != null) {
-                loadingState_root.visibility = if (it) View.VISIBLE else View.GONE
+            val loadingState = getLoadingStateViewBinding()
+            if (loadingState != null) {
+                loadingState.root.visibility = if (it) View.VISIBLE else View.GONE
             }
         }.addTo(compositeDisposable)
 
         viewModel.isSuccess.observeOn(AndroidSchedulers.mainThread()).subscribe {
-            if (normal_state != null) {
-                normal_state.visibility = if (it) View.VISIBLE else View.GONE
+            val normalState = getNormalStateView()
+            if (normalState != null) {
+                normalState.visibility = if (it) View.VISIBLE else View.GONE
             }
         }.addTo(compositeDisposable)
 
         viewModel.isEmpty.observeOn(AndroidSchedulers.mainThread()).subscribe {
-            if (emptyState_root != null) {
-                emptyState_root.visibility = if (it) View.VISIBLE else View.GONE
+            val emptyState = getEmptyStateViewBinding()
+            if (emptyState != null) {
+                emptyState.root.visibility = if (it) View.VISIBLE else View.GONE
             }
         }.addTo(compositeDisposable)
     }
