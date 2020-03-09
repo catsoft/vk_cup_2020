@@ -1,11 +1,11 @@
-package com.catsoft.vktin.ui.unsubscribing_flow.groups_detail
+package com.catsoft.vktin.ui.unsubscribing_flow.group_detail
 
 import com.catsoft.vktin.ui.base.BaseViewModel
 import com.catsoft.vktin.vkApi.model.VKPost
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
-class GroupsDetailViewModel : BaseViewModel() {
+class GroupDetailViewModel : BaseViewModel() {
 
     private val _loadPublisher = PublishSubject.create<Int>()
 

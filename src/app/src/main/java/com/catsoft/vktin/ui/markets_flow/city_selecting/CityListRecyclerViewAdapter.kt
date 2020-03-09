@@ -9,7 +9,7 @@ import com.catsoft.vktin.vkApi.model.VKCity
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 
-class CitiesListRecyclerViewAdapter(
+class CityListRecyclerViewAdapter(
     private val onSelectCallback: IOnSelectCityCallback,
     private var selectedCity: VKCity
 ) : BaseAdapter<CityViewHolder, VKCity>() {

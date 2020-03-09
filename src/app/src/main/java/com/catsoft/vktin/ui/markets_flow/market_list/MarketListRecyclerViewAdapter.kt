@@ -17,12 +17,12 @@ import io.reactivex.rxkotlin.addTo
 
 class MarketListRecyclerViewAdapter(
     private val context: Context
-) : BaseAdapter<MarketsViewHolder, VKGroup>() {
+) : BaseAdapter<MarketViewHolder, VKGroup>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarketsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarketViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = CellMarketBinding.inflate(layoutInflater, parent, false)
-        val holder = MarketsViewHolder(binding)
+        val holder = MarketViewHolder(binding)
 
         RxView.clicks(holder.itemView).subscribe {
             val item = items[holder.adapterPosition]
@@ -34,7 +34,7 @@ class MarketListRecyclerViewAdapter(
         return holder
     }
 
-    override fun onBindViewHolder(holder: MarketsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MarketViewHolder, position: Int) {
 
         val item = items[position]
 

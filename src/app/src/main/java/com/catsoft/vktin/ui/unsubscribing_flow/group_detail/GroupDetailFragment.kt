@@ -1,4 +1,4 @@
-package com.catsoft.vktin.ui.unsubscribing_flow.groups_detail
+package com.catsoft.vktin.ui.unsubscribing_flow.group_detail
 
 import android.content.Intent
 import android.graphics.Color
@@ -23,7 +23,7 @@ class GroupDetailFragment(
     private val group : VKGroup
 ) : StateDialogFragment<FragmentGroupDetailBinding>() {
 
-    private lateinit var viewModel: GroupsDetailViewModel
+    private lateinit var viewModel: GroupDetailViewModel
 
     override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentGroupDetailBinding {
         return FragmentGroupDetailBinding::inflate
@@ -37,7 +37,7 @@ class GroupDetailFragment(
 
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(GroupsDetailViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(GroupDetailViewModel::class.java)
 
         subscribeToState(viewModel)
 

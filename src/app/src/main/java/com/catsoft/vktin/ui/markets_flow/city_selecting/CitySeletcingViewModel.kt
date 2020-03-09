@@ -7,7 +7,7 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
 
-class CitiesListViewModel : BaseViewModel() {
+class CitySeletcingViewModel : BaseViewModel() {
 
     private val _loadPublisher = PublishSubject.create<Int>()
 

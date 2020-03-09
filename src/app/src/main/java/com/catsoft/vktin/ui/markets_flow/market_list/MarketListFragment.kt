@@ -12,7 +12,7 @@ import com.catsoft.vktin.MainActivity
 import com.catsoft.vktin.R
 import com.catsoft.vktin.databinding.FragmentMarketListBinding
 import com.catsoft.vktin.ui.base.StateFragment
-import com.catsoft.vktin.ui.markets_flow.city_selecting.CitiesSelectListFragment
+import com.catsoft.vktin.ui.markets_flow.city_selecting.CitySelectingFragment
 import com.catsoft.vktin.ui.markets_flow.city_selecting.IOnSelectCityCallback
 import com.catsoft.vktin.vkApi.model.VKCity
 import io.reactivex.rxkotlin.addTo
@@ -72,7 +72,7 @@ class MarketListFragment : StateFragment<FragmentMarketListBinding>(), IOnSelect
             toolbar.addView(dropDownImage)
 
             toolbar.setOnClickListener {
-                val dialogFragment = CitiesSelectListFragment(this, viewModel.selectedCity!!)
+                val dialogFragment = CitySelectingFragment(this, viewModel.selectedCity!!)
                 dialogFragment.show(activity!!.supportFragmentManager, "signature")
             }
         }.addTo(compositeDisposable)

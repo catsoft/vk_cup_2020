@@ -18,12 +18,12 @@ import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 
-class CitiesSelectListFragment(
+class CitySelectingFragment(
     private val onSelectCallback: IOnSelectCityCallback,
     private val selectedCity : VKCity
 ) : StateDialogFragment<FragmentCitySelectingBinding>() {
 
-    private lateinit var viewModel: CitiesListViewModel
+    private lateinit var viewModel: CitySeletcingViewModel
 
     override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentCitySelectingBinding = FragmentCitySelectingBinding::inflate
 
@@ -35,7 +35,7 @@ class CitiesSelectListFragment(
 
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(CitiesListViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(CitySeletcingViewModel::class.java)
 
         subscribeToState(viewModel)
 
@@ -59,7 +59,7 @@ class CitiesSelectListFragment(
         layout.bottomMargin = insets.bottom
         viewBinding.rootDialog.layoutParams = layout
 
-        val adapter = CitiesListRecyclerViewAdapter(onSelectCallback, selectedCity)
+        val adapter = CityListRecyclerViewAdapter(onSelectCallback, selectedCity)
         val list = viewBinding.citiesListRecyclerView
         val layoutManager = LinearLayoutManager(view!!.context, LinearLayoutManager.VERTICAL, false)
         list.layoutManager = layoutManager

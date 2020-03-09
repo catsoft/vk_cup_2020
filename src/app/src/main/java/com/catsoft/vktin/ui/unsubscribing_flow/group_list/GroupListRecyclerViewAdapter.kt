@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.catsoft.vktin.databinding.CellGroupBinding
 import com.catsoft.vktin.ui.base.BaseAdapter
-import com.catsoft.vktin.ui.unsubscribing_flow.groups_detail.GroupDetailFragment
+import com.catsoft.vktin.ui.unsubscribing_flow.group_detail.GroupDetailFragment
 import com.catsoft.vktin.vkApi.model.VKGroup
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
@@ -18,14 +18,14 @@ import io.reactivex.rxkotlin.addTo
 class GroupListRecyclerViewAdapter(
     private val viewModel: GroupListViewModel,
     private val context: Context
-) : BaseAdapter<GroupsViewHolder, VKGroup>() {
+) : BaseAdapter<GroupViewHolder, VKGroup>() {
 
     private var selectedList = mutableListOf<Int>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = CellGroupBinding.inflate(layoutInflater, parent, false)
-        val holder = GroupsViewHolder(binding)
+        val holder = GroupViewHolder(binding)
 
         RxView.clicks(holder.itemView).subscribe {
             val item = items[holder.adapterPosition]
@@ -49,7 +49,7 @@ class GroupListRecyclerViewAdapter(
         return holder
     }
 
-    override fun onBindViewHolder(holder: GroupsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: GroupViewHolder, position: Int) {
 
         val item = items[position]
 

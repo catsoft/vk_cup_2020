@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.catsoft.vktin.MainActivity
-import com.catsoft.vktin.R
 import com.catsoft.vktin.databinding.FragmentProductsBinding
 import com.catsoft.vktin.di.SimpleDi
 import com.catsoft.vktin.services.CurrentLocaleProvider
@@ -42,7 +41,7 @@ class ProductListFragment : StateFragment<FragmentProductsBinding>() {
 
     private fun initList() {
         val locale = SimpleDi.Instance.resolve<CurrentLocaleProvider>(CurrentLocaleProvider::class.java).currentLocale
-        val adapter = ProductsListRecyclerViewAdapter(locale, activity!!)
+        val adapter = ProductListRecyclerViewAdapter(locale, activity!!)
         val list = viewBinding.productListRecyclerView
         val layoutManager = GridLayoutManager(activity!!, 2)
         list.layoutManager = layoutManager

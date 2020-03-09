@@ -18,19 +18,19 @@ import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 import java.util.*
 
-class ProductsListRecyclerViewAdapter(
+class ProductListRecyclerViewAdapter(
     locale: Locale,
-    private val context: Context) : BaseAdapter<ProductsViewHolder, VKProduct>() {
+    private val context: Context) : BaseAdapter<ProductViewHolder, VKProduct>() {
 
     private val currencyFormatter = java.text.NumberFormat.getCurrencyInstance(locale).apply {
         maximumFractionDigits = 0
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = CellProductBinding.inflate(inflater, parent, false)
 
-        val holder = ProductsViewHolder(binding)
+        val holder = ProductViewHolder(binding)
         RxView.clicks(holder.itemView).subscribe {
             val item = items[holder.adapterPosition]
             val nav = binding.root.findNavController()
@@ -41,7 +41,7 @@ class ProductsListRecyclerViewAdapter(
         return holder
     }
 
-    override fun onBindViewHolder(holder: ProductsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
 
         val item = items[position]
 
