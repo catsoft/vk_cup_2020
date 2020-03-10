@@ -21,7 +21,7 @@ class MarketListViewModel : BaseViewModel() {
 
     val selectedCityObservable: Observable<VKCity> = _cityPublisher
 
-    override fun initInner() {
+    init {
 
         _cityPublisher.subscribe {
             if (it != null) {
@@ -40,9 +40,7 @@ class MarketListViewModel : BaseViewModel() {
         }.addTo(compositeDisposable)
     }
 
-    override fun start() {
-        super.start()
-
+    fun start() {
         _cityPublisher.onNext(VKCity(-1, ""))
     }
 

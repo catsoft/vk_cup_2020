@@ -39,11 +39,7 @@ class CitySelectingFragment(
 
         subscribeToState(viewModel)
 
-        viewModel.init()
-
         initList()
-
-        viewModel.start()
 
         RxView.clicks(viewBinding.dismissImage).subscribe { this.dismiss() }.addTo(compositeDisposable)
     }

@@ -13,7 +13,7 @@ class CitySeletcingViewModel : BaseViewModel() {
 
     val cities: Observable<List<VKCity>> = _loadPublisher.flatMap { vkApi.getCitiesList() }
 
-    override fun initInner() {
+    init {
         cities.subscribeBy({ setOnError(it) }) {
             if (it.isNotEmpty()) {
                 setSuccess()
@@ -23,9 +23,7 @@ class CitySeletcingViewModel : BaseViewModel() {
         }.addTo(compositeDisposable)
     }
 
-    override fun start() {
-        super.start()
-
+    fun start() {
         _loadPublisher.onNext(1)
     }
 }

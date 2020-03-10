@@ -6,7 +6,7 @@ import org.json.JSONObject
 import java.util.*
 
 data class VKDocument(
-    val id : Int,
+    override val id: Int,
     val ownerId : Int,
     val title : String,
     val size : Int,
@@ -16,7 +16,7 @@ data class VKDocument(
     val type : VKDocumentType,
     val preview : String,
     val tags : List<String>
-) : Parcelable {
+) : Parcelable, IWithIdModel {
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),

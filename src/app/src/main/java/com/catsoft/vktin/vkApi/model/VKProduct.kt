@@ -5,7 +5,7 @@ import android.os.Parcelable
 import org.json.JSONObject
 
 data class VKProduct(
-    val id : Int,
+    override val id: Int,
     val ownerId : Int,
     val title : String,
     val description : String,
@@ -15,7 +15,7 @@ data class VKProduct(
 //    val date : Int,
     val availability : Int,
     val isFavorite : Boolean
-) : Parcelable {
+) : Parcelable, IWithIdModel {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readInt(),

@@ -5,9 +5,9 @@ import android.os.Parcelable
 import org.json.JSONObject
 
 data class VKCurrency(
-    val id : Int,
+    override val id: Int,
     val name : String
-) : Parcelable {
+) : Parcelable, IWithIdModel {
     constructor(parcel: Parcel) : this(
         parcel.readInt(), parcel.readString()!!
     )

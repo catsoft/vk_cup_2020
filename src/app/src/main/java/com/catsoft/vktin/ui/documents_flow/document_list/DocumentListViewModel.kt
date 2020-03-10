@@ -18,36 +18,47 @@ import java.net.URL
 
 class DocumentListViewModel() : BaseViewModel() {
 
-    private var _documentsList = mutableListOf<VKDocument>()
+    private val _loader = vkApi.getList()
 
     private val _documents = MutableLiveData<List<VKDocument>>()
 
     val documents: LiveData<List<VKDocument>> = _documents
 
-    fun loadDocs() {
+    init {
         setIsProgress()
-        vkApi.getList().subscribeBy({
-            setOnError(it)
-        }) {
-            _documentsList = it.toMutableList()
-            _documents.postValue(_documentsList)
-            setSuccess()
-        }.addTo(compositeDisposable)
+        loadDocs()
+    }
+
+    fun loadDocs() {
+        _loader.compose(getTransformer(this::whenLoad)).subscribe().addTo(compositeDisposable)
     }
 
     fun removeDocument(document: VKDocument) {
-        vkApi.deleteDocument(document.id, document.ownerId).subscribeBy {
-            _documentsList.remove(document)
-            _documents.postValue(_documentsList)
-        }.addTo(compositeDisposable)
+        vkApi.deleteDocument(document.id, document.ownerId).map { document }.compose(getTransformer(this::whenRemove)).subscribe()
+            .addTo(compositeDisposable)
     }
 
     fun renameDocument(document: VKDocument, newName: String) {
-        vkApi.editDocument(document.id, document.ownerId, newName, document.tags).subscribeBy {
-            val copy = document.copy(title = newName)
-            _documentsList[_documentsList.indexOf(document)] = copy
-            _documents.postValue(_documentsList)
-        }.addTo(compositeDisposable)
+        vkApi.editDocument(document.id, document.ownerId, newName, document.tags).map { Pair(document, newName) }
+            .compose(getTransformer(this::whenRename)).subscribe().addTo(compositeDisposable)
+    }
+
+    private fun whenRemove(document: VKDocument) {
+        val list = _documents.value!!.toMutableList()
+        list.remove(document)
+        _documents.postValue(list)
+    }
+
+    private fun whenLoad(list: List<VKDocument>) {
+        _documents.postValue(list.toMutableList())
+        setSuccess()
+    }
+
+    private fun whenRename(pair: Pair<VKDocument, String>) {
+        val copy = pair.first.copy(title = pair.second)
+        val list = _documents.value!!.toMutableList()
+        list[list.indexOf(pair.first)] = copy
+        _documents.postValue(list)
     }
 
     fun loadFileAndOpen(document: VKDocument, context: Context) {
@@ -70,37 +81,24 @@ class DocumentListViewModel() : BaseViewModel() {
         val dialog = loader.show()
 
         disposable = Observable.create<File> {
-                try {
-                    if (!file.exists()) {
-                        URL(document.url).openStream().use { input ->
-                            FileOutputStream(file).use { output ->
-                                input.copyTo(output)
-                            }
+                if (!file.exists()) {
+                    URL(document.url).openStream().use { input ->
+                        FileOutputStream(file).use { output ->
+                            input.copyTo(output)
                         }
                     }
-
-                    it.onNext(file)
-                } catch (e: Exception) {
                 }
 
-            }.subscribeOn(Schedulers.newThread()).observeOn(Schedulers.io()).subscribeBy({}) {
+                it.onNext(file)
+            }.subscribeOn(Schedulers.newThread()).observeOn(Schedulers.io()).onErrorResumeNext(Observable.empty()).subscribeBy() {
                 ViewLocalFilesUtil.openFile(context, it)
                 dialog.dismiss()
             }.addTo(compositeDisposable)
-    }
-
-    override fun initInner() {
     }
 
     override fun onCleared() {
         super.onCleared()
 
         compositeDisposable.dispose()
-    }
-
-    override fun start() {
-        super.start()
-
-        loadDocs()
     }
 }

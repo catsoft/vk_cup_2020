@@ -27,8 +27,6 @@ class FeaturesFragment : StateFragment<FragmentFeaturesBinding>() {
 
         subscribeToState(viewModel)
 
-        viewModel.init()
-
         authViewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (!it) {
                 findNavController().navigate(R.id.navigation_auth)
@@ -50,8 +48,6 @@ class FeaturesFragment : StateFragment<FragmentFeaturesBinding>() {
         RxView.clicks(viewBinding.featuresDocumentsButton).subscribe {
             findNavController().navigate(FeaturesFragmentDirections.actionNavigationFeaturesToNavigationDocuments())
         }.addTo(compositeDisposable)
-
-        viewModel.start()
     }
 }
 

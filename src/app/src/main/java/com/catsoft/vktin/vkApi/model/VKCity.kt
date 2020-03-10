@@ -2,7 +2,7 @@ package com.catsoft.vktin.vkApi.model
 
 import org.json.JSONObject
 
-data class VKCity(val id: Int, val title: String) {
+data class VKCity(override val id: Int, val title: String) : IWithIdModel {
     companion object {
         fun parse(json: JSONObject?): VKCity {
             if (json == null) return VKCity(0, "")

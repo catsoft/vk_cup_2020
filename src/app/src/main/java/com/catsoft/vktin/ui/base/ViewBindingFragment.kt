@@ -19,5 +19,10 @@ abstract class ViewBindingFragment<TBinding : ViewBinding> : Fragment() {
     }
 
     abstract fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> TBinding
+
+    override fun onDestroyView() {
+        _viewBinding = null
+        super.onDestroyView()
+    }
 }
 

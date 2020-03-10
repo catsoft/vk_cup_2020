@@ -36,8 +36,6 @@ class ProductFragment : StateFragment<FragmentProductBinding>() {
 
         subscribeToState(viewModel)
 
-        viewModel.init()
-
         initProduct(item)
 
         initIsFavorite()

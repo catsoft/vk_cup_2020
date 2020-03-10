@@ -41,8 +41,6 @@ class GroupDetailFragment(
 
         subscribeToState(viewModel)
 
-        viewModel.init()
-
         initWindow()
 
         initInfo()
@@ -50,8 +48,6 @@ class GroupDetailFragment(
         initOpenButton()
 
         viewModel.start(group.id)
-
-        viewModel.setSuccess()
 
         RxView.clicks(viewBinding.dismissImage).subscribe { this.dismiss() }.addTo(compositeDisposable)
     }

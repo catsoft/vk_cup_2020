@@ -27,11 +27,7 @@ class GroupListFragment : StateFragment<FragmentGroupsBinding>() {
 
         subscribeToState(viewModel)
 
-        viewModel.init()
-
         initList()
-
-        viewModel.start()
 
         viewBinding.mainCollapsing.setExpandedTitleColor(resources.getColor(R.color.transparent))
     }

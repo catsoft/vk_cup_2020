@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.navigation.fragment.findNavController
 import com.catsoft.vktin.databinding.FragmentAuthBinding
 import com.catsoft.vktin.ui.base.StateFragment
@@ -26,23 +29,19 @@ class AuthFragment : StateFragment<FragmentAuthBinding>() {
 
         subscribeToState(viewModel)
 
-        viewModel.init()
-
         RxView.clicks(viewBinding.authButton).subscribe {
             VK.login(requireActivity(), setOf(VKScope.GROUPS, VKScope.MARKET, VKScope.WALL, VKScope.DOCS))
         }.addTo(compositeDisposable)
 
-        viewModel.isError.subscribe {
+        viewModel.isError.observe(viewLifecycleOwner, Observer {
             viewBinding.authError.visibility = if (it) View.VISIBLE else View.GONE
-        }.addTo(compositeDisposable)
+        })
 
         viewModel.isLogin.observe(viewLifecycleOwner, Observer {
             if (it) {
                 findNavController().navigateUp()
             }
         })
-
-        viewModel.start()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

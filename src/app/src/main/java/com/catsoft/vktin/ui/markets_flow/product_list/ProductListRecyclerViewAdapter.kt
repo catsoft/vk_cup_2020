@@ -11,6 +11,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.catsoft.vktin.R
 import com.catsoft.vktin.databinding.CellProductBinding
+import com.catsoft.vktin.ui.WithIdDiffCallback
 import com.catsoft.vktin.ui.base.BaseAdapter
 import com.catsoft.vktin.utils.DimensionUtil
 import com.catsoft.vktin.vkApi.model.VKProduct
@@ -57,7 +58,7 @@ class ProductListRecyclerViewAdapter(
     }
 
     fun updateMarketsListItems(list: List<VKProduct>) {
-        val diffResult = DiffUtil.calculateDiff(ProductsDiffCallback(list, this.items))
+        val diffResult = DiffUtil.calculateDiff(WithIdDiffCallback(list, this.items))
         this.items = list.toMutableList()
         diffResult.dispatchUpdatesTo(this)
     }

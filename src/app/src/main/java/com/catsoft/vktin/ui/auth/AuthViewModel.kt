@@ -27,7 +27,4 @@ class AuthViewModel : BaseViewModel() {
     init {
         _isLogin.postValue(VK.isLoggedIn())
     }
-
-    override fun initInner() {
-    }
 }

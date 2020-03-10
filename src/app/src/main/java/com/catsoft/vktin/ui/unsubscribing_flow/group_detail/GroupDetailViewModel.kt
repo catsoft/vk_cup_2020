@@ -15,12 +15,7 @@ class GroupDetailViewModel : BaseViewModel() {
 
     private var _groupId : Int = 0
 
-    override fun initInner() {
-
-    }
-
     fun start(id : Int) {
-        start()
 
         _groupId = id
 

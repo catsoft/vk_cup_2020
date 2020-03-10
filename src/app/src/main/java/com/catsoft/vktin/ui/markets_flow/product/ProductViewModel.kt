@@ -20,7 +20,7 @@ class ProductViewModel : BaseViewModel() {
 
     val isFavorite: Observable<Boolean?> = _isFavoritePublisher
 
-    override fun initInner() {
+    init {
         _productPublisher.subscribe {
             currentProduct = it
             vkApi.getProduct(it.ownerId, it.id).observeOn(Schedulers.newThread()).subscribe { isFavoriteResponse ->
@@ -46,8 +46,6 @@ class ProductViewModel : BaseViewModel() {
     fun start(product: VKProduct) {
 
         _productPublisher.onNext(product)
-
-        start()
     }
 
     fun toggleIsFavorite() {

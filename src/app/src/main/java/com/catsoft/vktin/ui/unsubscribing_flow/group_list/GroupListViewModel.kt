@@ -23,7 +23,7 @@ class GroupListViewModel : BaseViewModel() {
 
     val unsubscribeObservable: Observable<Int> = _unsubscribePublisher
 
-    override fun initInner() {
+    init {
         groups.subscribeBy(onError = { setOnError(it) }) {
             if (it.isEmpty()) {
                 setIsEmpty()
@@ -33,9 +33,7 @@ class GroupListViewModel : BaseViewModel() {
         }.addTo(compositeDisposable)
     }
 
-    override fun start() {
-        super.start()
-
+    fun start() {
         _loadPublisher.onNext(1)
     }
 

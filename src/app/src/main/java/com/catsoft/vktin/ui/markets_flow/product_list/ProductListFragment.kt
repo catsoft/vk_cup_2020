@@ -32,10 +32,7 @@ class ProductListFragment : StateFragment<FragmentProductsBinding>() {
 
         subscribeToState(viewModel)
 
-        viewModel.init()
-
         initList()
-
         viewModel.start(id)
     }
 

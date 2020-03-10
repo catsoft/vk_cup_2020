@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.contains
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.catsoft.vktin.MainActivity
@@ -32,13 +33,9 @@ class MarketListFragment : StateFragment<FragmentMarketListBinding>(), IOnSelect
 
         subscribeToState(viewModel)
 
-        viewModel.init()
-
         initList()
 
         initToolbar()
-
-        viewModel.start()
     }
 
     private fun initList() {
@@ -63,19 +60,21 @@ class MarketListFragment : StateFragment<FragmentMarketListBinding>(), IOnSelect
             toolbar.title = if (it?.title?.isNotEmpty() != true) "Магазины" else "Магазины в ${it.title}"
         }.addTo(compositeDisposable)
 
-        viewModel.isSuccess.filter { it }.subscribe {
-            clearToolbar()
+        viewModel.isSuccess.observe(viewLifecycleOwner, Observer {
+            if (it) {
+                clearToolbar()
 
-            dropDownImage = ImageView(activity!!)
-            dropDownImage?.setImageResource(R.drawable.ic_dropdown)
+                dropDownImage = ImageView(activity!!)
+                dropDownImage?.setImageResource(R.drawable.ic_dropdown)
 
-            toolbar.addView(dropDownImage)
+                toolbar.addView(dropDownImage)
 
-            toolbar.setOnClickListener {
-                val dialogFragment = CitySelectingFragment(this, viewModel.selectedCity!!)
-                dialogFragment.show(activity!!.supportFragmentManager, "signature")
+                toolbar.setOnClickListener {
+                    val dialogFragment = CitySelectingFragment(this, viewModel.selectedCity!!)
+                    dialogFragment.show(activity!!.supportFragmentManager, "signature")
+                }
             }
-        }.addTo(compositeDisposable)
+        })
     }
 
     override fun onPause() {

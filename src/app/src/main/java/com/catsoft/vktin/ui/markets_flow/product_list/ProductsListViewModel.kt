@@ -15,7 +15,7 @@ class ProductsListViewModel : BaseViewModel() {
 
     val products: Observable<List<VKProduct>> = _loadPublisher.flatMap { vkApi.getProductsList(_groupId) }
 
-    override fun initInner() {
+    init {
         products.subscribeBy({ setOnError(it) }) {
             if (it.isNotEmpty()) {
                 setSuccess()
@@ -26,8 +26,6 @@ class ProductsListViewModel : BaseViewModel() {
     }
 
     fun start(id: Int) {
-        start()
-
         _groupId = id
 
         _loadPublisher.onNext(1)

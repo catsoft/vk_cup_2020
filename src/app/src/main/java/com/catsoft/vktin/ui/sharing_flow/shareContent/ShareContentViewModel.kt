@@ -62,7 +62,4 @@ class ShareContentViewModel : BaseViewModel() {
     fun clear() {
         _selectedImage.value = null
     }
-
-    override fun initInner() {
-    }
 }

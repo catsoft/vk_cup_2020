@@ -16,12 +16,16 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.catsoft.vktin.R
 import com.catsoft.vktin.databinding.CellDocumentBinding
+import com.catsoft.vktin.ui.WithIdDiffCallback
 import com.catsoft.vktin.ui.base.BaseAdapter
 import com.catsoft.vktin.utils.CalendarReadableUtil
 import com.catsoft.vktin.utils.DimensionUtil
 import com.catsoft.vktin.utils.SizeHumanReadableUtil
 import com.catsoft.vktin.vkApi.model.VKDocument
 import com.catsoft.vktin.vkApi.model.VKDocumentType
+import com.jakewharton.rxbinding2.view.RxView
+import io.reactivex.Observable
+import io.reactivex.rxkotlin.addTo
 import java.util.*
 
 class DocumentListRecyclerViewAdapter(
@@ -33,29 +37,31 @@ class DocumentListRecyclerViewAdapter(
         val layoutInflater = LayoutInflater.from(parent.context)
         val cellDocumentBinding = CellDocumentBinding.inflate(layoutInflater, parent, false)
         val holder = DocumentViewHolder(cellDocumentBinding)
-        holder.itemView.setOnClickListener { }
-        holder.binding.dots.setOnClickListener {
-            showMenuPopup(holder)
-        }
 
-        holder.binding.nameTextView.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                val item = items[holder.adapterPosition]
-                viewModel.renameDocument(item, holder.binding.nameTextView.text.toString() + "." + item.ext)
-                holder.binding.nameTextView.setSelection(0)
-                holder.binding.nameTextView.setRawInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE)
-                holder.binding.nameTextView.isEnabled = false
+        holder.binding.apply {
+            RxView.clicks(dots).subscribe {
+                showMenuPopup(holder)
+            }.addTo(compositeDisposable)
+
+            RxView.focusChanges(nameTextView).onErrorResumeNext(Observable.empty()).subscribe {
+                if (!it && holder.adapterPosition in items.indices) {
+                    val item = items[holder.adapterPosition]
+                    viewModel.renameDocument(item, holder.binding.nameTextView.text.toString() + "." + item.ext)
+                    holder.binding.nameTextView.setSelection(0)
+                    holder.binding.nameTextView.setRawInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE)
+                    holder.binding.nameTextView.isEnabled = false
+                }
+            }.addTo(compositeDisposable)
+
+            nameTextView.setOnEditorActionListener { _, _, _ ->
+                holder.binding.nameTextView.clearFocus()
+                true
             }
-        }
 
-        holder.binding.nameTextView.setOnEditorActionListener { _, _, _ ->
-            holder.binding.nameTextView.clearFocus()
-            true
-        }
-
-        holder.itemView.setOnClickListener {
-            val item = items[holder.adapterPosition]
-            viewModel.loadFileAndOpen(item, context)
+            RxView.clicks(root).subscribe {
+                val item = items[holder.adapterPosition]
+                viewModel.loadFileAndOpen(item, context)
+            }.addTo(compositeDisposable)
         }
 
         return holder
@@ -104,7 +110,7 @@ class DocumentListRecyclerViewAdapter(
     }
 
     fun updateDocumentsListItems(documents: List<VKDocument>) {
-        val diffResult = DiffUtil.calculateDiff(DocumentsDiffCallback(documents, this.items))
+        val diffResult = DiffUtil.calculateDiff(WithIdDiffCallback(documents, this.items))
         this.items = documents.toMutableList()
         diffResult.dispatchUpdatesTo(this)
     }

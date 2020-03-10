@@ -3,7 +3,7 @@
 import org.json.JSONObject
 
 data class VKGroup (
-    val id : Int,
+    override val id: Int,
     val name : String,
     val screenName : String,
     val deactivated : String,
@@ -17,7 +17,7 @@ data class VKGroup (
     val city : VKCity,
     val members_count : Int,
     val description : String,
-    val market : VKMarket) {
+    val market : VKMarket) : IWithIdModel {
 
     companion object {
 

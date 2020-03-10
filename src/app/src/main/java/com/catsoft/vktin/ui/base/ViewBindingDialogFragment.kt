@@ -20,4 +20,9 @@ abstract class ViewBindingDialogFragment<TBinding : ViewBinding> : BottomSheetDi
     }
 
     abstract fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> TBinding
+
+    override fun onDestroyView() {
+        _viewBinding = null
+        super.onDestroyView()
+    }
 }

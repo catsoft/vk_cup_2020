@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.catsoft.vktin.databinding.CellGroupBinding
+import com.catsoft.vktin.ui.WithIdDiffCallback
 import com.catsoft.vktin.ui.base.BaseAdapter
 import com.catsoft.vktin.ui.unsubscribing_flow.group_detail.GroupDetailFragment
 import com.catsoft.vktin.vkApi.model.VKGroup
@@ -65,7 +66,7 @@ class GroupListRecyclerViewAdapter(
     }
 
     fun updateMarketsListItems(list: List<VKGroup>) {
-        val diffResult = DiffUtil.calculateDiff(GroupsDiffCallback(list, this.items))
+        val diffResult = DiffUtil.calculateDiff(WithIdDiffCallback(list, this.items))
         this.items = list.toMutableList()
         selectedList.clear()
         diffResult.dispatchUpdatesTo(this)

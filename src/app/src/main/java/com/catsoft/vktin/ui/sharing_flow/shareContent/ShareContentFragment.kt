@@ -37,8 +37,6 @@ class ShareContentFragment : StateFragment<FragmentShareContentBinding>() {
         viewModel = ViewModelProvider(this).get(ShareContentViewModel::class.java)
         subscribeToState(viewModel)
 
-        viewModel.init()
-
         viewModel.selectedImage.observe(this as LifecycleOwner, androidx.lifecycle.Observer {
             if (it != null) {
                 viewBinding.messagePart.visibility = View.VISIBLE
@@ -66,8 +64,6 @@ class ShareContentFragment : StateFragment<FragmentShareContentBinding>() {
             viewModel.clear()
             animateOff()
         }
-
-        viewModel.start()
     }
 
     private fun animateOn() {
