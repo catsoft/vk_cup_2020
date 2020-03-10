@@ -1,17 +1,18 @@
-package com.catsoft.vktin.ui.unsubscribing_flow.group_list
+package com.catsoft.vktin.ui.unsubscribe_flow.group_list
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.catsoft.vktin.databinding.CellGroupBinding
 import com.catsoft.vktin.ui.WithIdDiffCallback
 import com.catsoft.vktin.ui.base.BaseAdapter
-import com.catsoft.vktin.ui.unsubscribing_flow.group_detail.GroupDetailFragment
+import com.catsoft.vktin.ui.unsubscribe_flow.group_detail.GroupDetailFragment
 import com.catsoft.vktin.vkApi.model.VKGroup
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
@@ -43,8 +44,8 @@ class GroupListRecyclerViewAdapter(
 
         RxView.longClicks(holder.itemView).subscribe {
             val item = items[holder.adapterPosition]
-            val dialogFragment = GroupDetailFragment(item)
-            dialogFragment.show((context as AppCompatActivity).supportFragmentManager, "signature")
+            val action = GroupListFragmentDirections.actionNavigationGroupsListToNavigationGroupDetail(item)
+            binding.root.findNavController().navigate(action)
         }.addTo(compositeDisposable)
 
         return holder

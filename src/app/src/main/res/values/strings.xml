@@ -23,4 +23,6 @@
     <string name="type_image_content_description">Изображение типа документа</string>
     <string name="dots_content_description">Иконка действия</string>
     <string name="name_editText_hint">Название документа</string>
+    <string name="UnsubscribeTitle">Отписаться от сообществ</string>
+    <string name="UnsubscribeSubtitle">Коснитесь и удерживайте, чтобы увидеть информацию о сообществе</string>
 </resources>

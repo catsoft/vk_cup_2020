@@ -1,4 +1,4 @@
-package com.catsoft.vktin.ui.unsubscribing_flow.group_list
+package com.catsoft.vktin.ui.unsubscribe_flow.group_list
 
 import androidx.recyclerview.widget.RecyclerView
 import com.catsoft.vktin.databinding.CellGroupBinding

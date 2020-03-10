@@ -1,4 +1,4 @@
-package com.catsoft.vktin.ui.unsubscribing_flow.group_detail
+package com.catsoft.vktin.ui.unsubscribe_flow.group_detail
 
 import com.catsoft.vktin.ui.base.BaseViewModel
 import com.catsoft.vktin.vkApi.model.VKPost

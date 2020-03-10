@@ -1,5 +1,7 @@
 ﻿package com.catsoft.vktin.vkApi.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import org.json.JSONObject
 
 data class VKGroup (
@@ -17,9 +19,56 @@ data class VKGroup (
     val city : VKCity,
     val members_count : Int,
     val description : String,
-    val market : VKMarket) : IWithIdModel {
+    val market : VKMarket) : Parcelable, IWithIdModel {
 
-    companion object {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readByte() != 0.toByte(),
+        parcel.readInt(),
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readByte() != 0.toByte(),
+        parcel.readString()!!,
+        parcel.readParcelable(VKCity::class.java.classLoader)!!,
+        parcel.readInt(),
+        parcel.readString()!!,
+        parcel.readParcelable(VKMarket::class.java.classLoader)!!
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(id)
+        parcel.writeString(name)
+        parcel.writeString(screenName)
+        parcel.writeString(deactivated)
+        parcel.writeByte(if (isMember) 1 else 0)
+        parcel.writeInt(isClosed)
+        parcel.writeString(photo50)
+        parcel.writeString(photo100)
+        parcel.writeString(photo200)
+        parcel.writeByte(if (isHiddenFromFeed) 1 else 0)
+        parcel.writeString(status)
+        parcel.writeParcelable(city, flags)
+        parcel.writeInt(members_count)
+        parcel.writeString(description)
+        parcel.writeParcelable(market, flags)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<VKGroup> {
+        override fun createFromParcel(parcel: Parcel): VKGroup {
+            return VKGroup(parcel)
+        }
+
+        override fun newArray(size: Int): Array<VKGroup?> {
+            return arrayOfNulls(size)
+        }
 
         fun parse(json: JSONObject): VKGroup {
             return VKGroup(

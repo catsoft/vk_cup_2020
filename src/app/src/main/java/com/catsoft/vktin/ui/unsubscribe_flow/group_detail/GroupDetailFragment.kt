@@ -1,4 +1,4 @@
-package com.catsoft.vktin.ui.unsubscribing_flow.group_detail
+package com.catsoft.vktin.ui.unsubscribe_flow.group_detail
 
 import android.content.Intent
 import android.graphics.Color
@@ -10,28 +10,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.catsoft.vktin.R
 import com.catsoft.vktin.databinding.FragmentGroupDetailBinding
 import com.catsoft.vktin.ui.base.StateDialogFragment
+import com.catsoft.vktin.ui.sharing_flow.share_content.ShareContentFragmentArgs
 import com.catsoft.vktin.utils.CalendarReadableUtil
 import com.catsoft.vktin.vkApi.model.VKGroup
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 
 
-class GroupDetailFragment(
-    private val group : VKGroup
-) : StateDialogFragment<FragmentGroupDetailBinding>() {
+class GroupDetailFragment : StateDialogFragment<FragmentGroupDetailBinding>() {
 
     private lateinit var viewModel: GroupDetailViewModel
 
-    override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentGroupDetailBinding {
-        return FragmentGroupDetailBinding::inflate
-    }
+    private val args: GroupDetailFragmentArgs by navArgs()
 
-    override fun getTheme(): Int {
-        return R.style.DialogTheme
-    }
+    override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentGroupDetailBinding = FragmentGroupDetailBinding::inflate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -41,26 +38,24 @@ class GroupDetailFragment(
 
         subscribeToState(viewModel)
 
-        initWindow()
+        initInfo(args.selectedGroup)
 
-        initInfo()
+        initOpenButton(args.selectedGroup)
 
-        initOpenButton()
+        viewModel.start(args.selectedGroup.id)
 
-        viewModel.start(group.id)
-
-        RxView.clicks(viewBinding.dismissImage).subscribe { this.dismiss() }.addTo(compositeDisposable)
+        RxView.clicks(viewBinding.dismissImage).subscribe { findNavController().navigateUp() }.addTo(compositeDisposable)
     }
 
-    private fun initOpenButton() {
+    private fun initOpenButton(group: VKGroup) {
         RxView.clicks(viewBinding.openButton).subscribe {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://vk.com/club${group.id}"))
             startActivity(browserIntent)
         }.addTo(compositeDisposable)
     }
 
-    private fun initInfo() {
-        val info = "${group.members_count/1000}К подписчиков · 12 друзей"
+    private fun initInfo(group : VKGroup) {
+        val info = "${group.members_count / 1000}К подписчиков · 12 друзей"
         viewBinding.subscribeInfo.text = info
         viewBinding.descriptionInfo.text = group.description
         viewBinding.title.text = group.name
@@ -78,18 +73,12 @@ class GroupDetailFragment(
         }.addTo(compositeDisposable)
 
         viewModel.countFriends.subscribe {
-            val info2 = "${group.members_count/1000}К подписчиков · $it друзей"
+            val info2 = "${group.members_count / 1000}К подписчиков · $it друзей"
             viewBinding.subscribeInfo.text = info2
         }.addTo(compositeDisposable)
 
-        if(group.description.isBlank()) {
+        if (group.description.isBlank()) {
             viewBinding.descriptionContainer.visibility = View.GONE
         }
-    }
-
-    private fun initWindow() {
-        dialog?.window?.attributes?.windowAnimations = R.style.DialogAnim
-        dialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 }

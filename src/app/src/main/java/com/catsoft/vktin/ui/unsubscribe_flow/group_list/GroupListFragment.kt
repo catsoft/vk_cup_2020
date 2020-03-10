@@ -1,13 +1,17 @@
-package com.catsoft.vktin.ui.unsubscribing_flow.group_list
+package com.catsoft.vktin.ui.unsubscribe_flow.group_list
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.catsoft.vktin.R
 import com.catsoft.vktin.databinding.FragmentGroupsBinding
+import com.catsoft.vktin.databinding.FragmentsStatesEmptyBinding
+import com.catsoft.vktin.databinding.FragmentsStatesErrorBinding
+import com.catsoft.vktin.databinding.FragmentsStatesLoadingBinding
 import com.catsoft.vktin.ui.base.StateFragment
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
@@ -18,6 +22,14 @@ class GroupListFragment : StateFragment<FragmentGroupsBinding>() {
     private lateinit var viewModel: GroupListViewModel
 
     override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentGroupsBinding = FragmentGroupsBinding::inflate
+
+    override fun getEmptyStateViewBinding(): FragmentsStatesEmptyBinding? = viewBinding.statesEmpty
+
+    override fun getErrorStateViewBinding(): FragmentsStatesErrorBinding? = viewBinding.statesError
+
+    override fun getLoadingStateViewBinding(): FragmentsStatesLoadingBinding? = viewBinding.statesLoading
+
+    override fun getNormalStateView(): View? = viewBinding.normalState
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -39,14 +51,14 @@ class GroupListFragment : StateFragment<FragmentGroupsBinding>() {
         list.layoutManager = layoutManager
         list.adapter = adapter
 
-        viewModel.groups.subscribe {
+        viewModel.groups.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 adapter.updateMarketsListItems(it)
             }
-        }.addTo(compositeDisposable)
+        })
 
-        viewModel.subscribtion.subscribeBy {
-            if(it.isNotEmpty()) {
+        viewModel.subscription.subscribeBy {
+            if (it.isNotEmpty()) {
                 viewBinding.unsubscribeContainer.visibility = View.VISIBLE
             } else {
                 viewBinding.unsubscribeContainer.visibility = View.GONE

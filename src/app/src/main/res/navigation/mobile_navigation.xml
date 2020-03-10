@@ -54,10 +54,23 @@
 
     <fragment
         android:id="@+id/navigation_groupsList"
-        android:name="com.catsoft.vktin.ui.unsubscribing_flow.group_list.GroupListFragment"
+        android:name="com.catsoft.vktin.ui.unsubscribe_flow.group_list.GroupListFragment"
         android:label="Группы"
         tools:layout="@layout/fragment_groups" >
+        <action
+            android:id="@+id/action_navigation_groupsList_to_navigation_groupDetail"
+            app:destination="@id/navigation_groupDetail" />
     </fragment>
+
+    <dialog
+        android:id="@+id/navigation_groupDetail"
+        android:name="com.catsoft.vktin.ui.unsubscribe_flow.group_detail.GroupDetailFragment"
+        android:label="Группы"
+        tools:layout="@layout/fragment_group_detail">
+        <argument
+            android:name="selectedGroup"
+            app:argType="com.catsoft.vktin.vkApi.model.VKGroup" />
+    </dialog>
 
     <dialog
         android:id="@+id/navigation_share"
@@ -73,8 +86,7 @@
         android:id="@+id/navigation_documents"
         android:name="com.catsoft.vktin.ui.documents_flow.document_list.DocumentListFragment"
         android:label="Документы"
-        tools:layout="@layout/fragment_documents_list" >
-    </fragment>
+        tools:layout="@layout/fragment_documents_list" />
 
     <fragment
         android:id="@+id/navigation_auth"

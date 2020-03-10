@@ -50,8 +50,12 @@ class DocumentListViewModel() : BaseViewModel() {
     }
 
     private fun whenLoad(list: List<VKDocument>) {
-        _documents.postValue(list.toMutableList())
-        setSuccess()
+        if (list.isEmpty()) {
+            setIsEmpty()
+        } else {
+            _documents.postValue(list.toMutableList())
+            setSuccess()
+        }
     }
 
     private fun whenRename(pair: Pair<VKDocument, String>) {
