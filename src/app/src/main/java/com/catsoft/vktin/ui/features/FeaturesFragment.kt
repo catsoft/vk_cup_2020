@@ -42,7 +42,7 @@ class FeaturesFragment : StateFragment<FragmentFeaturesBinding>() {
         }.addTo(compositeDisposable)
 
         RxView.clicks(viewBinding.featuresShareButton).subscribe {
-            findNavController().navigate(FeaturesFragmentDirections.actionNavigationFeaturesToNavigationShare())
+            findNavController().navigate(FeaturesFragmentDirections.actionNavigationFeaturesToNavigationPickImage())
         }.addTo(compositeDisposable)
 
         RxView.clicks(viewBinding.featuresDocumentsButton).subscribe {

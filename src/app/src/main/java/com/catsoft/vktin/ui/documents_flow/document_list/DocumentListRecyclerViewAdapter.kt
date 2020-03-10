@@ -76,36 +76,35 @@ class DocumentListRecyclerViewAdapter(
             val removeLength = 1 + item.ext.length
             title = title.removeRange(title.length - removeLength, title.length)
         }
-
-        holder.binding.nameTextView.setText(title)
-        holder.binding.infoTextView.text = generateInfoString(item)
-
         val backDrawableRes = getBackDrawable(item)
-        holder.binding.typeContainer.setBackgroundResource(backDrawableRes)
-
         val typeIcon = getTypeIcon(item)
-        holder.binding.typeImage.setImageResource(typeIcon)
-
-        if (item.tags.isNotEmpty()) {
-            holder.binding.tagsContainer.visibility = View.VISIBLE
-            holder.binding.nameTextView.inputType = InputType.TYPE_CLASS_TEXT
-            holder.binding.nameTextView.maxLines = 1
-        } else {
-            holder.binding.tagsContainer.visibility = View.GONE
-            holder.binding.nameTextView.maxLines = 2
-        }
-
         val tagsText = item.tags.joinToString(", ")
-        holder.binding.tagsTextView.text = tagsText
 
-        if (item.preview.isNotEmpty()) {
-            Glide.with(context).load(item.preview).placeholder(typeIcon)
-                .apply(RequestOptions.bitmapTransform(RoundedCorners(DimensionUtil.convertDpToPixel(6.toFloat(), context).toInt())))
-                .diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.binding.loadedImageView)
-            holder.binding.typeImage.visibility = View.GONE
-        } else {
-            holder.binding.loadedImageView.setImageBitmap(null)
-            holder.binding.typeImage.visibility = View.VISIBLE
+        holder.binding.apply {
+            nameTextView.setText(title)
+            infoTextView.text = generateInfoString(item)
+            typeContainer.setBackgroundResource(backDrawableRes)
+            typeImage.setImageResource(typeIcon)
+            tagsTextView.text = tagsText
+
+            if (item.tags.isNotEmpty()) {
+                tagsContainer.visibility = View.VISIBLE
+                nameTextView.inputType = InputType.TYPE_CLASS_TEXT
+                nameTextView.maxLines = 1
+            } else {
+                tagsContainer.visibility = View.GONE
+                nameTextView.maxLines = 2
+            }
+
+            if (item.preview.isNotEmpty()) {
+                Glide.with(context).load(item.preview).placeholder(typeIcon)
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(DimensionUtil.convertDpToPixel(6.toFloat(), context).toInt())))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL).into(loadedImageView)
+                typeImage.visibility = View.GONE
+            } else {
+                loadedImageView.setImageBitmap(null)
+                typeImage.visibility = View.VISIBLE
+            }
         }
     }
 
@@ -162,7 +161,6 @@ class DocumentListRecyclerViewAdapter(
     }
 
     private fun generateInfoString(item: VKDocument): String {
-
         val ext = item.ext.toUpperCase(locale)
         val size = SizeHumanReadableUtil.format(item.size.toLong())
         val date = CalendarReadableUtil.format(item.calendar)
