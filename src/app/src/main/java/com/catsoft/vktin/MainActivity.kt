@@ -3,15 +3,12 @@
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.catsoft.vktin.databinding.ActivityMainBinding
-import com.catsoft.vktin.di.SimpleDi
-import com.catsoft.vktin.services.WindowsInsetProvider
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKApiConfig
 import com.vk.api.sdk.VKDefaultValidationHandler
@@ -29,8 +26,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(viewBinding.getRoot())
 
         this.setSupportActionBar(viewBinding.toolbar)
-
-        initOffsets()
 
         setupVKConfig()
 
@@ -53,19 +48,6 @@ class MainActivity : AppCompatActivity() {
                 version = "5.103"
             )
         )
-    }
-
-    private fun initOffsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(viewBinding.rootCoordinator) { _, i ->
-            val s = i.systemWindowInsets
-            if (s.top != 0) {
-                SimpleDi.Instance.register(
-                    WindowsInsetProvider::class.java, WindowsInsetProvider(s)
-                )
-                viewBinding.rootCoordinator.setPadding(0, s.top, 0, s.bottom)
-            }
-            i.consumeSystemWindowInsets()
-        }
     }
 
     override fun onBackPressed() {
