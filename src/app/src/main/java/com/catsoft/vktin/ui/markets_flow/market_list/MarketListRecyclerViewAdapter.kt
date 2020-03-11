@@ -3,12 +3,10 @@ package com.catsoft.vktin.ui.markets_flow.market_list
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.catsoft.vktin.R
 import com.catsoft.vktin.databinding.CellMarketBinding
 import com.catsoft.vktin.ui.WithIdDiffCallback
 import com.catsoft.vktin.ui.base.BaseAdapter
@@ -27,9 +25,9 @@ class MarketListRecyclerViewAdapter(
 
         RxView.clicks(holder.itemView).subscribe {
             val item = items[holder.adapterPosition]
-            val nav = binding.root.findNavController()
-            val bundle = bundleOf(Pair("title", item.name), Pair("id", item.id))
-            nav.navigate(R.id.action_navigation_markets_to_navigation_products, bundle)
+            val navController = binding.root.findNavController()
+            val action = MarketListFragmentDirections.actionNavigationMarketsToNavigationProducts(item)
+            navController.navigate(action)
         }.addTo(compositeDisposable)
 
         return holder

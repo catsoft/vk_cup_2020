@@ -100,11 +100,17 @@
 
     </RelativeLayout>
 
-    <include layout="@layout/fragments_states_error" />
+    <include
+        android:id="@+id/states_error"
+        layout="@layout/fragments_states_error" />
 
-    <include layout="@layout/fragments_states_loading" />
+    <include
+        android:id="@+id/states_loading"
+        layout="@layout/fragments_states_loading" />
 
-    <include layout="@layout/fragments_states_empty" />
+    <include
+        android:id="@+id/states_empty"
+        layout="@layout/fragments_states_empty" />
 
 </FrameLayout>
 

@@ -34,9 +34,9 @@ class ProductListRecyclerViewAdapter(
         val holder = ProductViewHolder(binding)
         RxView.clicks(holder.itemView).subscribe {
             val item = items[holder.adapterPosition]
-            val nav = binding.root.findNavController()
-            val bundle = bundleOf(Pair("item", item))
-            nav.navigate(R.id.action_navigation_products_to_navigation_product, bundle)
+            val navController = binding.root.findNavController()
+            val action = ProductListFragmentDirections.actionNavigationProductsToNavigationProduct(item)
+            navController.navigate(action)
         }.addTo(compositeDisposable)
 
         return holder

@@ -61,7 +61,12 @@ class MarketListFragment : StateFragment<FragmentMarketListBinding>() {
         list.layoutManager = layoutManager
         list.adapter = adapter
 
-        viewModel.groups.observe(viewLifecycleOwner, Observer { adapter.updateMarketsListItems(it) })
+        viewModel.groups.observe(viewLifecycleOwner, Observer {
+            adapter.updateMarketsListItems(it)
+            viewBinding.swipeRefresh.isRefreshing = false
+        })
+
+        viewBinding.swipeRefresh.setOnRefreshListener { viewModel.reload() }
     }
 
     private fun initToolbar() {
@@ -104,5 +109,10 @@ class MarketListFragment : StateFragment<FragmentMarketListBinding>() {
         }
 
         toolbar.setOnClickListener { }
+    }
+
+    override fun onDestroyView() {
+        viewBinding.swipeRefresh.setOnRefreshListener { }
+        super.onDestroyView()
     }
 }

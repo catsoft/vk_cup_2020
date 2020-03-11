@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_navigation_products_to_navigation_product"
             app:destination="@id/navigation_product" />
+        <argument
+            android:name="selectedMarket"
+            app:argType="com.catsoft.vktin.vkApi.model.VKGroup" />
     </fragment>
 
     <fragment
@@ -34,6 +37,9 @@
         android:name="com.catsoft.vktin.ui.markets_flow.product.ProductFragment"
         android:label="Продукт"
         tools:layout="@layout/fragment_product" >
+        <argument
+            android:name="selectedProduct"
+            app:argType="com.catsoft.vktin.vkApi.model.VKProduct" />
     </fragment>
 
     <fragment

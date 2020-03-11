@@ -45,4 +45,8 @@ class MarketListViewModel : BaseViewModel() {
     fun selectCity(selectedCity: VKCity) {
         _cityPublisher.onNext(selectedCity)
     }
+
+    fun reload() {
+        _cityPublisher.onNext(_selectedCity.value!!)
+    }
 }

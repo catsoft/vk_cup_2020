@@ -5,34 +5,45 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.catsoft.vktin.MainActivity
 import com.catsoft.vktin.databinding.FragmentProductsBinding
+import com.catsoft.vktin.databinding.FragmentsStatesEmptyBinding
+import com.catsoft.vktin.databinding.FragmentsStatesErrorBinding
+import com.catsoft.vktin.databinding.FragmentsStatesLoadingBinding
 import com.catsoft.vktin.di.SimpleDi
 import com.catsoft.vktin.services.CurrentLocaleProvider
 import com.catsoft.vktin.ui.base.StateFragment
-import io.reactivex.rxkotlin.addTo
 
 class ProductListFragment : StateFragment<FragmentProductsBinding>() {
 
     private val viewModel: ProductsListViewModel by viewModels()
 
+    private val args: ProductListFragmentArgs by navArgs()
+
     override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentProductsBinding = FragmentProductsBinding::inflate
+
+    override fun getEmptyStateViewBinding(): FragmentsStatesEmptyBinding? = viewBinding.statesEmpty
+
+    override fun getLoadingStateViewBinding(): FragmentsStatesLoadingBinding? = viewBinding.statesLoading
+
+    override fun getErrorStateViewBinding(): FragmentsStatesErrorBinding? = viewBinding.statesError
+
+    override fun getNormalStateView(): View? = viewBinding.normalState
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
 
-        val bundle = arguments!!
-        val id = bundle.getInt("id")
-        val title = bundle.getString("title")
-        (requireActivity() as MainActivity).viewBinding.toolbar.title = "Товары: $title"
+        (requireActivity() as MainActivity).viewBinding.toolbar.title = "Товары: ${args.selectedMarket.name}"
+
+        viewModel.start(args.selectedMarket.id)
 
         subscribeToState(viewModel)
 
         initList()
-        viewModel.start(id)
     }
 
     private fun initList() {
@@ -43,10 +54,18 @@ class ProductListFragment : StateFragment<FragmentProductsBinding>() {
         list.layoutManager = layoutManager
         list.adapter = adapter
 
-        viewModel.products.subscribe {
+        viewModel.products.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 adapter.updateMarketsListItems(it)
             }
-        }.addTo(compositeDisposable)
+            viewBinding.swipeRefresh.isRefreshing = false
+        })
+
+        viewBinding.swipeRefresh.setOnRefreshListener(viewModel::reload)
+    }
+
+    override fun onDestroyView() {
+        viewBinding.swipeRefresh.setOnRefreshListener { }
+        super.onDestroyView()
     }
 }

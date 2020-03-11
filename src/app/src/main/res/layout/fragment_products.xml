@@ -10,23 +10,36 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/product_list_recycler_view"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="6dp"
-            android:clipToPadding="false"
-            android:scrollbarStyle="outsideOverlay"
-            android:scrollbars="vertical" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/product_list_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="6dp"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 
-    <include layout="@layout/fragments_states_error" />
+    <include
+        android:id="@+id/states_error"
+        layout="@layout/fragments_states_error" />
 
-    <include layout="@layout/fragments_states_loading" />
+    <include
+        android:id="@+id/states_loading"
+        layout="@layout/fragments_states_loading" />
 
-    <include layout="@layout/fragments_states_empty" />
+    <include
+        android:id="@+id/states_empty"
+        layout="@layout/fragments_states_empty" />
 
 </FrameLayout>

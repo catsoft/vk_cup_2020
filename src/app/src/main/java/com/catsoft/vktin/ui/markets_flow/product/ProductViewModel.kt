@@ -1,5 +1,7 @@
 ﻿package com.catsoft.vktin.ui.markets_flow.product
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.catsoft.vktin.ui.base.BaseViewModel
 import com.catsoft.vktin.vkApi.model.VKProduct
 import io.reactivex.Observable
@@ -14,37 +16,40 @@ class ProductViewModel : BaseViewModel() {
     private val _changeFavoritePublisher = PublishSubject.create<Boolean>()
     private val _isFavoritePublisher = PublishSubject.create<Boolean?>()
 
-    val product: Observable<VKProduct> = _productPublisher
-    private lateinit var currentProduct: VKProduct
-    private var _isFavorite: Boolean? = false
+    private val _product = MutableLiveData<VKProduct>()
+    val product: LiveData<VKProduct> = _product
 
-    val isFavorite: Observable<Boolean?> = _isFavoritePublisher
+    private var _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean> = _isFavorite
 
     init {
         _productPublisher.subscribe {
-            currentProduct = it
-            vkApi.getProduct(it.ownerId, it.id).observeOn(Schedulers.newThread()).subscribe { isFavoriteResponse ->
-                    _isFavoritePublisher.onNext(isFavoriteResponse!!.isFavorite)
-                }.addTo(compositeDisposable)
+            _product.postValue(it)
         }.addTo(compositeDisposable)
 
+        _productPublisher.flatMap { vkApi.getProduct(it.ownerId, it.id) }.compose(getTransformer(this::whenLoad)).subscribe()
+            .addTo(compositeDisposable)
+
         _changeFavoritePublisher.subscribeBy(onError = { setOnError(it) }) {
-            val product = currentProduct
-            (if (_isFavorite!!) vkApi.removeProductFromFavorite(product.ownerId, product.id)
+            val product = product.value!!
+            (if (_isFavorite.value!!) vkApi.removeProductFromFavorite(product.ownerId, product.id)
             else vkApi.addProductToFavorite(product.ownerId, product.id)).observeOn(Schedulers.newThread()).subscribe {
-                val newValue = !_isFavorite!!
+                val newValue = !_isFavorite.value!!
                 _isFavoritePublisher.onNext(newValue)
             }.addTo(compositeDisposable)
         }.addTo(compositeDisposable)
 
         _isFavoritePublisher.subscribe {
-            _isFavorite = it
-            setSuccess()
+            _isFavorite.postValue(it)
         }.addTo(compositeDisposable)
     }
 
-    fun start(product: VKProduct) {
+    private fun whenLoad(product: VKProduct) {
+        _isFavoritePublisher.onNext(product!!.isFavorite)
+        setSuccess()
+    }
 
+    fun start(product: VKProduct) {
         _productPublisher.onNext(product)
     }
 

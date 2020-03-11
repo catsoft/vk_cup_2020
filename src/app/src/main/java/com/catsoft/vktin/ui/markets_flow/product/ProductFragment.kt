@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.catsoft.vktin.MainActivity
 import com.catsoft.vktin.databinding.FragmentProductBinding
+import com.catsoft.vktin.databinding.FragmentsStatesEmptyBinding
+import com.catsoft.vktin.databinding.FragmentsStatesErrorBinding
+import com.catsoft.vktin.databinding.FragmentsStatesLoadingBinding
 import com.catsoft.vktin.di.SimpleDi
 import com.catsoft.vktin.services.CurrentLocaleProvider
 import com.catsoft.vktin.ui.base.StateFragment
@@ -23,25 +26,31 @@ class ProductFragment : StateFragment<FragmentProductBinding>() {
 
     private val viewModel: ProductViewModel by viewModels()
 
+    private val args: ProductFragmentArgs by navArgs()
+
     override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentProductBinding = FragmentProductBinding::inflate
+
+    override fun getEmptyStateViewBinding(): FragmentsStatesEmptyBinding? = viewBinding.statesEmpty
+
+    override fun getLoadingStateViewBinding(): FragmentsStatesLoadingBinding? = viewBinding.statesLoading
+
+    override fun getErrorStateViewBinding(): FragmentsStatesErrorBinding? = viewBinding.statesError
+
+    override fun getNormalStateView(): View? = viewBinding.normalState
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
 
-        val bundle = arguments!!
-        val item = bundle.getParcelable<VKProduct>("item")!!
-        (requireActivity() as MainActivity).viewBinding.toolbar.title = item.title
-
+        (requireActivity() as MainActivity).viewBinding.toolbar.title = args.selectedProduct.title
+        viewModel.start(args.selectedProduct)
         subscribeToState(viewModel)
 
-        initProduct(item)
+        initProduct()
 
         initIsFavorite()
 
         setupButtons()
-
-        viewModel.start(item)
     }
 
     private fun setupButtons() {
@@ -52,36 +61,29 @@ class ProductFragment : StateFragment<FragmentProductBinding>() {
         viewBinding.removeButton.visibility = View.GONE
     }
 
-    private fun initProduct(item: VKProduct) {
-        viewModel.product.subscribe {
+    private fun initProduct() {
+        viewModel.product.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
 
-            if (it != null) {
-                Glide.with(this).load(it.thumb_photo).into(viewBinding.image)
+            Glide.with(this).load(it.thumb_photo).into(viewBinding.image)
 
-                viewBinding.title.text = it.title
+            viewBinding.title.text = it.title
 
-                val locale = SimpleDi.Instance.resolve<CurrentLocaleProvider>(CurrentLocaleProvider::class.java).currentLocale
-                val currency = Currency.getInstance(item.price.currency.name)
-                val currencyFormatter = NumberFormat.getCurrencyInstance(locale)
-                currencyFormatter.maximumFractionDigits = 0
-                currencyFormatter.currency = currency
-                val price = currencyFormatter.format(item.price.amount)
+            val locale = SimpleDi.Instance.resolve<CurrentLocaleProvider>(CurrentLocaleProvider::class.java).currentLocale
+            val currency = Currency.getInstance(it.price.currency.name)
+            val currencyFormatter = NumberFormat.getCurrencyInstance(locale)
+            currencyFormatter.maximumFractionDigits = 0
+            currencyFormatter.currency = currency
+            val price = currencyFormatter.format(it.price.amount)
 
-                viewBinding.price.text = price
+            viewBinding.price.text = price
 
-                viewBinding.description.text = it.description
-            }
-
-        }.addTo(compositeDisposable)
+            viewBinding.description.text = it.description
+        })
     }
 
     private fun initIsFavorite() {
-        viewModel.isFavorite.observeOn(AndroidSchedulers.mainThread()).subscribe {
+        viewModel.isFavorite.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             when (it) {
-                null -> {
-                    viewBinding.addButton.visibility = View.GONE
-                    viewBinding.removeButton.visibility = View.GONE
-                }
                 true -> {
                     viewBinding.addButton.visibility = View.GONE
                     viewBinding.removeButton.visibility = View.VISIBLE
@@ -91,6 +93,6 @@ class ProductFragment : StateFragment<FragmentProductBinding>() {
                     viewBinding.removeButton.visibility = View.GONE
                 }
             }
-        }.addTo(compositeDisposable)
+        })
     }
 }
