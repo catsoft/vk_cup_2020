@@ -9,9 +9,9 @@ import io.reactivex.Observable
 
 class VkApi : IVkApi {
 
-    override fun getMarketsList(id: Int): Observable<List<VKGroup>> = createObservable(VKSearchGroupListRequest(id))
+    override fun getMarketList(id: Int): Observable<List<VKGroup>> = createObservable(VKSearchGroupListRequest(id))
 
-    override fun getProductsList(idMarket: Int): Observable<List<VKProduct>> = createObservable(VKGetProductListRequest(idMarket))
+    override fun getProductList(idMarket: Int): Observable<List<VKProduct>> = createObservable(VKGetProductListRequest(idMarket))
 
     override fun addProductToFavorite(ownerId: Int, idProduct: Int): Observable<Int> = createObservable(
         VKAddProductToFavoriteRequest(ownerId, idProduct)
@@ -23,9 +23,9 @@ class VkApi : IVkApi {
 
     override fun getProduct(ownerId: Int, idProduct: Int): Observable<VKProduct> = createObservable(VKGetProductRequest(ownerId, idProduct))
 
-    override fun getCitiesList(): Observable<List<VKCity>> = createObservable(VKGetCityListRequest())
+    override fun getCityList(): Observable<List<VKCity>> = createObservable(VKGetCityListRequest())
 
-    override fun getGroupsList(id: Int): Observable<List<VKGroup>> = createObservable(VKGetGroupListRequest(id))
+    override fun getGroupList(id: Int): Observable<List<VKGroup>> = createObservable(VKGetGroupListRequest(id))
 
     override fun getLastPost(id: Int): Observable<VKPost?> = createObservable(VKGetLastPostRequest(id))
 
@@ -33,7 +33,7 @@ class VkApi : IVkApi {
 
     override fun groupLeave(id: Int): Observable<Int> = createObservable(VKGroupLeaveRequest(id))
 
-    override fun getList(): Observable<List<VKDocument>> = createObservable(VKGetDocumentListRequest())
+    override fun getDocumentList(): Observable<List<VKDocument>> = createObservable(VKGetDocumentListRequest())
 
     override fun deleteDocument(id: Int, ownerId: Int): Observable<Boolean> = createObservable(VKDeleteDocumentRequest(id, ownerId))
 

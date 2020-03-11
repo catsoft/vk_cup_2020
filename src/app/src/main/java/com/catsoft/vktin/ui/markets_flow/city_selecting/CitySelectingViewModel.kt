@@ -9,7 +9,7 @@ import io.reactivex.rxkotlin.addTo
 
 class CitySelectingViewModel : BaseViewModel() {
 
-    private val citiesLoader: Observable<List<VKCity>> = vkApi.getCitiesList()
+    private val citiesLoader: Observable<List<VKCity>> = vkApi.getCityList()
 
     private val _cities = MutableLiveData<List<VKCity>>()
     val cities : LiveData<List<VKCity>> = _cities

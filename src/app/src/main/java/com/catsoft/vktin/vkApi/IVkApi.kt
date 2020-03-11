@@ -9,9 +9,9 @@ import com.catsoft.vktin.vkApi.model.VKProduct
 import io.reactivex.Observable
 
 interface IVkApi {
-    fun getMarketsList(id: Int): Observable<List<VKGroup>>
+    fun getMarketList(id: Int): Observable<List<VKGroup>>
 
-    fun getProductsList(idMarket: Int): Observable<List<VKProduct>>
+    fun getProductList(idMarket: Int): Observable<List<VKProduct>>
 
     fun addProductToFavorite(ownerId: Int, idProduct: Int): Observable<Int>
 
@@ -19,9 +19,9 @@ interface IVkApi {
 
     fun getProduct(ownerId: Int, idProduct: Int): Observable<VKProduct>
 
-    fun getCitiesList() : Observable<List<VKCity>>
+    fun getCityList() : Observable<List<VKCity>>
 
-    fun getGroupsList(id: Int): Observable<List<VKGroup>>
+    fun getGroupList(id: Int): Observable<List<VKGroup>>
 
     fun getLastPost(id: Int) : Observable<VKPost?>
 
@@ -29,7 +29,7 @@ interface IVkApi {
 
     fun groupLeave(id: Int) : Observable<Int>
 
-    fun getList(): Observable<List<VKDocument>>
+    fun getDocumentList(): Observable<List<VKDocument>>
 
     fun deleteDocument(id: Int, ownerId: Int): Observable<Boolean>
 

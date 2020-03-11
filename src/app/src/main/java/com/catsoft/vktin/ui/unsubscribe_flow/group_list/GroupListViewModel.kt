@@ -17,7 +17,7 @@ class GroupListViewModel : BaseViewModel() {
     val subscription: Observable<List<Int>> = _subscriptionPublisher
 
 
-    private val loader = vkApi.getGroupsList(0)
+    private val loader = vkApi.getGroupList(0)
 
     private val _groups = MutableLiveData<List<VKGroup>>()
     val groups: LiveData<List<VKGroup>> = _groups

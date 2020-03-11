@@ -18,7 +18,7 @@ import java.net.URL
 
 class DocumentListViewModel() : BaseViewModel() {
 
-    private val _loader = vkApi.getList()
+    private val _loader = vkApi.getDocumentList()
 
     private val _documents = MutableLiveData<List<VKDocument>>()
 

@@ -7,14 +7,13 @@ import com.catsoft.vktin.vkApi.model.VKCity
 import com.catsoft.vktin.vkApi.model.VKGroup
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
 
 class MarketListViewModel : BaseViewModel() {
 
     private var _cityPublisher = PublishSubject.create<VKCity>()
 
-    private val groupsLoader: Observable<List<VKGroup>> = _cityPublisher.flatMap { vkApi.getMarketsList(it.id) }
+    private val groupsLoader: Observable<List<VKGroup>> = _cityPublisher.flatMap { vkApi.getMarketList(it.id) }
 
 
     private val _groups = MutableLiveData<List<VKGroup>>()

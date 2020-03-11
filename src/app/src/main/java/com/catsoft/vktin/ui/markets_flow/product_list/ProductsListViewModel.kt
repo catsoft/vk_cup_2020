@@ -14,7 +14,7 @@ class ProductsListViewModel : BaseViewModel() {
 
     private var _selectedGroup: Int = 0
 
-    private val loader: Observable<List<VKProduct>> = _loadPublisher.flatMap { vkApi.getProductsList(_selectedGroup) }
+    private val loader: Observable<List<VKProduct>> = _loadPublisher.flatMap { vkApi.getProductList(_selectedGroup) }
 
     private val _products = MutableLiveData<List<VKProduct>>()
     val products : LiveData<List<VKProduct>> = _products
