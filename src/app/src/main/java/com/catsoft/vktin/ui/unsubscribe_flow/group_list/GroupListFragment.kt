@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.catsoft.vktin.R
 import com.catsoft.vktin.databinding.FragmentGroupsBinding
@@ -19,7 +19,7 @@ import io.reactivex.rxkotlin.subscribeBy
 
 class GroupListFragment : StateFragment<FragmentGroupsBinding>() {
 
-    private lateinit var viewModel: GroupListViewModel
+    private val viewModel: GroupListViewModel by viewModels()
 
     override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentGroupsBinding = FragmentGroupsBinding::inflate
 
@@ -34,8 +34,6 @@ class GroupListFragment : StateFragment<FragmentGroupsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProvider(this).get(GroupListViewModel::class.java)
 
         subscribeToState(viewModel)
 
@@ -55,6 +53,7 @@ class GroupListFragment : StateFragment<FragmentGroupsBinding>() {
             if (it != null) {
                 adapter.updateMarketsListItems(it)
             }
+            viewBinding.swipeRefresh.isRefreshing = false
         })
 
         viewModel.subscription.subscribeBy {
@@ -65,8 +64,18 @@ class GroupListFragment : StateFragment<FragmentGroupsBinding>() {
             }
         }.addTo(compositeDisposable)
 
+        viewBinding.swipeRefresh.setOnRefreshListener {
+            viewModel.load()
+        }
+
         RxView.clicks(viewBinding.unsubscribeButton).subscribe {
             viewModel.unsubscribe()
         }.addTo(compositeDisposable)
+    }
+
+    override fun onDestroyView() {
+        viewBinding.swipeRefresh.setOnRefreshListener { }
+
+        super.onDestroyView()
     }
 }

@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -24,7 +25,7 @@ import io.reactivex.rxkotlin.addTo
 
 class GroupDetailFragment : StateDialogFragment<FragmentGroupDetailBinding>() {
 
-    private lateinit var viewModel: GroupDetailViewModel
+    private val viewModel: GroupDetailViewModel by viewModels()
 
     private val args: GroupDetailFragmentArgs by navArgs()
 
@@ -33,8 +34,6 @@ class GroupDetailFragment : StateDialogFragment<FragmentGroupDetailBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProvider(this).get(GroupDetailViewModel::class.java)
 
         subscribeToState(viewModel)
 

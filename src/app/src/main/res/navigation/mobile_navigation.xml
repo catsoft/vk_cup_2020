@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_navigation_markets_to_navigation_products"
             app:destination="@id/navigation_products" />
+        <action
+            android:id="@+id/action_navigation_markets_to_navigation_city_selecting"
+            app:destination="@id/navigation_city_selecting" />
     </fragment>
 
     <fragment
@@ -70,6 +73,18 @@
         <argument
             android:name="selectedGroup"
             app:argType="com.catsoft.vktin.vkApi.model.VKGroup" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/navigation_city_selecting"
+        android:name="com.catsoft.vktin.ui.markets_flow.city_selecting.CitySelectingFragment"
+        android:label="Выбор города"
+        tools:layout="@layout/fragment_city_selecting">
+
+
+        <argument
+            android:name="selectedCity"
+            app:argType="com.catsoft.vktin.vkApi.model.VKCity" />
     </dialog>
 
     <dialog

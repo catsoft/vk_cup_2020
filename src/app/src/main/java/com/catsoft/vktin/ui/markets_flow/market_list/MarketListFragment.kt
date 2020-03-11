@@ -6,36 +6,52 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.view.contains
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
+import androidx.navigation.NavOptionsBuilder
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.catsoft.vktin.MainActivity
 import com.catsoft.vktin.R
 import com.catsoft.vktin.databinding.FragmentMarketListBinding
+import com.catsoft.vktin.databinding.FragmentsStatesEmptyBinding
+import com.catsoft.vktin.databinding.FragmentsStatesErrorBinding
+import com.catsoft.vktin.databinding.FragmentsStatesLoadingBinding
 import com.catsoft.vktin.ui.base.StateFragment
-import com.catsoft.vktin.ui.markets_flow.city_selecting.CitySelectingFragment
-import com.catsoft.vktin.ui.markets_flow.city_selecting.IOnSelectCityCallback
 import com.catsoft.vktin.vkApi.model.VKCity
 import io.reactivex.rxkotlin.addTo
 
-class MarketListFragment : StateFragment<FragmentMarketListBinding>(), IOnSelectCityCallback {
+class MarketListFragment : StateFragment<FragmentMarketListBinding>() {
 
-    private lateinit var viewModel: MarketListViewModel
-    private var dropDownImage : ImageView? = null
+    private val viewModel: MarketListViewModel by viewModels()
+    private var dropDownImage: ImageView? = null
 
     override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentMarketListBinding = FragmentMarketListBinding::inflate
+
+    override fun getEmptyStateViewBinding(): FragmentsStatesEmptyBinding? = viewBinding.fragmentsStatesEmpty
+
+    override fun getLoadingStateViewBinding(): FragmentsStatesLoadingBinding? = viewBinding.fragmentsStatesLoading
+
+    override fun getErrorStateViewBinding(): FragmentsStatesErrorBinding? = viewBinding.fragmentsStatesError
+
+    override fun getNormalStateView(): View? = viewBinding.normalState
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProvider(this).get(MarketListViewModel::class.java)
 
         subscribeToState(viewModel)
 
         initList()
 
         initToolbar()
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<VKCity>("selectedCity")!!.observe(viewLifecycleOwner, Observer {
+            viewModel.selectCity(it)
+        })
     }
 
     private fun initList() {
@@ -45,20 +61,16 @@ class MarketListFragment : StateFragment<FragmentMarketListBinding>(), IOnSelect
         list.layoutManager = layoutManager
         list.adapter = adapter
 
-        viewModel.groups.subscribe {
-            if (it != null) {
-                adapter.updateMarketsListItems(it)
-            }
-        }.addTo(compositeDisposable)
+        viewModel.groups.observe(viewLifecycleOwner, Observer { adapter.updateMarketsListItems(it) })
     }
 
     private fun initToolbar() {
 
         val toolbar = (requireActivity() as MainActivity).viewBinding.toolbar
 
-        viewModel.selectedCityObservable.subscribe {
+        viewModel.selectedCity.observe(viewLifecycleOwner, Observer {
             toolbar.title = if (it?.title?.isNotEmpty() != true) "Магазины" else "Магазины в ${it.title}"
-        }.addTo(compositeDisposable)
+        })
 
         viewModel.isSuccess.observe(viewLifecycleOwner, Observer {
             if (it) {
@@ -70,8 +82,8 @@ class MarketListFragment : StateFragment<FragmentMarketListBinding>(), IOnSelect
                 toolbar.addView(dropDownImage)
 
                 toolbar.setOnClickListener {
-                    val dialogFragment = CitySelectingFragment(this, viewModel.selectedCity!!)
-                    dialogFragment.show(activity!!.supportFragmentManager, "signature")
+                    val action = MarketListFragmentDirections.actionNavigationMarketsToNavigationCitySelecting(viewModel.selectedCity.value!!)
+                    findNavController().navigate(action)
                 }
             }
         })
@@ -92,9 +104,5 @@ class MarketListFragment : StateFragment<FragmentMarketListBinding>(), IOnSelect
         }
 
         toolbar.setOnClickListener { }
-    }
-
-    override fun select(city: VKCity) {
-        viewModel.selectCity(city)
     }
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.catsoft.vktin.R
@@ -15,7 +16,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 
 class FeaturesFragment : StateFragment<FragmentFeaturesBinding>() {
-    private val viewModel: FeaturesViewModel by activityViewModels()
+    private val viewModel: FeaturesViewModel by viewModels()
 
     private val authViewModel : AuthViewModel by activityViewModels()
 

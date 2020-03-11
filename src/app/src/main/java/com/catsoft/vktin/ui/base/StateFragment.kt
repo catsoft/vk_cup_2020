@@ -58,11 +58,11 @@ abstract class StateFragment<TViewBinding : ViewBinding> : ViewBindingFragment<T
         })
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
+    override fun onDestroyView() {
         compositeDisposable.dispose()
         compositeDisposable = CompositeDisposable()
+
+        super.onDestroyView()
     }
 }
 

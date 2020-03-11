@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
@@ -19,7 +20,7 @@ import com.vk.api.sdk.auth.VKScope
 import io.reactivex.rxkotlin.addTo
 
 class AuthFragment : StateFragment<FragmentAuthBinding>() {
-    private val viewModel: AuthViewModel by activityViewModels()
+    private val viewModel: AuthViewModel by viewModels()
 
     override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentAuthBinding = FragmentAuthBinding::inflate
 

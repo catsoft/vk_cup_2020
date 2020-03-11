@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.catsoft.vktin.MainActivity
@@ -20,7 +21,7 @@ import java.util.*
 
 class ProductFragment : StateFragment<FragmentProductBinding>() {
 
-    private lateinit var viewModel: ProductViewModel
+    private val viewModel: ProductViewModel by viewModels()
 
     override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentProductBinding = FragmentProductBinding::inflate
 
@@ -31,8 +32,6 @@ class ProductFragment : StateFragment<FragmentProductBinding>() {
         val bundle = arguments!!
         val item = bundle.getParcelable<VKProduct>("item")!!
         (requireActivity() as MainActivity).viewBinding.toolbar.title = item.title
-
-        viewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
 
         subscribeToState(viewModel)
 

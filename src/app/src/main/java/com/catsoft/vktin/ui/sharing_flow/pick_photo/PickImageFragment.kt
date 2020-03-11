@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.catsoft.vktin.databinding.FragmentPickImageBinding
@@ -20,7 +21,7 @@ class PickImageFragment : StateFragment<FragmentPickImageBinding>() {
     private val requestCodeForImage = 88
     private val requestCodeForPermission = 89
 
-    private lateinit var viewModel: PickImageViewModel
+    private val viewModel: PickImageViewModel by viewModels()
 
     override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentPickImageBinding =
         FragmentPickImageBinding::inflate
@@ -29,8 +30,6 @@ class PickImageFragment : StateFragment<FragmentPickImageBinding>() {
 
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this)
-            .get(PickImageViewModel::class.java)
         subscribeToState(viewModel)
 
         viewBinding.apply {

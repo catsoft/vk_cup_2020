@@ -13,7 +13,7 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gray_back"
+            android:background="#00000000"
             android:fitsSystemWindows="true"
             android:orientation="vertical">
 
@@ -63,10 +63,16 @@
 
     </LinearLayout>
 
-    <include layout="@layout/fragments_states_error" />
+    <include
+        android:id="@+id/states_error"
+        layout="@layout/fragments_states_error" />
 
-    <include layout="@layout/fragments_states_loading" />
+    <include
+        android:id="@+id/states_loading"
+        layout="@layout/fragments_states_loading" />
 
-    <include layout="@layout/fragments_states_empty" />
+    <include
+        android:id="@+id/states_empty"
+        layout="@layout/fragments_states_empty" />
 
 </FrameLayout>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +21,7 @@ import io.reactivex.rxkotlin.addTo
 
 class DocumentListFragment : StateFragment<FragmentDocumentsListBinding>() {
 
-    private val viewModel: DocumentListViewModel by activityViewModels()
+    private val viewModel: DocumentListViewModel by viewModels()
 
     override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentDocumentsListBinding = FragmentDocumentsListBinding::inflate
 

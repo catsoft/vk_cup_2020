@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -21,7 +21,7 @@ import io.reactivex.rxkotlin.addTo
 
 class ShareContentFragment : StateDialogFragment<FragmentShareContentBinding>() {
 
-    private lateinit var viewModel: ShareContentViewModel
+    private val viewModel: ShareContentViewModel by viewModels()
 
     private val args: ShareContentFragmentArgs by navArgs()
 
@@ -31,7 +31,6 @@ class ShareContentFragment : StateDialogFragment<FragmentShareContentBinding>() 
 
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(ShareContentViewModel::class.java)
         subscribeToState(viewModel)
 
         viewModel.selectPhoto(args.selectedImage, requireContext())

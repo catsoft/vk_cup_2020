@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.catsoft.vktin.MainActivity
@@ -15,7 +16,7 @@ import io.reactivex.rxkotlin.addTo
 
 class ProductListFragment : StateFragment<FragmentProductsBinding>() {
 
-    private lateinit var viewModel: ProductsListViewModel
+    private val viewModel: ProductsListViewModel by viewModels()
 
     override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentProductsBinding = FragmentProductsBinding::inflate
 
@@ -27,8 +28,6 @@ class ProductListFragment : StateFragment<FragmentProductsBinding>() {
         val id = bundle.getInt("id")
         val title = bundle.getString("title")
         (requireActivity() as MainActivity).viewBinding.toolbar.title = "Товары: $title"
-
-        viewModel = ViewModelProvider(this).get(ProductsListViewModel::class.java)
 
         subscribeToState(viewModel)
 
