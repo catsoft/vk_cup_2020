@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_markets"
-        android:name="com.catsoft.vktin.ui.markets_flow.market_list.MarketListFragment"
+        android:name="com.c.v.ui.markets_flow.market_list.MarketListFragment"
         android:label="Магазины"
         tools:layout="@layout/fragment_market_list" >
 
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/navigation_products"
-        android:name="com.catsoft.vktin.ui.markets_flow.product_list.ProductListFragment"
+        android:name="com.c.v.ui.markets_flow.product_list.ProductListFragment"
         android:label="Товары"
         tools:layout="@layout/fragment_products" >
         <action
@@ -29,22 +29,22 @@
             app:destination="@id/navigation_product" />
         <argument
             android:name="selectedMarket"
-            app:argType="com.catsoft.vktin.vkApi.model.VKGroup" />
+            app:argType="com.c.v.data.network.vkApi.model.VKGroupApi" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_product"
-        android:name="com.catsoft.vktin.ui.markets_flow.product.ProductFragment"
+        android:name="com.c.v.ui.markets_flow.product.ProductFragment"
         android:label="Продукт"
         tools:layout="@layout/fragment_product" >
         <argument
             android:name="selectedProduct"
-            app:argType="com.catsoft.vktin.vkApi.model.VKProduct" />
+            app:argType="com.c.v.data.network.vkApi.model.VKProduct" />
     </fragment>
 
     <fragment
         android:id="@+id/navigation_features"
-        android:name="com.catsoft.vktin.ui.features.FeaturesFragment"
+        android:name="com.c.v.ui.features.FeaturesFragment"
         android:label="Клиет ВК"
         tools:layout="@layout/fragment_features" >
         <action
@@ -63,7 +63,7 @@
 
     <fragment
         android:id="@+id/navigation_groupsList"
-        android:name="com.catsoft.vktin.ui.unsubscribe_flow.group_list.GroupListFragment"
+        android:name="com.c.v.ui.unsubscribe_flow.group_list.GroupListFragment"
         android:label="Группы"
         tools:layout="@layout/fragment_groups" >
         <action
@@ -73,29 +73,28 @@
 
     <dialog
         android:id="@+id/navigation_groupDetail"
-        android:name="com.catsoft.vktin.ui.unsubscribe_flow.group_detail.GroupDetailFragment"
+        android:name="com.c.v.ui.unsubscribe_flow.group_detail.GroupDetailFragment"
         android:label="Группы"
         tools:layout="@layout/fragment_group_detail">
         <argument
             android:name="selectedGroup"
-            app:argType="com.catsoft.vktin.vkApi.model.VKGroup" />
+            app:argType="com.c.v.ui.model.VKGroupPresentation" />
     </dialog>
 
     <dialog
         android:id="@+id/navigation_city_selecting"
-        android:name="com.catsoft.vktin.ui.markets_flow.city_selecting.CitySelectingFragment"
+        android:name="com.c.v.ui.markets_flow.city_selecting.CitySelectingFragment"
         android:label="Выбор города"
         tools:layout="@layout/fragment_city_selecting">
 
-
         <argument
             android:name="selectedCity"
-            app:argType="com.catsoft.vktin.vkApi.model.VKCity" />
+            app:argType="com.c.v.data.network.vkApi.model.VKCity" />
     </dialog>
 
     <dialog
         android:id="@+id/navigation_share"
-        android:name="com.catsoft.vktin.ui.sharing_flow.share_content.ShareContentFragment"
+        android:name="com.c.v.ui.sharing_flow.share_content.ShareContentFragment"
         android:label="Шаринг"
         tools:layout="@layout/fragment_share_content" >
         <argument
@@ -105,19 +104,19 @@
 
     <fragment
         android:id="@+id/navigation_documents"
-        android:name="com.catsoft.vktin.ui.documents_flow.document_list.DocumentListFragment"
+        android:name="com.c.v.ui.documents_flow.document_list.DocumentListFragment"
         android:label="Документы"
         tools:layout="@layout/fragment_documents_list" />
 
     <fragment
         android:id="@+id/navigation_auth"
-        android:name="com.catsoft.vktin.ui.auth.AuthFragment"
+        android:name="com.c.v.ui.auth.AuthFragment"
         android:label="Авторизация"
         tools:layout="@layout/fragment_auth" />
 
     <fragment
         android:id="@+id/navigation_pick_image"
-        android:name="com.catsoft.vktin.ui.sharing_flow.pick_photo.PickImageFragment"
+        android:name="com.c.v.ui.sharing_flow.pick_photo.PickImageFragment"
         android:label="Выбрать фотографию"
         tools:layout="@layout/fragment_pick_image" >
         <action

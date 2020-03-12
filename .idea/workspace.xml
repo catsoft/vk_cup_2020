@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="48245600-9c5a-4b80-85fa-cce1a60b3b6d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/GroupsRepositoryImpl.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/db/VKDatabase.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/db/VKGroupDao.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/db/models/groups/VKGroup.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/dto/VKGroupDto.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/di/module/ApiModule.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/di/module/RepoModule.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/domain/markets/GroupsRepository.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/androidTest/java/com/catsoft/starstalker/ExampleInstrumentedTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/java/com/catsoft/starstalker/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/java/com/catsoft/starstalker/ui/CustomApplication.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/java/com/catsoft/starstalker/ui/accountPosts/AccountPostsFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/java/com/catsoft/starstalker/ui/accountPosts/AccountPostsViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/java/com/catsoft/starstalker/ui/dashboard/DashboardFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/java/com/catsoft/starstalker/ui/dashboard/DashboardViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/java/com/catsoft/starstalker/ui/home/HomeFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/java/com/catsoft/starstalker/ui/home/HomeViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/java/com/catsoft/starstalker/ui/notifications/NotificationsFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/java/com/catsoft/starstalker/ui/notifications/NotificationsViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/drawable/ic_home_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/drawable/ic_notifications_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/layout/fragment_account_posts.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/layout/fragment_dashboard.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/layout/fragment_home.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/layout/fragment_notifications.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/menu/bottom_nav_menu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/navigation/mobile_navigation.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/values/dimens.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/app/src/test/java/com/catsoft/starstalker/ExampleUnitTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/StarStalker/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/.idea/dictionaries/aleksandr_vakhtin.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/androidTest/java/com/catsoft/vktin/ExampleInstrumentedTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/java/com/catsoft/vktin/CustomApplication.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/java/com/catsoft/vktin/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/java/com/catsoft/vktin/ui/friends/FriendViewHolder.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/java/com/catsoft/vktin/ui/friends/FriendsFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/java/com/catsoft/vktin/ui/friends/FriendsRecyclerViewAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/java/com/catsoft/vktin/ui/friends/FriendsViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/drawable/avatar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/drawable/border.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/drawable/ic_home_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/drawable/ic_notifications_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/layouts/file/layout/cell_friend.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/layouts/file/layout/fragment_friends.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/layouts/other/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/navigation/mobile_navigation.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/values/dimens.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/app/src/test/java/com/catsoft/vktin/ExampleUnitTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Android-master/VkTin/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/.idea/codeStyles/Project.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/.idea/dictionaries/Asura.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/.idea/kotlinc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/schemas/com.catsoft.lifetime.db.TimeDatabase/1.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/androidTest/java/com/catsoft/lifetime/ExampleInstrumentedTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/dal/TimeRecordDao.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/db/Database.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/di/AppInjector.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/di/CustomViewModelFactory.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/di/Injectable.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/di/ViewModelKey.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/di/components/AppComponent.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/di/module/AppModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/di/module/DaoModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/di/module/FragmentBuilderModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/di/module/RootActivityModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/di/module/ViewModelModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/domain/TimeRecordModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/presentation/base/BaseViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/presentation/goals/GoalsViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/presentation/graphs/GraphsViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/presentation/settings/SettingsViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/presentation/timeRecordsList/TimeRecordsListAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/presentation/timeRecordsList/TimeRecordsListViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/ui/base/TimeApplication.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/ui/screens/base/BaseFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/ui/screens/goals/GoalsFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/ui/screens/graphs/GraphsFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/ui/screens/root/RootActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/ui/screens/settings/SettingsFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/java/com/catsoft/lifetime/ui/screens/timeRecordsList/TimeRecordsListFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/drawable/ic_home_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/drawable/ic_notifications_black_24dp.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/layout/activity_root.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/layout/fragment_goals.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/layout/fragment_graphs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/layout/fragment_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/layout/fragment_time_records_list.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/layout/row_time_records_list.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/menu/bottom_nav_menu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/navigation/mobile_navigation.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/values/colors.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/values/dimens.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/app/src/test/java/com/catsoft/lifetime/ExampleUnitTest.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/common/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/keystore.jks" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/CustomApplication.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/CustomApplication.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/di/ViewModelKey.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/di/ViewModelKey.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/di/components/AppComponent.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/di/components/AppComponent.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/di/module/DaoModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/di/module/DaoModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/di/module/FragmentBuilderModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/di/module/FragmentBuilderModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/di/module/RootActivityModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/di/module/MainActivityModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/di/module/ViewModelModule.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/di/module/ViewModelModule.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/WithIdDiffCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/WithIdDiffCallback.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/base/BaseViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/base/BaseViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/base/StateDialogFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/base/StateDialogFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/base/StateFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/base/StateFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/base/ViewBindingFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/base/ViewBindingFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/documents_flow/document_list/DocumentListRecyclerViewAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/documents_flow/document_list/DocumentListRecyclerViewAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/documents_flow/document_list/DocumentListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/documents_flow/document_list/DocumentListViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/city_selecting/CityListRecyclerViewAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/city_selecting/CityListRecyclerViewAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/city_selecting/CitySelectingFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/city_selecting/CitySelectingFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/city_selecting/CitySelectingViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/city_selecting/CitySelectingViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/market_list/MarketListFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/market_list/MarketListFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/market_list/MarketListRecyclerViewAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/market_list/MarketListRecyclerViewAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/market_list/MarketListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/market_list/MarketListViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/product/ProductFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/product/ProductFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/product/ProductViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/product/ProductViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/product_list/ProductListRecyclerViewAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/product_list/ProductListRecyclerViewAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/product_list/ProductsListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/markets_flow/product_list/ProductsListViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/unsubscribe_flow/group_detail/GroupDetailFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/unsubscribe_flow/group_detail/GroupDetailFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/unsubscribe_flow/group_detail/GroupDetailViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/unsubscribe_flow/group_detail/GroupDetailViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/unsubscribe_flow/group_list/GroupListRecyclerViewAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/unsubscribe_flow/group_list/GroupListRecyclerViewAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/unsubscribe_flow/group_list/GroupListViewModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/ui/unsubscribe_flow/group_list/GroupListViewModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/IVkApi.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/IVkApi.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/VKApiEmittedCallback.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/VKApiEmittedCallback.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/VkApi.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/VkApi.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/model/IWithIdModel.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/IWithIdModel.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/model/VKCity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/model/VKCity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/model/VKCurrency.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/model/VKCurrency.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/model/VKDocument.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/model/VKDocument.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/model/VKDocumentType.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/model/VKDocumentType.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/model/VKFileUploadInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/model/VKFileUploadInfo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/model/VKGroup.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/model/VKGroup.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/model/VKMarket.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/model/VKMarket.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/model/VKPost.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/model/VKPost.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/model/VKPrice.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/model/VKPrice.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/model/VKProduct.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/model/VKProduct.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/model/VKSaveInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/model/VKSaveInfo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/model/VKServerUploadInfo.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/model/VKServerUploadInfo.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKAddProductToFavoriteRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKAddProductToFavoriteRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKBaseRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKBaseRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKDeleteDocumentRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKDeleteDocumentRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKEditDocumentRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKEditDocumentRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKGetCityListRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKGetCityListRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKGetDocumentListRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKGetDocumentListRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKGetFriendsRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKGetFriendsRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKGetGroupListRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKGetGroupListRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKGetLastPostRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKGetLastPostRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKGetProductListRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKGetProductListRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKGetProductRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKGetProductRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKGroupLeaveRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKGroupLeaveRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKRemoveProductFromFavoriteRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKRemoveProductFromFavoriteRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKSearchGroupListRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKSearchGroupListRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/vkApi/requests/VKWallPostRequest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/src/main/java/com/catsoft/vktin/data/network/vkApi/requests/VKWallPostRequest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/src/build.gradle" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1Z1rmDwSAXrweiOTJJfZI1fjIiq" />
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="48245600-9c5a-4b80-85fa-cce1a60b3b6d" name="Default Changelist" comment="" />
+      <created>1584017597841</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1584017597841</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

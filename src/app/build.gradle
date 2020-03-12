@@ -92,4 +92,18 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+
+    // room
+    implementation "androidx.room:room-runtime:$room_version"
+
+    implementation "androidx.room:room-rxjava2:$room_version"
+
+    implementation "android.arch.persistence.room:rxjava2:1.1.1"
+
+    kapt "android.arch.persistence.room:compiler:$room_version"
+
+    kapt "androidx.room:room-compiler:$room_version"
+
+    // mapper
+    implementation "org.modelmapper:modelmapper:2.3.0"
 }

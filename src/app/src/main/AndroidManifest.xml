@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.catsoft.vktin"
+    package="com.c.v"
     tools:ignore="GoogleAppIndexingWarning">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,12 +14,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name="com.catsoft.vktin.CustomApplication"
+        android:name="com.c.v.CustomApplication"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
         tools:ignore="UnusedAttribute">
 
-        <activity android:name=".SplashActivity"
+        <activity android:name="com.c.v.SplashActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.Launcher">
 
@@ -31,7 +31,7 @@
         </activity>
 
         <activity
-            android:name="com.catsoft.vktin.MainActivity"
+            android:name="com.c.v.MainActivity"
             android:theme="@style/AppTheme"
             android:label="@string/app_name">
         </activity>
