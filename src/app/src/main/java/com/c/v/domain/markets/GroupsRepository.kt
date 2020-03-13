@@ -8,4 +8,6 @@ interface GroupsRepository {
     fun observeGroups() : Flowable<List<VKGroupDto>>
 
     fun getGroups() : Completable
+
+    fun leaveGroups(ids: List<Int>): Completable
 }

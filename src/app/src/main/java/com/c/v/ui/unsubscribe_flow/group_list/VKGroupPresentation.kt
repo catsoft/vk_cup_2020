@@ -1,28 +1,25 @@
-package com.c.v.ui.model
+package com.c.v.ui.unsubscribe_flow.group_list
 
 import android.os.Parcel
 import android.os.Parcelable
 import com.c.v.data.IWithIdModel
 
-data class VKGroupPresentation (
-    var localId: Int,
-    val remoteId: Int,
-    val name : String,
-    val screenName : String,
-    val deactivated : String,
-    val isMember : Boolean,
-    val isClosed : Int,
-    val photo50 : String,
-    val photo100 : String,
-    val photo200 : String,
-    val isHiddenFromFeed : Boolean,
-    val status : String,
-    val members_count : Int,
-    val description : String, override val id: Int = remoteId) : Parcelable, IWithIdModel {
-
+data class VKGroupPresentation @JvmOverloads constructor(
+    var name : String ="",
+    var screenName : String="",
+    var deactivated : String="",
+    var isMember : Boolean=false,
+    var isClosed : Int = 0,
+    var photo50 : String ="",
+    var photo100 : String="",
+    var photo200 : String="",
+    var isHiddenFromFeed : Boolean= false,
+    var status : String = "",
+    var members_count : Int = 0,
+    var description : String = "",
+    var isSelected : Boolean = false,
+    override var id: Int = 0) : Parcelable, IWithIdModel {
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
-        parcel.readInt(),
         parcel.readString()!!,
         parcel.readString()!!,
         parcel.readString()!!,
@@ -35,13 +32,11 @@ data class VKGroupPresentation (
         parcel.readString()!!,
         parcel.readInt(),
         parcel.readString()!!,
+        parcel.readByte() != 0.toByte(),
         parcel.readInt()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(localId)
-        parcel.writeInt(remoteId)
         parcel.writeString(name)
         parcel.writeString(screenName)
         parcel.writeString(deactivated)
@@ -54,6 +49,7 @@ data class VKGroupPresentation (
         parcel.writeString(status)
         parcel.writeInt(members_count)
         parcel.writeString(description)
+        parcel.writeByte(if (isSelected) 1 else 0)
         parcel.writeInt(id)
     }
 
@@ -70,4 +66,5 @@ data class VKGroupPresentation (
             return arrayOfNulls(size)
         }
     }
+
 }

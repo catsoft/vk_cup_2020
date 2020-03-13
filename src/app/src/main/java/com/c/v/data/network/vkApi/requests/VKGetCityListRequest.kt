@@ -3,7 +3,7 @@ package com.c.v.data.network.vkApi.requests
 import com.c.v.data.network.vkApi.model.VKCity
 import org.json.JSONObject
 
-class VKGetCityListRequest(): VKBaseRequest<List<VKCity>>("database.getCities") {
+class VKGetCityListRequest : VKBaseRequest<List<VKCity>>("database.getCities") {
 
     init {
         addParam("country_id", 1)

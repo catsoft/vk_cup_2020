@@ -3,7 +3,7 @@ package com.c.v.data.network.vkApi.requests
 import com.vk.api.sdk.requests.VKRequest
 import org.json.JSONObject
 
-class VKGroupLeaveRequest(groupId : Int): VKRequest<Int>("groups.leave") {
+class VKGroupLeaveRequest(private val groupId : Int): VKRequest<Int>("groups.leave") {
 
     init {
         addParam("group_id", groupId)
@@ -11,7 +11,7 @@ class VKGroupLeaveRequest(groupId : Int): VKRequest<Int>("groups.leave") {
 
     override fun parse(r: JSONObject): Int {
 
-        return 1
+        return groupId
     }
 }
 

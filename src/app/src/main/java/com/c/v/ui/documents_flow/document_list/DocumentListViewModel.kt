@@ -16,7 +16,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
 
-class DocumentListViewModel() : BaseViewModel() {
+class DocumentListViewModel : BaseViewModel() {
 
     private val _loader = vkApi.getDocumentList()
 
@@ -94,7 +94,7 @@ class DocumentListViewModel() : BaseViewModel() {
                 }
 
                 it.onNext(file)
-            }.subscribeOn(Schedulers.newThread()).observeOn(Schedulers.io()).onErrorResumeNext(Observable.empty()).subscribeBy() {
+            }.subscribeOn(Schedulers.newThread()).observeOn(Schedulers.io()).onErrorResumeNext(Observable.empty()).subscribeBy {
                 ViewLocalFilesUtil.openFile(context, it)
                 dialog.dismiss()
             }.addTo(compositeDisposable)

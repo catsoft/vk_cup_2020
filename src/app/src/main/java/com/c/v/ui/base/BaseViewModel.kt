@@ -67,6 +67,15 @@ abstract class BaseViewModel : ViewModel() {
         _isEmpty.postValue(true)
     }
 
+    protected fun <T>setListData(list: List<T>, liveData: MutableLiveData<List<T>>) {
+        if (list.isEmpty()) {
+            setIsEmpty()
+        } else {
+            liveData.postValue(list)
+            setSuccess()
+        }
+    }
+
     protected fun <T>getTransformer(onNextAction: ((t : T) -> Unit), onErrorAction:  ((t: Throwable) -> Unit) = this::setOnError): Transformer<T> {
         return Transformer(onErrorAction, onNextAction)
     }
@@ -81,7 +90,8 @@ abstract class BaseViewModel : ViewModel() {
         }
     }
 
-    protected fun <T>getFlowableTransformer(onNextAction: ((t : T) -> Unit), onErrorAction:  ((t: Throwable) -> Unit) = this::setOnError): ViewModelFlowableTransformer<T> {
+    protected fun <T>getFlowableTransformer(onNextAction: ((t : T) -> Unit), onErrorAction:  ((t: Throwable) -> Unit) = this::setOnError):
+            ViewModelFlowableTransformer<T> {
         return ViewModelFlowableTransformer(onErrorAction, onNextAction)
     }
 
@@ -95,3 +105,4 @@ abstract class BaseViewModel : ViewModel() {
         }
     }
 }
+

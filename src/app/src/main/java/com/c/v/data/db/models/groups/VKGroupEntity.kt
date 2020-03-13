@@ -4,18 +4,18 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "vk_group")
-data class VKGroupEntity (
-    @PrimaryKey(autoGenerate = true) var localId: Int = 0,
-    val remoteId: Int,
-    val name : String,
-    val screenName : String,
-    val deactivated : String,
-    val isMember : Boolean,
-    val isClosed : Int,
-    val photo50 : String,
-    val photo100 : String,
-    val photo200 : String,
-    val isHiddenFromFeed : Boolean,
-    val status : String,
-    val members_count : Int,
-    val description : String)
+data class VKGroupEntity @JvmOverloads constructor(
+    @PrimaryKey()
+    var id: Int = 0,
+    var name : String = "",
+    var screenName : String = "",
+    var deactivated : String = "",
+    var isMember : Boolean = false,
+    var isClosed : Int = 0,
+    var photo50 : String = "",
+    var photo100 : String = "",
+    var photo200 : String = "",
+    var isHiddenFromFeed : Boolean = false,
+    var status : String = "",
+    var members_count : Int = 0,
+    var description : String = "")

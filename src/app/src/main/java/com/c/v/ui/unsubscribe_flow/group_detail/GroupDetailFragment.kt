@@ -12,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import com.c.v.databinding.FragmentGroupDetailBinding
 import com.c.v.ui.base.StateDialogFragment
 import com.c.v.utils.CalendarReadableUtil
-import com.c.v.ui.model.VKGroupPresentation
+import com.c.v.ui.unsubscribe_flow.group_list.VKGroupPresentation
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 

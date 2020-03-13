@@ -18,7 +18,7 @@ import com.c.v.data.network.vkApi.model.VKCity
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 
-class CitySelectingFragment() : StateDialogFragment<FragmentCitySelectingBinding>() {
+class CitySelectingFragment : StateDialogFragment<FragmentCitySelectingBinding>() {
 
     private val viewModel: CitySelectingViewModel by viewModels()
 
