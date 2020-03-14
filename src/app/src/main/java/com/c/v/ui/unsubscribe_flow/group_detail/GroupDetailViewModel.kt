@@ -1,24 +1,31 @@
 package com.c.v.ui.unsubscribe_flow.group_detail
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.c.v.domain.userGroups.dto.VKUserGroupDto
+import com.c.v.domain.userGroups.UserGroupsRepository
+import com.c.v.mapper.IMapper
+import com.c.v.mapper.user_group.UserGroupDtoToDetailPresentationMapper
 import com.c.v.ui.base.BaseViewModel
-import com.c.v.data.network.vkApi.model.VKPost
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
+import io.reactivex.rxkotlin.addTo
+import javax.inject.Inject
 
-class GroupDetailViewModel : BaseViewModel() {
+class GroupDetailViewModel @Inject constructor(
+    private val groupsRepository: UserGroupsRepository,
+    private val groupMapper: UserGroupDtoToDetailPresentationMapper
+)  : BaseViewModel() {
+    private val _groupItem = MutableLiveData<VKUserGroupDetailPresentation>()
+    val groupItem: LiveData<VKUserGroupDetailPresentation> = _groupItem
 
-    private val _loadPublisher = PublishSubject.create<Int>()
+    fun start(int: Int) {
+        groupsRepository.observeUserGroupDetail(int)
+            .map { groupMapper.map(it) }
+            .compose(getSingleTransformer(this::whenLoad))
+            .subscribe()
+            .addTo(compositeDisposable)
+    }
 
-    val lastPost: Observable<VKPost?> = _loadPublisher.flatMap { vkApi.getLastPost(_groupId) }
-
-    val countFriends: Observable<Int> = _loadPublisher.flatMap { vkApi.getCountFriendsInGroupPost(_groupId) }
-
-    private var _groupId : Int = 0
-
-    fun start(id : Int) {
-
-        _groupId = id
-
-        _loadPublisher.onNext(1)
+    private fun whenLoad(group: VKUserGroupDetailPresentation) {
+        _groupItem.postValue(group)
     }
 }

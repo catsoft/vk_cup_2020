@@ -9,6 +9,7 @@ import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import org.reactivestreams.Publisher
+import java.util.Optional.empty
 
 abstract class BaseViewModel : ViewModel() {
 
@@ -102,6 +103,21 @@ abstract class BaseViewModel : ViewModel() {
                 .doOnNext(onNextAction)
                 .doOnError(onErrorAction)
                 .onErrorResumeNext(Flowable.empty())
+        }
+    }
+
+    protected fun <T>getSingleTransformer(onNextAction: ((t : T) -> Unit), onErrorAction:  ((t: Throwable) -> Unit) = this::setOnError):
+            ViewModelSingleTransformer<T> {
+        return ViewModelSingleTransformer(onErrorAction, onNextAction)
+    }
+
+    class ViewModelSingleTransformer<T>(private val onErrorAction:  ((t: Throwable) -> Unit), private val onNextAction: ((t : T) -> Unit)) :
+        SingleTransformer<T, T> {
+
+        override fun apply(upstream: Single<T>): SingleSource<T> {
+            return upstream.observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess(onNextAction)
+                .doOnError(onErrorAction)
         }
     }
 }

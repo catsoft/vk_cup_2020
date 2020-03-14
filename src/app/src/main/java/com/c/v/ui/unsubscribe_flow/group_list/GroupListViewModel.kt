@@ -1,23 +1,24 @@
 package com.c.v.ui.unsubscribe_flow.group_list
 
 import androidx.lifecycle.Transformations
-import com.c.v.domain.markets.GroupsRepository
+import com.c.v.domain.userGroups.dto.VKUserGroupDto
+import com.c.v.domain.userGroups.UserGroupsRepository
+import com.c.v.mapper.IMapper
+import com.c.v.mapper.user_group.UserGroupDtoToItemPresentationMapper
 import com.c.v.ui.base.ListBaseViewModel
 import com.c.v.utils.repost
-import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import org.modelmapper.ModelMapper
 import javax.inject.Inject
 
 class GroupListViewModel @Inject constructor(
-    private val groupsRepository: GroupsRepository,
-    private val mapper : ModelMapper
-) : ListBaseViewModel<VKGroupPresentation>() {
+    private val groupsRepository: UserGroupsRepository,
+    private val groupMapper : UserGroupDtoToItemPresentationMapper
+) : ListBaseViewModel<VKUserGroupItemPresentation>() {
 
-    private val groupsObserver = groupsRepository.observeGroups()
+    private val groupsObserver = groupsRepository.observeUserGroups()
     private val groupLoader = groupsObserver
-        .map { it.map { group -> mapper.map(group, VKGroupPresentation::class.java) } }
+        .map { it.map { group -> groupMapper.map(group) } }
 
     val isAnySelected = Transformations.map(list) { it.any { group -> group.isSelected } }
 
@@ -29,10 +30,10 @@ class GroupListViewModel @Inject constructor(
     }
 
     fun load() {
-        groupsRepository.getGroups().subscribeBy(onError = {}).addTo(compositeDisposable)
+        groupsRepository.getUserGroups().subscribeBy(onError = {}).addTo(compositeDisposable)
     }
 
-    fun toggle(item: VKGroupPresentation) {
+    fun toggle(item: VKUserGroupItemPresentation) {
         item.isSelected = !item.isSelected
         mutableList.repost()
     }

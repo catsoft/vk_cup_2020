@@ -25,14 +25,6 @@ class VkApi : IVkApi {
 
     override fun getCityList(): Observable<List<VKCity>> = createObservable(VKGetCityListRequest())
 
-    override fun getGroupList(id: Int): Observable<List<VKGroupApi>> = createObservable(VKGetGroupListRequest(id))
-
-    override fun getLastPost(id: Int): Observable<VKPost?> = createObservable(VKGetLastPostRequest(id))
-
-    override fun getCountFriendsInGroupPost(id: Int): Observable<Int> = createObservable(VKGetFriendsRequest(id))
-
-    override fun groupLeave(id: Int): Observable<Int> = createObservable(VKGroupLeaveRequest(id))
-
     override fun getDocumentList(): Observable<List<VKDocument>> = createObservable(VKGetDocumentListRequest())
 
     override fun deleteDocument(id: Int, ownerId: Int): Observable<Boolean> = createObservable(VKDeleteDocumentRequest(id, ownerId))

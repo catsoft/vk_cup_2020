@@ -17,7 +17,7 @@ import io.reactivex.rxkotlin.addTo
 class GroupListRecyclerViewAdapter(
     private val viewModel: GroupListViewModel,
     private val context: Context
-) : BaseAdapter<GroupViewHolder, VKGroupPresentation>() {
+) : BaseAdapter<GroupViewHolder, VKUserGroupItemPresentation>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -32,7 +32,7 @@ class GroupListRecyclerViewAdapter(
 
         RxView.longClicks(holder.itemView).subscribe {
             val item = items[holder.adapterPosition]
-            val action = GroupListFragmentDirections.actionNavigationGroupsListToNavigationGroupDetail(item)
+            val action = GroupListFragmentDirections.actionNavigationGroupsListToNavigationGroupDetail(item.id)
             binding.root.findNavController().navigate(action)
         }.addTo(compositeDisposable)
 
@@ -50,7 +50,7 @@ class GroupListRecyclerViewAdapter(
         Glide.with(context).load(item.photo200).circleCrop().diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.binding.mainImage)
     }
 
-    fun updateMarketsListItems(list: List<VKGroupPresentation>) {
+    fun updateMarketsListItems(list: List<VKUserGroupItemPresentation>) {
         val diffResult = DiffUtil.calculateDiff(WithIdDiffCallback(list, this.items))
         this.items = list.toMutableList()
         diffResult.dispatchUpdatesTo(this)

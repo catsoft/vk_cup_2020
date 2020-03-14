@@ -103,7 +103,4 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:$room_version"
 
     kapt "androidx.room:room-compiler:$room_version"
-
-    // mapper
-    implementation "org.modelmapper:modelmapper:2.3.0"
 }

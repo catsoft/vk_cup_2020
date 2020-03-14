@@ -21,14 +21,6 @@ interface IVkApi {
 
     fun getCityList() : Observable<List<VKCity>>
 
-    fun getGroupList(id: Int): Observable<List<VKGroupApi>>
-
-    fun getLastPost(id: Int) : Observable<VKPost?>
-
-    fun getCountFriendsInGroupPost(id: Int) : Observable<Int>
-
-    fun groupLeave(id: Int) : Observable<Int>
-
     fun getDocumentList(): Observable<List<VKDocument>>
 
     fun deleteDocument(id: Int, ownerId: Int): Observable<Boolean>

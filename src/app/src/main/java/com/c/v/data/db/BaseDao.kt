@@ -24,16 +24,4 @@ interface BaseDao<TEntity> {
 
     @Delete
     fun deleteAll(entity: List<TEntity>) : Completable
-
-    @Query("Select * from vk_group WHERE id = :id")
-    fun getById(id : Int) : Single<TEntity>
-
-    @Query("SELECT * from vk_group")
-    fun getAll() : Flowable<List<TEntity>>
-
-    @Query("DELETE FROM vk_group WHERE id = :id")
-    fun deleteById(id: Int) : Completable
-
-    @Query("DELETE FROM vk_group WHERE id in (:id)")
-    fun deleteAllById(id: List<Int>) : Completable
 }

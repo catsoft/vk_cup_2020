@@ -77,8 +77,8 @@
         android:label="Группы"
         tools:layout="@layout/fragment_group_detail">
         <argument
-            android:name="selectedGroup"
-            app:argType="com.c.v.ui.unsubscribe_flow.group_list.VKGroupPresentation" />
+            android:name="selectedGroupId"
+            app:argType="integer" />
     </dialog>
 
     <dialog

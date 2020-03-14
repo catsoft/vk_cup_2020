@@ -1,8 +1,8 @@
 package com.c.v.di.module
 
 import android.app.Application
-import com.c.v.data.db.VKDatabase
-import com.c.v.data.db.VKGroupDao
+import com.c.v.data.db.user_groups.VKUserGroupsDatabase
+import com.c.v.data.db.user_groups.VKUserGroupDao
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -12,14 +12,14 @@ class DaoModule {
 
     @Singleton
     @Provides
-    fun provideTimeDatabase(app: Application): VKDatabase {
-        return VKDatabase.create(app)
+    fun provideUserGroupDatabase(app: Application): VKUserGroupsDatabase {
+        return VKUserGroupsDatabase.create(app)
     }
 
     @Singleton
     @Provides
-    fun provideTimeRecordsDao(timeDatabase: VKDatabase): VKGroupDao {
-        return timeDatabase.vkGroupDao()
+    fun provideVKUserGroupDao(vkUserGroupsDatabase: VKUserGroupsDatabase): VKUserGroupDao {
+        return vkUserGroupsDatabase.vkGroupDao()
     }
 }
 

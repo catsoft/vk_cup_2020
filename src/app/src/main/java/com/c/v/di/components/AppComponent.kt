@@ -8,10 +8,9 @@ import javax.inject.Singleton
 import android.app.Application
 import com.c.v.CustomApplication
 import com.c.v.di.module.*
+import com.c.v.mapper.user_group.UserGroupsMapperModule
 import com.c.v.ui.markets_flow.market_list.MarketListFragment
 import dagger.BindsInstance
-import org.modelmapper.ModelMapper
-
 
 @Singleton
 @Component(modules = [
@@ -20,7 +19,7 @@ import org.modelmapper.ModelMapper
     FragmentBuilderModule::class,
     AndroidInjectionModule::class,
     RepoModule::class,
-    MapperModule::class,
+    UserGroupsMapperModule::class,
     MainActivityModule::class,
     ViewModelModule::class])
 interface AppComponent : AndroidInjector<DaggerApplication> {

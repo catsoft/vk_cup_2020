@@ -10,16 +10,19 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.c.v.databinding.FragmentGroupDetailBinding
+import com.c.v.di.Injectable
 import com.c.v.ui.base.StateDialogFragment
 import com.c.v.utils.CalendarReadableUtil
-import com.c.v.ui.unsubscribe_flow.group_list.VKGroupPresentation
+import com.c.v.utils.observe
+import com.c.v.utils.toVisibility
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
+import java.util.*
 
 
-class GroupDetailFragment : StateDialogFragment<FragmentGroupDetailBinding>() {
+class GroupDetailFragment : StateDialogFragment<FragmentGroupDetailBinding>(), Injectable {
 
-    private val viewModel: GroupDetailViewModel by viewModels()
+    private val viewModel: GroupDetailViewModel by viewModels(factoryProducer = {viewModelFactory})
 
     private val args: GroupDetailFragmentArgs by navArgs()
 
@@ -31,47 +34,40 @@ class GroupDetailFragment : StateDialogFragment<FragmentGroupDetailBinding>() {
 
         subscribeToState(viewModel)
 
-        initInfo(args.selectedGroup)
+        viewModel.start(args.selectedGroupId)
 
-        initOpenButton(args.selectedGroup)
+        subscribeGroupDetail()
 
-        viewModel.start(args.selectedGroup.id)
+        initOpenButton()
 
         RxView.clicks(viewBinding.dismissImage).subscribe { findNavController().navigateUp() }.addTo(compositeDisposable)
     }
 
-    private fun initOpenButton(group: VKGroupPresentation) {
+    private fun initOpenButton() {
         RxView.clicks(viewBinding.openButton).subscribe {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://vk.com/club${group.id}"))
-            startActivity(browserIntent)
+            Intent(Intent.ACTION_VIEW, Uri.parse(viewModel.groupItem.value!!.shareUrl)).also { startActivity(it) }
         }.addTo(compositeDisposable)
     }
 
-    private fun initInfo(group : VKGroupPresentation) {
-        val info = "${group.members_count / 1000}К подписчиков · 12 друзей"
-        viewBinding.subscribeInfo.text = info
-        viewBinding.descriptionInfo.text = group.description
-        viewBinding.title.text = group.name
+    private fun subscribeGroupDetail() {
 
-        viewBinding.lastPostContainer.visibility = View.GONE
-        viewModel.lastPost.subscribe {
-            if (it == null) {
-                viewBinding.lastPostContainer.visibility = View.GONE
-            } else {
-                viewBinding.lastPostContainer.visibility = View.VISIBLE
-                val dateFormatter = CalendarReadableUtil.format(it.date)
-                val text = "Последний пост $dateFormatter"
-                viewBinding.lastPostInfo.text = text
+        observe(viewModel.groupItem) { group ->
+
+            val info = "${group.members_count / 1000}К подписчиков · ${group.friendsCount} друзей"
+
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = group.last_post_date
+            val dateFormatter = CalendarReadableUtil.format(calendar)
+            val lastPostText = "Последний пост $dateFormatter"
+
+            viewBinding.apply {
+                descriptionInfo.text = group.description
+                descriptionContainer.visibility = group.description.isBlank().toVisibility()
+                title.text = group.name
+                subscribeInfo.text = info
+                lastPostInfo.text = lastPostText
+                lastPostContainer.visibility = (group.last_post_date == 0L).toVisibility()
             }
-        }.addTo(compositeDisposable)
-
-        viewModel.countFriends.subscribe {
-            val info2 = "${group.members_count / 1000}К подписчиков · $it друзей"
-            viewBinding.subscribeInfo.text = info2
-        }.addTo(compositeDisposable)
-
-        if (group.description.isBlank()) {
-            viewBinding.descriptionContainer.visibility = View.GONE
         }
     }
 }
