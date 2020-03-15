@@ -13,7 +13,7 @@ data class VKUserGroupDto constructor (
     val isHiddenFromFeed : Boolean,
     val status : String,
     val members_count : Int,
-    val friendsCount : Int,
-    val last_post_date :Long,
+    val friendsCount : Int?,
+    val last_post_date :Long?,
     val description : String)
 

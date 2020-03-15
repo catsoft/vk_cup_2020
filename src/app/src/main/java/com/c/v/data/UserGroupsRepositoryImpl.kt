@@ -1,9 +1,7 @@
 package com.c.v.data
 
 import com.c.v.data.db.user_groups.VKUserGroupDao
-import com.c.v.data.db.user_groups.VKUserGroupEntity
 import com.c.v.domain.userGroups.dto.VKUserGroupDto
-import com.c.v.data.network.vkApi.model.VKGroupApi
 import com.c.v.data.network.vkApi.requests.VKGetCountFriendsInGroupRequest
 import com.c.v.data.network.vkApi.requests.VKGetGroupListRequest
 import com.c.v.data.network.vkApi.requests.VKGetLastPostRequest
@@ -17,49 +15,52 @@ import io.reactivex.schedulers.Schedulers
 
 class UserGroupsRepositoryImpl(
     private val vkUserGroupDao: VKUserGroupDao,
-    private val groupMapping: UserGroupApiToEntityMapper,
-    private val groupMappingToEntity : UserGroupEntityToDtoMapper,
+    private val userGroupApiToEntityMapper: UserGroupApiToEntityMapper,
+    private val userGroupEntityToDtoMapper : UserGroupEntityToDtoMapper,
     private val scheduler: Scheduler = Schedulers.io()
 ) : UserGroupsRepository {
 
     override fun observeUserGroups(): Flowable<List<VKUserGroupDto>> {
         return vkUserGroupDao.getAll()
-            .map { it.map { vkGroup -> groupMappingToEntity.map(vkGroup) } }.subscribeOn(scheduler)
+            .map { it.map(userGroupEntityToDtoMapper::map) }
+            .subscribeOn(scheduler)
     }
 
     override fun getUserGroups(): Completable {
         return Single.fromCallable { VKGetGroupListRequest(0) }
-            .map { request -> VK.executeSync(request) }
-            .map {
-                it.map { vkGroupApi: VKGroupApi ->
-                    groupMapping.map(vkGroupApi).also { group ->
-                        if (group.deactivated.isEmpty()) {
-                            group.copy(
-                                friendsCount = VK.executeSync(
-                                    VKGetCountFriendsInGroupRequest(
-                                        group.id
-                                    )
-                                ),
-                                last_post_date = VK.executeSync(VKGetLastPostRequest(group.id))?.date?.timeInMillis
-                                    ?: 0
-                            )
-                        }
-                    }
-                }
-            }
-            .flatMapCompletable { groupsEntity -> vkUserGroupDao.insertAll(groupsEntity) }
+            .map { VK.executeSync(it) }
+            .map { it.map(userGroupApiToEntityMapper::map) }
+            .flatMapCompletable(vkUserGroupDao::insertAll)
+            .onErrorResumeNext { Completable.complete() }
             .subscribeOn(scheduler)
     }
 
     override fun leaveGroups(ids: List<Int>): Completable {
         return Single.fromCallable { ids.map { id -> VK.executeSync(VKGroupLeaveRequest(id)) } }
-            .flatMapCompletable { vkUserGroupDao.deleteAllById(it) }
+            .flatMapCompletable(vkUserGroupDao::deleteAllById)
             .subscribeOn(scheduler)
     }
 
-    override fun observeUserGroupDetail(id: Int): Single<VKUserGroupDto> {
+    override fun observeUserGroupDetail(id: Int): Flowable<VKUserGroupDto> {
         return vkUserGroupDao.getById(id)
-            .map { groupMappingToEntity.map(it) }
+            .map(userGroupEntityToDtoMapper::map)
+            .subscribeOn(scheduler)
+    }
+
+    override fun getUserGroupDetail(id: Int): Completable {
+        return vkUserGroupDao.getById(id).map { group ->
+                if (group.deactivated.isEmpty()) {
+                    group.copy(
+                        friendsCount = VK.executeSync(
+                            VKGetCountFriendsInGroupRequest(
+                                group.id
+                            )
+                        ),
+                        last_post_date = VK.executeSync(VKGetLastPostRequest(group.id))?.date?.timeInMillis
+                    )
+                } else group
+            }.flatMapCompletable { vkUserGroupDao.update(it) }
+            .onErrorResumeNext { Completable.complete() }
             .subscribeOn(scheduler)
     }
 }

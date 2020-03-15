@@ -8,6 +8,6 @@ data class VKUserGroupDetailPresentation(
     val screenName : String,
     val description : String,
     val members_count : Int,
-    val friendsCount : Int,
-    val last_post_date :Long,
+    val friendsCount : Int?,
+    val last_post_date :Long?,
     val shareUrl : String) : IWithIdModel

@@ -22,7 +22,7 @@ import java.util.*
 
 class GroupDetailFragment : StateDialogFragment<FragmentGroupDetailBinding>(), Injectable {
 
-    private val viewModel: GroupDetailViewModel by viewModels(factoryProducer = {viewModelFactory})
+    private val viewModel: GroupDetailViewModel by viewModels(factoryProducer = { viewModelFactory })
 
     private val args: GroupDetailFragmentArgs by navArgs()
 
@@ -53,20 +53,22 @@ class GroupDetailFragment : StateDialogFragment<FragmentGroupDetailBinding>(), I
 
         observe(viewModel.groupItem) { group ->
 
-            val info = "${group.members_count / 1000}К подписчиков · ${group.friendsCount} друзей"
+            val friendsInfo = if (group.friendsCount == null) "" else " · ${group.friendsCount} друзей"
+            val info = "${group.members_count / 1000}К подписчиков$friendsInfo"
 
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = group.last_post_date
-            val dateFormatter = CalendarReadableUtil.format(calendar)
-            val lastPostText = "Последний пост $dateFormatter"
+            val lastPostText = if (group.last_post_date == null) "" else {
+                val dateFormatter = CalendarReadableUtil.format(
+                    Calendar.getInstance().apply { timeInMillis = group.last_post_date })
+                "Последний пост $dateFormatter"
+            }
 
             viewBinding.apply {
                 descriptionInfo.text = group.description
-                descriptionContainer.visibility = group.description.isBlank().toVisibility()
+                descriptionContainer.visibility = group.description.isNotBlank().toVisibility()
                 title.text = group.name
                 subscribeInfo.text = info
                 lastPostInfo.text = lastPostText
-                lastPostContainer.visibility = (group.last_post_date == 0L).toVisibility()
+                lastPostContainer.visibility = (group.last_post_date != null).toVisibility()
             }
         }
     }

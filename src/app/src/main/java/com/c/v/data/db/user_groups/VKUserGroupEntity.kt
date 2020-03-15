@@ -19,5 +19,5 @@ data class VKUserGroupEntity constructor(
     val status : String,
     val members_count : Int,
     val description : String,
-    val friendsCount : Int,
-    val last_post_date : Long)
+    val friendsCount : Int?,
+    val last_post_date : Long?)

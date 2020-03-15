@@ -21,8 +21,8 @@ class UserGroupApiToEntityMapper :
             status = from.status,
             members_count = from.members_count,
             description = from.description,
-            friendsCount = 0,
-            last_post_date = 0
+            friendsCount = null,
+            last_post_date = null
         )
     }
 }

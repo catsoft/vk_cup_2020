@@ -20,9 +20,7 @@ class UserGroupDtoToItemPresentationMapper :
             isHiddenFromFeed = from.isHiddenFromFeed,
             status = from.status,
             members_count = from.members_count,
-            description = from.description,
-            friendsCount = from.friendsCount,
-            last_post_date = from.last_post_date
+            description = from.description
         )
     }
 }

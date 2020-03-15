@@ -11,7 +11,7 @@ import io.reactivex.Single
 interface VKUserGroupDao : BaseDao<VKUserGroupEntity> {
 
     @Query("Select * from vk_user_group WHERE id = :id")
-    fun getById(id : Int) : Single<VKUserGroupEntity>
+    fun getById(id : Int) : Flowable<VKUserGroupEntity>
 
     @Query("SELECT * from vk_user_group")
     fun getAll() : Flowable<List<VKUserGroupEntity>>
