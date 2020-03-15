@@ -44,8 +44,6 @@ class GroupListFragment : StateFragment<FragmentGroupsBinding>(), Injectable {
         initUnsubscribeButton()
 
         initSwipeRefresher()
-
-        viewBinding.mainCollapsing.setExpandedTitleColor(resources.getColor(R.color.transparent))
     }
 
     private fun initList() {

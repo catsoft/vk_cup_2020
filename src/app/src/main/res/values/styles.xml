@@ -18,7 +18,7 @@
         <item name="android:windowExitAnimation">@anim/slide_down</item>
 
         <item name="android:navigationBarColor">#FFFFFF</item>
-        <item name="android:statusBarColor">#00000000</item>
+        <item name="android:statusBarColor">#FFFFFF</item>
     </style>
 
     <style name="AppTheme.Launcher">

@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         super.onCreate(savedInstanceState)
 
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(viewBinding.getRoot())
+        setContentView(viewBinding.root)
 
         this.setSupportActionBar(viewBinding.toolbar)
 
@@ -43,9 +43,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
     private fun setupNavController() {
         navController = findNavController(R.id.host_fragment)
-        navController.setGraph(R.navigation.mobile_navigation)
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.navigation_features))
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        setupActionBarWithNavController(navController, AppBarConfiguration(setOf(R.id.navigation_features)))
     }
 
     private fun setupVKConfig() {
