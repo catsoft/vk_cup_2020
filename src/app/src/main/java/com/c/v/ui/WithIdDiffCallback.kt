@@ -3,8 +3,7 @@ package com.c.v.ui
 import androidx.recyclerview.widget.DiffUtil
 import com.c.v.data.IWithIdModel
 
-class WithIdDiffCallback<T : IWithIdModel>(private val newItems: List<T>,
-                                                                                     private val oldItems: List<T>)
+open class WithIdDiffCallback<T : IWithIdModel>(protected val newItems: List<T>, protected val oldItems: List<T>)
     : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {

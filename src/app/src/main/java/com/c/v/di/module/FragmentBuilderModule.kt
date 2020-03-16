@@ -1,8 +1,8 @@
 package com.c.v.di.module
 
 import com.c.v.ui.markets_flow.market_list.MarketListFragment
-import com.c.v.ui.unsubscribe_flow.group_detail.GroupDetailFragment
-import com.c.v.ui.unsubscribe_flow.group_list.GroupListFragment
+import com.c.v.ui.unsubscribe_flow.user_group_detail.UserGroupDetailFragment
+import com.c.v.ui.unsubscribe_flow.user_group_list.UserGroupListFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -14,8 +14,8 @@ abstract class FragmentBuilderModule {
     abstract fun contributeMarketListFragment(): MarketListFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeGroupListFragment(): GroupListFragment
+    abstract fun contributeGroupListFragment(): UserGroupListFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeGroupDetailFragment(): GroupDetailFragment
+    abstract fun contributeGroupDetailFragment(): UserGroupDetailFragment
 }

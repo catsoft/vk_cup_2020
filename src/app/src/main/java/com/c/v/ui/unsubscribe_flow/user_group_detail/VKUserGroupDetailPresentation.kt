@@ -1,4 +1,4 @@
-package com.c.v.ui.unsubscribe_flow.group_detail
+package com.c.v.ui.unsubscribe_flow.user_group_detail
 
 import com.c.v.data.IWithIdModel
 

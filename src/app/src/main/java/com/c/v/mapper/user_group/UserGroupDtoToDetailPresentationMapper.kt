@@ -2,7 +2,7 @@ package com.c.v.mapper.user_group
 
 import com.c.v.domain.userGroups.dto.VKUserGroupDto
 import com.c.v.mapper.IMapper
-import com.c.v.ui.unsubscribe_flow.group_detail.VKUserGroupDetailPresentation
+import com.c.v.ui.unsubscribe_flow.user_group_detail.VKUserGroupDetailPresentation
 
 class UserGroupDtoToDetailPresentationMapper : IMapper<VKUserGroupDto, VKUserGroupDetailPresentation> {
     override fun map(from: VKUserGroupDto): VKUserGroupDetailPresentation {

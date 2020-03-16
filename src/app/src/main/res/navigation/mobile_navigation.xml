@@ -63,9 +63,9 @@
 
     <fragment
         android:id="@+id/navigation_groupsList"
-        android:name="com.c.v.ui.unsubscribe_flow.group_list.GroupListFragment"
+        android:name="com.c.v.ui.unsubscribe_flow.user_group_list.UserGroupListFragment"
         android:label="Группы"
-        tools:layout="@layout/fragment_groups" >
+        tools:layout="@layout/fragment_user_group_list" >
         <action
             android:id="@+id/action_navigation_groupsList_to_navigation_groupDetail"
             app:destination="@id/navigation_groupDetail" />
@@ -73,9 +73,9 @@
 
     <dialog
         android:id="@+id/navigation_groupDetail"
-        android:name="com.c.v.ui.unsubscribe_flow.group_detail.GroupDetailFragment"
+        android:name="com.c.v.ui.unsubscribe_flow.user_group_detail.UserGroupDetailFragment"
         android:label="Группы"
-        tools:layout="@layout/fragment_group_detail">
+        tools:layout="@layout/fragment_user_group_detail">
         <argument
             android:name="selectedGroupId"
             app:argType="integer" />

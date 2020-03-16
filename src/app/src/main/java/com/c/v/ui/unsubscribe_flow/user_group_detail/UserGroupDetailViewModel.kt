@@ -1,4 +1,4 @@
-package com.c.v.ui.unsubscribe_flow.group_detail
+package com.c.v.ui.unsubscribe_flow.user_group_detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,7 @@ import com.c.v.ui.base.BaseViewModel
 import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
 
-class GroupDetailViewModel @Inject constructor(
+class UserGroupDetailViewModel @Inject constructor(
     private val groupsRepository: UserGroupsRepository,
     private val groupMapper: UserGroupDtoToDetailPresentationMapper
 )  : BaseViewModel() {

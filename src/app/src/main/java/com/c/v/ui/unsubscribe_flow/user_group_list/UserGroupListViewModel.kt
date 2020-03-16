@@ -1,9 +1,7 @@
-package com.c.v.ui.unsubscribe_flow.group_list
+package com.c.v.ui.unsubscribe_flow.user_group_list
 
 import androidx.lifecycle.Transformations
-import com.c.v.domain.userGroups.dto.VKUserGroupDto
 import com.c.v.domain.userGroups.UserGroupsRepository
-import com.c.v.mapper.IMapper
 import com.c.v.mapper.user_group.UserGroupDtoToItemPresentationMapper
 import com.c.v.ui.base.ListBaseViewModel
 import com.c.v.utils.repost
@@ -11,7 +9,7 @@ import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import javax.inject.Inject
 
-class GroupListViewModel @Inject constructor(
+class UserGroupListViewModel @Inject constructor(
     private val groupsRepository: UserGroupsRepository,
     private val groupMapper : UserGroupDtoToItemPresentationMapper
 ) : ListBaseViewModel<VKUserGroupItemPresentation>() {

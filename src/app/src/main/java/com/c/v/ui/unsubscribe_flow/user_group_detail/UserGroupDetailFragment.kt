@@ -1,4 +1,4 @@
-package com.c.v.ui.unsubscribe_flow.group_detail
+package com.c.v.ui.unsubscribe_flow.user_group_detail
 
 import android.content.Intent
 import android.net.Uri
@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.c.v.databinding.FragmentGroupDetailBinding
+import com.c.v.databinding.FragmentUserGroupDetailBinding
 import com.c.v.di.Injectable
 import com.c.v.ui.base.StateDialogFragment
 import com.c.v.utils.CalendarReadableUtil
@@ -20,13 +20,13 @@ import io.reactivex.rxkotlin.addTo
 import java.util.*
 
 
-class GroupDetailFragment : StateDialogFragment<FragmentGroupDetailBinding>(), Injectable {
+class UserGroupDetailFragment : StateDialogFragment<FragmentUserGroupDetailBinding>(), Injectable {
 
-    private val viewModel: GroupDetailViewModel by viewModels(factoryProducer = { viewModelFactory })
+    private val viewModel: UserGroupDetailViewModel by viewModels(factoryProducer = { viewModelFactory })
 
-    private val args: GroupDetailFragmentArgs by navArgs()
+    private val args: UserGroupDetailFragmentArgs by navArgs()
 
-    override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentGroupDetailBinding = FragmentGroupDetailBinding::inflate
+    override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentUserGroupDetailBinding = FragmentUserGroupDetailBinding::inflate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
