@@ -12,15 +12,7 @@ class UserGroupDtoToItemPresentationMapper :
             name = from.name,
             screenName = from.screenName,
             deactivated = from.deactivated,
-            isMember = from.isMember,
-            isClosed = from.isClosed,
-            photo50 = from.photo50,
-            photo100 = from.photo100,
-            photo200 = from.photo200,
-            isHiddenFromFeed = from.isHiddenFromFeed,
-            status = from.status,
-            members_count = from.members_count,
-            description = from.description
+            photo200 = from.photo200
         )
     }
 }

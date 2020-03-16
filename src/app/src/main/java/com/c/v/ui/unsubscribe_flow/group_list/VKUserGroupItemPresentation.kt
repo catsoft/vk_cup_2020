@@ -7,13 +7,5 @@ data class VKUserGroupItemPresentation(
     val name : String,
     val screenName : String,
     val deactivated : String,
-    val isMember : Boolean,
-    val isClosed : Int,
-    val photo50 : String,
-    val photo100 : String,
     val photo200 : String,
-    val isHiddenFromFeed : Boolean,
-    val status : String,
-    val members_count : Int,
-    val description : String,
     var isSelected : Boolean = false) : IWithIdModel

@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.c.v.databinding.ActivityMainBinding
+import com.google.android.material.appbar.AppBarLayout
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKApiConfig
 import com.vk.api.sdk.VKDefaultValidationHandler
@@ -44,6 +45,10 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
     private fun setupNavController() {
         navController = findNavController(R.id.host_fragment)
         setupActionBarWithNavController(navController, AppBarConfiguration(setOf(R.id.navigation_features)))
+
+        navController.addOnDestinationChangedListener { _, _, _ ->
+            viewBinding.mainAppbar.setExpanded(true)
+        }
     }
 
     private fun setupVKConfig() {
