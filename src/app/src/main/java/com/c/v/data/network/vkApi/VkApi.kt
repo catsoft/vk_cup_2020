@@ -35,8 +35,6 @@ class VkApi : IVkApi {
         )
     )
 
-    override fun post(string: String, images: List<Uri>): Observable<Int> = createObservable(VKWallPostRequest(string, images, 141454621))
-
     private fun <T> createObservable(request: ApiCommand<T>): Observable<T> = Observable.create {
         VK.execute(request, VKApiEmittedCallback<T>(it))
     }

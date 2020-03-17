@@ -28,7 +28,7 @@ class AuthFragment : StateFragment<FragmentAuthBinding>() {
         subscribeToState(viewModel)
 
         RxView.clicks(viewBinding.authButton).subscribe {
-            VK.login(requireActivity(), setOf(VKScope.GROUPS, VKScope.MARKET, VKScope.WALL, VKScope.DOCS))
+            VK.login(requireActivity(), setOf(VKScope.GROUPS, VKScope.MARKET, VKScope.WALL, VKScope.DOCS, VKScope.PHOTOS))
         }.addTo(compositeDisposable)
 
         viewModel.isError.observe(viewLifecycleOwner, Observer {

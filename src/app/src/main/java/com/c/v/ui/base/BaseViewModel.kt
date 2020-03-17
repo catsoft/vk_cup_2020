@@ -9,7 +9,6 @@ import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import org.reactivestreams.Publisher
-import java.util.Optional.empty
 
 abstract class BaseViewModel : ViewModel() {
 
@@ -30,7 +29,7 @@ abstract class BaseViewModel : ViewModel() {
     val isEmpty: LiveData<Boolean> = _isEmpty
 
     init {
-        setIsProgress()
+        setInProgressState()
     }
 
     override fun onCleared() {
@@ -39,14 +38,14 @@ abstract class BaseViewModel : ViewModel() {
         compositeDisposable.dispose()
     }
 
-    protected fun setIsProgress() {
+    protected fun setInProgressState() {
         _isProgress.postValue(true)
         _isError.postValue(false)
         _isSuccess.postValue(false)
         _isEmpty.postValue(false)
     }
 
-    protected fun setOnError(error: Throwable) {
+    protected fun setErrorState(error: Throwable) {
         _isProgress.postValue(false)
         _isError.postValue(true)
         _isSuccess.postValue(false)
@@ -54,34 +53,39 @@ abstract class BaseViewModel : ViewModel() {
         _error.postValue(error)
     }
 
-    protected fun setSuccess() {
+    protected fun setError(error: Throwable) {
+        _isError.postValue(true)
+        _error.postValue(error)
+    }
+
+    protected fun setSuccessState() {
         _isProgress.postValue(false)
         _isError.postValue(false)
         _isSuccess.postValue(true)
         _isEmpty.postValue(false)
     }
 
-    protected fun setIsEmpty() {
+    protected fun setEmptyState() {
         _isProgress.postValue(false)
         _isError.postValue(false)
         _isSuccess.postValue(false)
         _isEmpty.postValue(true)
     }
 
-    protected fun <T>setListData(list: List<T>, liveData: MutableLiveData<List<T>>) {
+    protected fun <T> setListData(list: List<T>, liveData: MutableLiveData<List<T>>) {
         if (list.isEmpty()) {
-            setIsEmpty()
+            setEmptyState()
         } else {
             liveData.postValue(list)
-            setSuccess()
+            setSuccessState()
         }
     }
 
-    protected fun <T>getTransformer(onNextAction: ((t : T) -> Unit), onErrorAction:  ((t: Throwable) -> Unit) = this::setOnError): Transformer<T> {
+    protected fun <T> getTransformer(onNextAction: ((t: T) -> Unit), onErrorAction: ((t: Throwable) -> Unit) = this::setErrorState): Transformer<T> {
         return Transformer(onErrorAction, onNextAction)
     }
 
-    class Transformer<T>(private val onErrorAction:  ((t: Throwable) -> Unit), private val onNextAction: ((t : T) -> Unit)) :
+    class Transformer<T>(private val onErrorAction: ((t: Throwable) -> Unit), private val onNextAction: ((t: T) -> Unit)) :
         ObservableTransformer<T, T> {
         override fun apply(upstream: Observable<T>): ObservableSource<T> {
             return upstream.observeOn(AndroidSchedulers.mainThread())
@@ -91,12 +95,12 @@ abstract class BaseViewModel : ViewModel() {
         }
     }
 
-    protected fun <T>getFlowableTransformer(onNextAction: ((t : T) -> Unit), onErrorAction:  ((t: Throwable) -> Unit) = this::setOnError):
+    protected fun <T> getFlowableTransformer(onNextAction: ((t: T) -> Unit), onErrorAction: ((t: Throwable) -> Unit) = this::setErrorState):
             ViewModelFlowableTransformer<T> {
         return ViewModelFlowableTransformer(onErrorAction, onNextAction)
     }
 
-    class ViewModelFlowableTransformer<T>(private val onErrorAction:  ((t: Throwable) -> Unit), private val onNextAction: ((t : T) -> Unit)) :
+    class ViewModelFlowableTransformer<T>(private val onErrorAction: ((t: Throwable) -> Unit), private val onNextAction: ((t: T) -> Unit)) :
         FlowableTransformer<T, T> {
         override fun apply(upstream: Flowable<T>): Publisher<T> {
             return upstream.observeOn(AndroidSchedulers.mainThread())
@@ -106,12 +110,12 @@ abstract class BaseViewModel : ViewModel() {
         }
     }
 
-    protected fun <T>getSingleTransformer(onNextAction: ((t : T) -> Unit), onErrorAction:  ((t: Throwable) -> Unit) = this::setOnError):
+    protected fun <T> getSingleTransformer(onNextAction: ((t: T) -> Unit), onErrorAction: ((t: Throwable) -> Unit) = this::setErrorState):
             ViewModelSingleTransformer<T> {
         return ViewModelSingleTransformer(onErrorAction, onNextAction)
     }
 
-    class ViewModelSingleTransformer<T>(private val onErrorAction:  ((t: Throwable) -> Unit), private val onNextAction: ((t : T) -> Unit)) :
+    class ViewModelSingleTransformer<T>(private val onErrorAction: ((t: Throwable) -> Unit), private val onNextAction: ((t: T) -> Unit)) :
         SingleTransformer<T, T> {
 
         override fun apply(upstream: Single<T>): SingleSource<T> {
@@ -120,5 +124,20 @@ abstract class BaseViewModel : ViewModel() {
                 .doOnError(onErrorAction)
         }
     }
-}
 
+    protected fun getCompletableTransformer(onNextAction: (() -> Unit), onErrorAction: ((t: Throwable) -> Unit) = this::setErrorState):
+            ViewModelCompletableTransformer {
+        return ViewModelCompletableTransformer(onErrorAction, onNextAction)
+    }
+
+    class ViewModelCompletableTransformer(private val onErrorAction: ((t: Throwable) -> Unit), private val onNextAction: (() -> Unit)) :
+        CompletableTransformer {
+
+        override fun apply(upstream: Completable): Completable {
+            return upstream.observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete(onNextAction)
+                .doOnError(onErrorAction)
+                .onErrorResumeNext { Completable.complete() }
+        }
+    }
+}

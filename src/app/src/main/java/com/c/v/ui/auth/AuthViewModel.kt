@@ -20,7 +20,7 @@ class AuthViewModel : BaseViewModel() {
         }
 
         override fun onLoginFailed(errorCode: Int) {
-            setOnError(Throwable(errorCode.toString()))
+            setErrorState(Throwable(errorCode.toString()))
         }
     }
 

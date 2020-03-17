@@ -1,10 +1,8 @@
 ﻿package com.c.v.data.network.vkApi
 
-import android.net.Uri
-import com.c.v.data.network.vkApi.model.VKDocument
 import com.c.v.data.network.vkApi.model.VKCity
+import com.c.v.data.network.vkApi.model.VKDocument
 import com.c.v.data.network.vkApi.model.VKGroupApi
-import com.c.v.data.network.vkApi.model.VKPost
 import com.c.v.data.network.vkApi.model.VKProduct
 import io.reactivex.Observable
 
@@ -26,6 +24,4 @@ interface IVkApi {
     fun deleteDocument(id: Int, ownerId: Int): Observable<Boolean>
 
     fun editDocument(id: Int, ownerId: Int, title: String, tags: List<String>): Observable<Boolean>
-
-    fun post(string: String, images: List<Uri>): Observable<Int>
 }

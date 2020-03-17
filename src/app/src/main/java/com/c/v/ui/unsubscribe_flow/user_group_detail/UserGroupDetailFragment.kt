@@ -26,7 +26,8 @@ class UserGroupDetailFragment : StateDialogFragment<FragmentUserGroupDetailBindi
 
     private val args: UserGroupDetailFragmentArgs by navArgs()
 
-    override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentUserGroupDetailBinding = FragmentUserGroupDetailBinding::inflate
+    override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentUserGroupDetailBinding =
+        FragmentUserGroupDetailBinding::inflate
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 

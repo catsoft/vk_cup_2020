@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.c.v.di.CustomViewModelFactory
 import com.c.v.di.ViewModelKey
 import com.c.v.ui.markets_flow.market_list.MarketListViewModel
+import com.c.v.ui.sharing_flow.pick_photo.PickImageViewModel
+import com.c.v.ui.sharing_flow.share_content.ShareContentViewModel
 import com.c.v.ui.unsubscribe_flow.user_group_detail.UserGroupDetailViewModel
 import com.c.v.ui.unsubscribe_flow.user_group_list.UserGroupListViewModel
 import dagger.Binds
@@ -28,6 +30,16 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(UserGroupDetailViewModel::class)
     abstract fun bindGroupDetailViewModel(groupDetailViewModel: UserGroupDetailViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PickImageViewModel::class)
+    abstract fun bindPickImageViewModel(groupDetailViewModel: PickImageViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ShareContentViewModel::class)
+    abstract fun bindShareContentViewModel(groupDetailViewModel: ShareContentViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: CustomViewModelFactory): ViewModelProvider.Factory

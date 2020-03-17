@@ -12,15 +12,16 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.c.v.databinding.FragmentPickImageBinding
+import com.c.v.di.Injectable
 import com.c.v.ui.base.StateFragment
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 
-class PickImageFragment : StateFragment<FragmentPickImageBinding>() {
+class PickImageFragment : StateFragment<FragmentPickImageBinding>(), Injectable {
     private val requestCodeForImage = 88
     private val requestCodeForPermission = 89
 
-    private val viewModel: PickImageViewModel by viewModels()
+    private val viewModel: PickImageViewModel by viewModels(factoryProducer = {viewModelFactory})
 
     override fun getViewBindingInflater(): (LayoutInflater, ViewGroup?, Boolean) -> FragmentPickImageBinding =
         FragmentPickImageBinding::inflate

@@ -1,77 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:paddingBottom="24dp"
-    android:background="@drawable/rounded_top"
-    android:clipToPadding="true"
-    android:clipChildren="true"
-    android:orientation="vertical">
+    android:layout_width="match_parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        style="@style/title"
+    <RelativeLayout
+        android:id="@+id/normal_state"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
-        android:text="@string/share_fragment_title" />
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="24dp"
+        android:background="@drawable/rounded_top"
+        android:clipToPadding="true"
+        android:clipChildren="true"
+        android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/dismissButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="-2dp"
-        android:src="@drawable/ic_dismiss" />
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/inputViewContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dismissButton"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="4dp"
-        android:background="@drawable/rounded_input">
-
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/inputView"
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="@string/input_share_hint"
-            android:padding="12dp" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/imageContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/inputViewContainer"
-        android:layout_marginTop="14dp">
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:text="@string/share_fragment_title" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/loadedImageView"
+            android:id="@+id/dismissButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/ic_dismiss" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/errorState_text"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:background="@drawable/rounded_image" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:maxLines="6"
+            android:textAlignment="center"
+            android:textColor="@color/error_red"
+            android:layout_below="@+id/dismissButton"
+            android:visibility="gone"
+            android:textSize="24sp" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/inputViewContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/errorState_text"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/rounded_input">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/send_button"
-        style="@style/Button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageContainer"
-        android:layout_marginTop="24dp"
-        android:text="@string/send_button_title" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/inputView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="@string/input_share_hint"
+                android:padding="12dp" />
 
-</RelativeLayout>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/imageContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/inputViewContainer"
+            android:layout_marginTop="14dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/loadedImageView"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:background="@drawable/rounded_image" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/send_button"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageContainer"
+            android:layout_marginTop="24dp"
+            android:text="@string/send_button_title" />
+
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/states_loading"
+        layout="@layout/fragments_states_loading" />
+
+</FrameLayout>

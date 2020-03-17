@@ -29,7 +29,7 @@ class ProductViewModel : BaseViewModel() {
         _productPublisher.flatMap { vkApi.getProduct(it.ownerId, it.id) }.compose(getTransformer(this::whenLoad)).subscribe()
             .addTo(compositeDisposable)
 
-        _changeFavoritePublisher.subscribeBy(onError = { setOnError(it) }) {
+        _changeFavoritePublisher.subscribeBy(onError = { setErrorState(it) }) {
             val product = product.value!!
             (if (_isFavorite.value!!) vkApi.removeProductFromFavorite(product.ownerId, product.id)
             else vkApi.addProductToFavorite(product.ownerId, product.id)).observeOn(Schedulers.newThread()).subscribe {
@@ -45,7 +45,7 @@ class ProductViewModel : BaseViewModel() {
 
     private fun whenLoad(product: VKProduct) {
         _isFavoritePublisher.onNext(product.isFavorite)
-        setSuccess()
+        setSuccessState()
     }
 
     fun start(product: VKProduct) {

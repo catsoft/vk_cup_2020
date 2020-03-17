@@ -36,9 +36,9 @@ class MarketListViewModel @Inject constructor(val api : IVkApi) : BaseViewModel(
 
     private fun whenLoad(groups: List<VKGroupApi>) {
         if (groups.isEmpty()) {
-            setIsEmpty()
+            setEmptyState()
         } else {
-            setSuccess()
+            setSuccessState()
             _groups.postValue(groups)
         }
     }

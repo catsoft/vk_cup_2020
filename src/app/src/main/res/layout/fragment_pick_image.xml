@@ -11,6 +11,7 @@
         android:layout_centerInParent="true"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        android:paddingBottom="32dp"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -45,6 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
                 android:text="@string/pick_photo_button_title" />
 
         </RelativeLayout>

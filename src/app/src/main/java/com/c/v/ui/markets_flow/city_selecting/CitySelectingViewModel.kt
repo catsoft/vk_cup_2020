@@ -20,10 +20,10 @@ class CitySelectingViewModel : BaseViewModel() {
 
     private fun whenLoad(list : List<VKCity>) {
         if (list.isNotEmpty()) {
-            setSuccess()
+            setSuccessState()
             _cities.postValue(list)
         } else {
-            setIsEmpty()
+            setEmptyState()
         }
     }
 }

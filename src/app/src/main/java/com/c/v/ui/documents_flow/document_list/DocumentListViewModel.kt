@@ -25,7 +25,7 @@ class DocumentListViewModel : BaseViewModel() {
     val documents: LiveData<List<VKDocument>> = _documents
 
     init {
-        setIsProgress()
+        setInProgressState()
         loadDocs()
     }
 
@@ -51,10 +51,10 @@ class DocumentListViewModel : BaseViewModel() {
 
     private fun whenLoad(list: List<VKDocument>) {
         if (list.isEmpty()) {
-            setIsEmpty()
+            setEmptyState()
         } else {
             _documents.postValue(list.toMutableList())
-            setSuccess()
+            setSuccessState()
         }
     }
 

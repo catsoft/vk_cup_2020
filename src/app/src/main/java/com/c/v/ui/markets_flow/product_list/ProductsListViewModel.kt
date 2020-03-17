@@ -25,10 +25,10 @@ class ProductsListViewModel : BaseViewModel() {
 
     private fun whenLoad(list: List<VKProduct>) {
         if (list.isNotEmpty()) {
-            setSuccess()
+            setSuccessState()
             _products.postValue(list)
         } else {
-            setIsEmpty()
+            setEmptyState()
         }
     }
 
