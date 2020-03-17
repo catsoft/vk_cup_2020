@@ -39,7 +39,7 @@ class ShareContentFragment : StateDialogFragment<FragmentShareContentBinding>(),
 
         subscribeToState(viewModel)
 
-        viewModel.selectPhoto(args.selectedImage, requireContext())
+        viewModel.selectPhoto(args.selectedImage)
 
         subscribeUI()
 
