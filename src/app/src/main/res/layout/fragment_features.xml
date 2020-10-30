@@ -34,6 +34,12 @@
             android:layout_height="wrap_content"
             android:text="Документы"/>
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/features_profile_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="На профиль"/>
+
     </LinearLayout>
 
     <include layout="@layout/fragments_states_error" />

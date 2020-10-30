@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_navigation_features_to_navigation_pick_image"
             app:destination="@id/navigation_pick_image" />
+        <action
+            android:id="@+id/action_navigation_features_to_navigation_profile"
+            app:destination="@id/navigation_checkin_profile" />
     </fragment>
 
     <fragment
@@ -107,6 +110,12 @@
         android:name="com.c.v.ui.documents_flow.document_list.DocumentListFragment"
         android:label="Документы"
         tools:layout="@layout/fragment_documents_list" />
+
+    <fragment
+        android:id="@+id/navigation_checkin_profile"
+        android:name="com.c.v.ui.check_in_flow.profile.ProfileFragment"
+        android:label="Профиль"
+        tools:layout="@layout/fragment_profile" />
 
     <fragment
         android:id="@+id/navigation_auth"

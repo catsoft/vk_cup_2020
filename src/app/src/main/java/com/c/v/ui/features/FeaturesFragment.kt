@@ -49,6 +49,10 @@ class FeaturesFragment : StateFragment<FragmentFeaturesBinding>() {
         RxView.clicks(viewBinding.featuresDocumentsButton).subscribe {
             findNavController().navigate(FeaturesFragmentDirections.actionNavigationFeaturesToNavigationDocuments())
         }.addTo(compositeDisposable)
+
+        RxView.clicks(viewBinding.featuresProfileButton).subscribe {
+            findNavController().navigate(FeaturesFragmentDirections.actionNavigationFeaturesToNavigationProfile())
+        }.addTo(compositeDisposable)
     }
 }
 
