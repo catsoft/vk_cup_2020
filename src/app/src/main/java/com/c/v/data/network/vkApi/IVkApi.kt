@@ -1,9 +1,6 @@
 ﻿package com.c.v.data.network.vkApi
 
-import com.c.v.data.network.vkApi.model.VKCity
-import com.c.v.data.network.vkApi.model.VKDocument
-import com.c.v.data.network.vkApi.model.VKGroupApi
-import com.c.v.data.network.vkApi.model.VKProduct
+import com.c.v.data.network.vkApi.model.*
 import io.reactivex.Observable
 
 interface IVkApi {

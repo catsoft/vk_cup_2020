@@ -36,7 +36,7 @@ class ProfileFragment : StateFragment<FragmentProfileBinding>() {
         })
 
         RxView.clicks(viewBinding.toPlacesButton).subscribe {
-//            findNavController().navigate(FeaturesFragmentDirections.actionNavigationFeaturesToNavigationMarkets())
+            findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationPlaces())
         }.addTo(compositeDisposable)
     }
 }
