@@ -15,7 +15,7 @@ import com.c.v.utils.dpToPx
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 
-class FriendsListRecyclerViewAdapter() : BaseAdapter<FriendsViewHolder, FriendsPresentationDto>() {
+class FriendsListRecyclerViewAdapter(val viewModel: FriendsListViewModel) : BaseAdapter<FriendsViewHolder, FriendsPresentationDto>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FriendsViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -24,6 +24,10 @@ class FriendsListRecyclerViewAdapter() : BaseAdapter<FriendsViewHolder, FriendsP
 
         holder.binding.apply {
             RxView.clicks(root).subscribe {
+                if (holder.adapterPosition in items.indices) {
+                    val item = items[holder.adapterPosition]
+                    viewModel.selectFriend(item.id)
+                }
             }.addTo(compositeDisposable)
         }
 

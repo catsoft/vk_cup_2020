@@ -8,8 +8,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.c.v.R
-import com.c.v.databinding.FragmentFeaturesBinding
 import com.c.v.databinding.FragmentProfileBinding
 import com.c.v.ui.auth.AuthViewModel
 import com.c.v.ui.base.StateFragment
@@ -17,6 +17,9 @@ import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 
 class ProfileFragment : StateFragment<FragmentProfileBinding>() {
+
+    val args: ProfileFragmentArgs by navArgs()
+
     private val viewModel: ProfileViewModel by viewModels()
 
     private val authViewModel : AuthViewModel by activityViewModels()
@@ -36,7 +39,7 @@ class ProfileFragment : StateFragment<FragmentProfileBinding>() {
         })
 
         RxView.clicks(viewBinding.toPlacesButton).subscribe {
-            findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationPlaces())
+            findNavController().navigate(ProfileFragmentDirections.actionNavigationProfileToNavigationPlaces(args.userId))
         }.addTo(compositeDisposable)
     }
 }

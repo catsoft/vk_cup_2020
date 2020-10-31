@@ -121,6 +121,10 @@
             android:id="@+id/action_navigation_profile_to_navigation_places"
             app:destination="@id/navigation_checkin_places" />
 
+        <argument
+            android:name="userId"
+            app:argType="integer" />
+
     </fragment>
 
     <fragment
@@ -129,6 +133,9 @@
         android:label="Места"
         tools:layout="@layout/fragment_places_list" >
 
+        <argument
+            android:name="userId"
+            app:argType="integer" />
 
     </fragment>
 

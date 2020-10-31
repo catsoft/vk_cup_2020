@@ -10,13 +10,16 @@ import com.c.v.ui.check_in_flow.friends.dto.FriendsPresentationDto
 import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
 
-class FriendsListViewModel @Inject constructor(friendsRepository: FriendsRepository) : BaseViewModel() {
+class FriendsListViewModel @Inject constructor(friendsRepository: FriendsRepository) :
+    BaseViewModel() {
 
     private val _loader = friendsRepository.getFriends()
 
     private val _friends = MutableLiveData<List<VKUser>>()
     val friends: LiveData<List<VKUser>> = _friends
 
+    private val _selectedFriend = MutableLiveData<Int?>()
+    val selectedFriend: LiveData<Int?> = _selectedFriend
 
     val presentationFriends = Transformations.map(_friends) {
         it.map { FriendsPresentationDto.fromVKUser(it) }.toList()
@@ -30,6 +33,8 @@ class FriendsListViewModel @Inject constructor(friendsRepository: FriendsReposit
     fun loadPlaces() {
         _loader.compose(getTransformer(this::whenLoad)).subscribe().addTo(compositeDisposable)
     }
+
+    fun selectFriend(id: Int?) = _selectedFriend.postValue(id)
 
     private fun whenLoad(list: List<VKUser>) {
         if (list.isEmpty()) {

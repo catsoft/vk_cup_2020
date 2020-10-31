@@ -12,7 +12,13 @@ import javax.inject.Inject
 
 class PlacesListViewModel @Inject constructor(wallRepository: WallRepository) : BaseViewModel() {
 
-    private val _loader = wallRepository.getAll()
+
+    private val _userId = MutableLiveData<Int>()
+    val userId : LiveData<Int> = _userId
+
+    val loader = Transformations.map(_userId) {
+        wallRepository.getAll(it).compose(getTransformer(this::whenLoad)).subscribe().addTo(compositeDisposable)
+    }
 
     private val _posts = MutableLiveData<List<VKPost>>()
     val posts: LiveData<List<VKPost>> = _posts
@@ -22,25 +28,29 @@ class PlacesListViewModel @Inject constructor(wallRepository: WallRepository) : 
     }
 
     val presentationPlaces = Transformations.map(places) {
-        it.map { PlacePresentationDto.fromVKPlace(it) }.toList()
+        val places = it.map { PlacePresentationDto.fromVKPlace(it) }.toList()
+        if (places.isEmpty()) {
+            setEmptyState()
+        } else {
+            setSuccessState()
+        }
+        places
     }
 
     init {
         setInProgressState()
-        loadPlaces()
     }
 
-    fun loadPlaces() {
-        _loader.compose(getTransformer(this::whenLoad)).subscribe().addTo(compositeDisposable)
+    fun initArgs(userId: Int) {
+        _userId.value = userId
+    }
+
+    fun reload() {
+        _userId.value = _userId.value
     }
 
     private fun whenLoad(list: List<VKPost>) {
-        if (list.isEmpty()) {
-            setEmptyState()
-        } else {
-            _posts.postValue(list.toMutableList())
-            setSuccessState()
-        }
+        _posts.postValue(list.toMutableList())
     }
 
     override fun onCleared() {

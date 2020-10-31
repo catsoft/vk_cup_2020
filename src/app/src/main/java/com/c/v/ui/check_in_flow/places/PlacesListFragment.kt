@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.c.v.databinding.FragmentPlacesListBinding
 import com.c.v.databinding.FragmentsStatesEmptyBinding
@@ -17,6 +18,8 @@ import com.c.v.ui.base.StateFragment
 import com.c.v.utils.observe
 
 class PlacesListFragment : StateFragment<FragmentPlacesListBinding>(), Injectable {
+
+    val args: PlacesListFragmentArgs by navArgs()
 
     private val viewModel: PlacesListViewModel  by viewModels(factoryProducer = { viewModelFactory })
 
@@ -36,6 +39,8 @@ class PlacesListFragment : StateFragment<FragmentPlacesListBinding>(), Injectabl
 
         subscribeToState(viewModel)
 
+        viewModel.initArgs(args.userId)
+
         initList(view)
 
         initRefresher()
@@ -46,10 +51,12 @@ class PlacesListFragment : StateFragment<FragmentPlacesListBinding>(), Injectabl
     private fun subscribe() {
         observe(viewModel.posts) { }
         observe(viewModel.places) { }
+        observe(viewModel.loader) { }
+        observe(viewModel.userId) { }
     }
 
     private fun initRefresher() {
-        viewBinding.swipeRefresh.setOnRefreshListener { viewModel.loadPlaces() }
+        viewBinding.swipeRefresh.setOnRefreshListener { viewModel.reload() }
     }
 
     private fun initList(view: View) {

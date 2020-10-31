@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.c.v.databinding.FragmentFriendsListBinding
 import com.c.v.databinding.FragmentsStatesEmptyBinding
@@ -43,8 +44,15 @@ class FriendsListFragment : StateFragment<FragmentFriendsListBinding>(), Injecta
         subscribe()
     }
 
-    private fun subscribe() {
-        observe(viewModel.friends) { }
+    private fun subscribe() = with(viewModel) {
+        observe(friends) { }
+
+        observe(selectedFriend) {
+            it?.let {
+                findNavController().navigate(FriendsListFragmentDirections.actionNavigationFriendsToNavigationProfile(it))
+                selectFriend(null)
+            }
+        }
     }
 
     private fun initRefresher() {
@@ -52,7 +60,7 @@ class FriendsListFragment : StateFragment<FragmentFriendsListBinding>(), Injecta
     }
 
     private fun initList(view: View) {
-        val adapter = FriendsListRecyclerViewAdapter()
+        val adapter = FriendsListRecyclerViewAdapter(viewModel)
         val layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
         val list = viewBinding.documentListRecyclerView
         list.layoutManager = layoutManager
