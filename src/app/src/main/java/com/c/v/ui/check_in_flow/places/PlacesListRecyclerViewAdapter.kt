@@ -1,8 +1,11 @@
 package com.c.v.ui.check_in_flow.places
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.text.htmlEncode
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.c.v.R
@@ -16,6 +19,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 
+
 class PlacesListRecyclerViewAdapter() : BaseAdapter<PlacesViewHolder, PlacePresentationDto>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacesViewHolder {
@@ -26,6 +30,13 @@ class PlacesListRecyclerViewAdapter() : BaseAdapter<PlacesViewHolder, PlacePrese
         holder.binding.apply {
 
             RxView.clicks(root).subscribe {
+                if (holder.adapterPosition in items.indices) {
+                    val item = items[holder.adapterPosition]
+                    val encoded = item.title
+                    val uriStr = "geo:" + item.latitude + "," + item.longitude + "?q=" + encoded.htmlEncode()
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uriStr))
+                    holder.itemView.context.startActivity(intent)
+                }
             }.addTo(compositeDisposable)
         }
 
@@ -41,7 +52,12 @@ class PlacesListRecyclerViewAdapter() : BaseAdapter<PlacesViewHolder, PlacePrese
             subtitleTextView.text = item.subtitle
 
             if(item.icon.isEmpty()) {
-                icon.setImageDrawable(ContextCompat.getDrawable(holder.itemView.context, R.drawable.ic_location))
+                icon.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        holder.itemView.context,
+                        R.drawable.ic_location
+                    )
+                )
             } else {
                 Glide.with(holder.itemView.context)
                     .load(item.icon)

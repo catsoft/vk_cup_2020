@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
                 context = this,
                 appId = resources.getInteger(R.integer.com_vk_sdk_AppId),
                 validationHandler = VKDefaultValidationHandler(this),
-                version = "5.103"
+                version = "5.124"
             )
         )
     }
