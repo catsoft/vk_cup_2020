@@ -50,7 +50,6 @@ class PlacesListFragment : StateFragment<FragmentPlacesListBinding>(), Injectabl
 
     private fun subscribe() {
         observe(viewModel.posts) { }
-        observe(viewModel.places) { }
         observe(viewModel.loader) { }
         observe(viewModel.userId) { }
     }

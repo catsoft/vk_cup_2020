@@ -12,8 +12,8 @@ data class VKPlace(
     val checkins: Int,
     val updated: Int,
     val type: Int,
-    val country: Int,
-    val city: Int,
+    val country: String?,
+    val city: String?,
     val address: String
 ) : IWithIdModel
 

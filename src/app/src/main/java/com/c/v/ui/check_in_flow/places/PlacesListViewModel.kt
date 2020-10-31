@@ -23,12 +23,9 @@ class PlacesListViewModel @Inject constructor(wallRepository: WallRepository) : 
     private val _posts = MutableLiveData<List<VKPost>>()
     val posts: LiveData<List<VKPost>> = _posts
 
-    val places = Transformations.map(_posts) {
-        it.map { it.geo?.place }.filter { it != null }.map { it!! }.toList()
-    }
-
-    val presentationPlaces = Transformations.map(places) {
-        val places = it.map { PlacePresentationDto.fromVKPlace(it) }.toList()
+    val presentationPlaces = Transformations.map(_posts) {
+        val postWithGeo = it.filter { it.geo?.place != null }
+        val places = postWithGeo.map { PlacePresentationDto.fromVKGeo(it.geo!!) }.toList()
         if (places.isEmpty()) {
             setEmptyState()
         } else {
