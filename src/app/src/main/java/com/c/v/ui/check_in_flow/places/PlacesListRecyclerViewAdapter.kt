@@ -53,6 +53,7 @@ class PlacesListRecyclerViewAdapter() : BaseAdapter<PlacesViewHolder, PlacePrese
             mapView.onResume()
 
             mapView.getMapAsync {
+
                 val latLng = LatLng(item.latitude, item.longitude)
                 it.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12F))
 
