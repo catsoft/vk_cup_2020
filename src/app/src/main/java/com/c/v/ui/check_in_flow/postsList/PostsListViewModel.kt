@@ -24,7 +24,8 @@ class PostsListViewModel @Inject constructor(wallRepository: WallRepository) : B
     val posts: LiveData<List<VKPost>> = _posts
 
     val presentationPosts = Transformations.map(_posts) {
-        val places = it.map { PostPresentationDto.fromVKPost(it) }.toList()
+        //todo на самом деле здесь должны быть связанные посты а не все с гео
+        val places = it.filter { it.geo?.place != null }.map { PostPresentationDto.fromVKPost(it) }.toList()
         if (places.isEmpty()) {
             setEmptyState()
         } else {

@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.c.v.databinding.FragmentPlacesListBinding
 import com.c.v.databinding.FragmentsStatesEmptyBinding
@@ -62,6 +63,7 @@ class PlacesListFragment : StateFragment<FragmentPlacesListBinding>(), Injectabl
         val adapter = PlacesListRecyclerViewAdapter(viewModel)
         val layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
         val list = viewBinding.listRecyclerView
+        list.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         list.layoutManager = layoutManager
         list.adapter = adapter
 

@@ -24,7 +24,11 @@ class PostsListRecyclerViewAdapter() : BaseAdapter<PostViewHolder, PostPresentat
         val item = items[position]
 
         holder.binding.apply {
-
+            titleTextView.text = item.text
+            likesCountTextView.text = item.likesCount
+            commentsCountTextView.text = item.commentsCount
+            shareCountTextView.text = item.repostsCount
+            viewCountTextView.text = item.viewsCount
         }
     }
 

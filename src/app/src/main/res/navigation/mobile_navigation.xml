@@ -146,7 +146,7 @@
     <fragment
         android:id="@+id/navigation_checkin_post_list"
         android:name="com.c.v.ui.check_in_flow.postsList.PostsListFragment"
-        android:label="Посты"
+        android:label="Связанные посты"
         tools:layout="@layout/fragment_posts_list" >
 
         <argument
