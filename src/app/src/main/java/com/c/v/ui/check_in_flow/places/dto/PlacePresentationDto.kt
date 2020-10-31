@@ -4,6 +4,7 @@ import com.c.v.data.IWithIdModel
 import com.c.v.data.network.vkApi.model.VKGeo
 
 data class PlacePresentationDto(
+    val sourceGeo: VKGeo,
     override val id: Int,
     val title: String,
     val subtitle: String,
@@ -20,7 +21,7 @@ data class PlacePresentationDto(
             }
             val icon = geo.place.icon.orEmpty()
             val (latitude, longitude) = geo.coordinates.split(" ").map { it.toDouble() }
-            return PlacePresentationDto(geo.place.id, geo.place.title, subtitle, icon, latitude, longitude)
+            return PlacePresentationDto(geo, geo.place.id, geo.place.title, subtitle, icon, latitude, longitude)
         }
     }
 }

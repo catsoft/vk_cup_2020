@@ -61,7 +61,7 @@ class PlacesListFragment : StateFragment<FragmentPlacesListBinding>(), Injectabl
     private fun initList(view: View) {
         val adapter = PlacesListRecyclerViewAdapter()
         val layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
-        val list = viewBinding.documentListRecyclerView
+        val list = viewBinding.listRecyclerView
         list.layoutManager = layoutManager
         list.adapter = adapter
 

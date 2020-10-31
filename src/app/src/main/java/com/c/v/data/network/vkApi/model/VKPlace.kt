@@ -1,6 +1,7 @@
 package com.c.v.data.network.vkApi.model
 
 import com.c.v.data.IWithIdModel
+import java.io.Serializable
 
 data class VKPlace(
     override val id: Int,
@@ -15,5 +16,5 @@ data class VKPlace(
     val country: String?,
     val city: String?,
     val address: String?
-) : IWithIdModel
+) : Serializable, IWithIdModel
 

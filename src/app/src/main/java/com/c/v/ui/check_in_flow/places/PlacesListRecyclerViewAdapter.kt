@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.text.htmlEncode
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.c.v.R
@@ -33,9 +34,19 @@ class PlacesListRecyclerViewAdapter() : BaseAdapter<PlacesViewHolder, PlacePrese
                 if (holder.adapterPosition in items.indices) {
                     val item = items[holder.adapterPosition]
                     val encoded = item.title
-                    val uriStr = "geo:" + item.latitude + "," + item.longitude + "?q=" + encoded.htmlEncode()
+                    val uriStr =
+                        "geo:" + item.latitude + "," + item.longitude + "?q=" + encoded.htmlEncode()
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uriStr))
                     holder.itemView.context.startActivity(intent)
+                }
+            }.addTo(compositeDisposable)
+
+            RxView.clicks(toPosts).subscribe {
+                if (holder.adapterPosition in items.indices) {
+                    val item = items[holder.adapterPosition]
+                    holder.itemView.findNavController().navigate(
+                        PlacesListFragmentDirections.actionNavigationPlacesToNavigationPosts(item.sourceGeo)
+                    )
                 }
             }.addTo(compositeDisposable)
         }
@@ -51,7 +62,7 @@ class PlacesListRecyclerViewAdapter() : BaseAdapter<PlacesViewHolder, PlacePrese
             titleTextView.text = item.title
             subtitleTextView.text = item.subtitle
 
-            if(item.icon.isEmpty()) {
+            if (item.icon.isEmpty()) {
                 icon.setImageDrawable(
                     ContextCompat.getDrawable(
                         holder.itemView.context,

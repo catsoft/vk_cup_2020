@@ -47,9 +47,9 @@ class DocumentListFragment : StateFragment<FragmentDocumentsListBinding>() {
 
     private fun initList(view: View) {
         val locale = SimpleDi.Instance.resolve<CurrentLocaleProvider>(CurrentLocaleProvider::class.java).currentLocale
-        val adapter = DocumentListRecyclerViewAdapter(locale, viewModel, activity!!)
+        val adapter = DocumentListRecyclerViewAdapter(locale, viewModel, requireActivity())
         val layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
-        val list = viewBinding.documentListRecyclerView
+        val list = viewBinding.listRecyclerView
         list.layoutManager = layoutManager
         list.adapter = adapter
 
