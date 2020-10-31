@@ -14,6 +14,7 @@ import com.c.v.databinding.CellPlaceBinding
 import com.c.v.ui.WithIdDiffCallback
 import com.c.v.ui.base.BaseAdapter
 import com.c.v.ui.check_in_flow.places.dto.PlacePresentationDto
+import com.c.v.ui.check_in_flow.postsList.dto.InitDto
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
@@ -21,7 +22,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 
 
-class PlacesListRecyclerViewAdapter() : BaseAdapter<PlacesViewHolder, PlacePresentationDto>() {
+class PlacesListRecyclerViewAdapter(val placesListViewModel: PlacesListViewModel) : BaseAdapter<PlacesViewHolder, PlacePresentationDto>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -44,8 +45,9 @@ class PlacesListRecyclerViewAdapter() : BaseAdapter<PlacesViewHolder, PlacePrese
             RxView.clicks(toPosts).subscribe {
                 if (holder.adapterPosition in items.indices) {
                     val item = items[holder.adapterPosition]
+                    val initDto = InitDto(placesListViewModel.userId.value!!, item.sourceGeo)
                     holder.itemView.findNavController().navigate(
-                        PlacesListFragmentDirections.actionNavigationPlacesToNavigationPosts(item.sourceGeo)
+                        PlacesListFragmentDirections.actionNavigationPlacesToNavigationPosts(initDto)
                     )
                 }
             }.addTo(compositeDisposable)

@@ -150,8 +150,8 @@
         tools:layout="@layout/fragment_posts_list" >
 
         <argument
-            android:name="geo"
-            app:argType="com.c.v.data.network.vkApi.model.VKGeo" />
+            android:name="initDto"
+            app:argType="com.c.v.ui.check_in_flow.postsList.dto.InitDto" />
     </fragment>
 
 

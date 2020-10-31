@@ -6,6 +6,7 @@ import com.c.v.di.CustomViewModelFactory
 import com.c.v.di.ViewModelKey
 import com.c.v.ui.check_in_flow.friends.FriendsListViewModel
 import com.c.v.ui.check_in_flow.places.PlacesListViewModel
+import com.c.v.ui.check_in_flow.postsList.PostsListViewModel
 import com.c.v.ui.markets_flow.market_list.MarketListViewModel
 import com.c.v.ui.sharing_flow.pick_photo.PickImageViewModel
 import com.c.v.ui.sharing_flow.share_content.ShareContentViewModel
@@ -52,6 +53,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FriendsListViewModel::class)
     abstract fun bindFriendsListViewModel(friendsListViewModel: FriendsListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PostsListViewModel::class)
+    abstract fun bindPostsListViewModel(postsListViewModel: PostsListViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: CustomViewModelFactory): ViewModelProvider.Factory

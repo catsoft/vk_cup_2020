@@ -12,7 +12,6 @@ import javax.inject.Inject
 
 class PlacesListViewModel @Inject constructor(wallRepository: WallRepository) : BaseViewModel() {
 
-
     private val _userId = MutableLiveData<Int>()
     val userId : LiveData<Int> = _userId
 
