@@ -31,7 +31,7 @@ class PlacesListRecyclerViewAdapter(private val placesListViewModel: PlacesListV
 
         holder.binding.apply {
 
-            RxView.clicks(root).subscribe {
+            RxView.clicks(icon).subscribe {
                 if (holder.adapterPosition in items.indices) {
                     val item = items[holder.adapterPosition]
                     val encoded = item.title
