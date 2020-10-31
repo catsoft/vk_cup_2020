@@ -15,14 +15,14 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.c.v.R
+import com.c.v.data.network.vkApi.model.VKDocument
+import com.c.v.data.network.vkApi.model.VKDocumentType
 import com.c.v.databinding.CellDocumentBinding
 import com.c.v.ui.WithIdDiffCallback
 import com.c.v.ui.base.BaseAdapter
 import com.c.v.utils.CalendarReadableUtil
-import com.c.v.utils.DimensionUtil
 import com.c.v.utils.SizeHumanReadableUtil
-import com.c.v.data.network.vkApi.model.VKDocument
-import com.c.v.data.network.vkApi.model.VKDocumentType
+import com.c.v.utils.dpToPx
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.addTo
@@ -98,7 +98,7 @@ class DocumentListRecyclerViewAdapter(
 
             if (item.preview.isNotEmpty()) {
                 Glide.with(context).load(item.preview).placeholder(typeIcon)
-                    .apply(RequestOptions.bitmapTransform(RoundedCorners(DimensionUtil.convertDpToPixel(6.toFloat(), context).toInt())))
+                    .apply(RequestOptions.bitmapTransform(RoundedCorners(6F.dpToPx(context).toInt())))
                     .diskCacheStrategy(DiskCacheStrategy.ALL).into(loadedImageView)
                 typeImage.visibility = View.GONE
             } else {

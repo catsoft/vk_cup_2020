@@ -3,13 +3,11 @@ package com.c.v.utils
 import android.content.Context
 import android.util.DisplayMetrics
 
-object DimensionUtil {
-    fun convertDpToPixel(dp: Float, context: Context): Float {
-        return dp * (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
-    }
+fun Float.dpToPx(context: Context) : Float {
+    return this * (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+}
 
-    fun convertPixelsToDp(px: Float, context: Context): Float {
-        return px / (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
-    }
+fun Float.pxToDp(context: Context) : Float {
+    return this / (context.resources.displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
 }
 

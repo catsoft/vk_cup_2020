@@ -13,8 +13,8 @@ import com.c.v.databinding.FragmentShareContentBinding
 import com.c.v.databinding.FragmentsStatesLoadingBinding
 import com.c.v.di.Injectable
 import com.c.v.ui.base.StateDialogFragment
-import com.c.v.utils.DimensionUtil
 import com.c.v.utils.KeyboardExt
+import com.c.v.utils.dpToPx
 import com.c.v.utils.observe
 import com.c.v.utils.toVisibility
 import com.jakewharton.rxbinding2.view.RxView
@@ -51,16 +51,16 @@ class ShareContentFragment : StateDialogFragment<FragmentShareContentBinding>(),
             RxView.clicks(dismissButton).subscribe { findNavController().navigateUp() }
         }
 
-        KeyboardExt.hide(context!!, view)
+        KeyboardExt.hide(requireContext(), view)
         viewBinding.inputView.setText("")
     }
 
     private fun subscribeUI() = with(viewModel) {
         observe(selectedImage) {
-            Glide.with(context!!)
+            Glide.with(requireContext())
                 .load(it)
                 .fitCenter()
-                .transform(RoundedCorners(DimensionUtil.convertDpToPixel(16F, context!!).toInt()))
+                .transform(RoundedCorners(16F.dpToPx(requireContext()).toInt()))
                 .into(viewBinding.loadedImageView)
         }
 

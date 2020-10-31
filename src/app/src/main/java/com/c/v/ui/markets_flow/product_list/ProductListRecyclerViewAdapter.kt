@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.c.v.data.network.vkApi.model.VKProduct
 import com.c.v.databinding.CellProductBinding
 import com.c.v.ui.WithIdDiffCallback
 import com.c.v.ui.base.BaseAdapter
-import com.c.v.utils.DimensionUtil
-import com.c.v.data.network.vkApi.model.VKProduct
+import com.c.v.utils.dpToPx
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 import java.util.*
@@ -51,7 +51,7 @@ class ProductListRecyclerViewAdapter(
         holder.binding.nameTextView.text = item.title
         holder.binding.infoTextView.text = price
 
-        Glide.with(context).load(item.thumb_photo).transform(RoundedCorners(DimensionUtil.convertDpToPixel(8F, context).toInt()))
+        Glide.with(context).load(item.thumb_photo).transform(RoundedCorners(8F.dpToPx(context).toInt()))
             .diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.binding.typeImage)
     }
 

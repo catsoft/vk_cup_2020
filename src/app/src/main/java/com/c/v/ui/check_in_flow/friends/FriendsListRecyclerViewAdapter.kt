@@ -5,11 +5,13 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.c.v.R
 import com.c.v.databinding.CellFriendBinding
 import com.c.v.ui.WithIdDiffCallback
 import com.c.v.ui.base.BaseAdapter
 import com.c.v.ui.check_in_flow.friends.dto.FriendsPresentationDto
+import com.c.v.utils.dpToPx
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 
@@ -41,6 +43,7 @@ class FriendsListRecyclerViewAdapter() : BaseAdapter<FriendsViewHolder, FriendsP
             } else {
                 Glide.with(holder.itemView.context)
                     .load(item.icon)
+                    .transform(RoundedCorners(8F.dpToPx(holder.itemView.context).toInt()))
                     .into(icon)
             }
         }
