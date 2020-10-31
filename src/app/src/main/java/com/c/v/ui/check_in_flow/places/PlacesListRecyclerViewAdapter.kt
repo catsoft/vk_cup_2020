@@ -22,7 +22,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 
 
-class PlacesListRecyclerViewAdapter(val placesListViewModel: PlacesListViewModel) : BaseAdapter<PlacesViewHolder, PlacePresentationDto>() {
+class PlacesListRecyclerViewAdapter(private val placesListViewModel: PlacesListViewModel) : BaseAdapter<PlacesViewHolder, PlacePresentationDto>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlacesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
