@@ -60,8 +60,8 @@
             android:id="@+id/action_navigation_features_to_navigation_pick_image"
             app:destination="@id/navigation_pick_image" />
         <action
-            android:id="@+id/action_navigation_features_to_navigation_profile"
-            app:destination="@id/navigation_checkin_profile" />
+            android:id="@+id/action_navigation_features_to_navigation_friends"
+            app:destination="@id/navigation_checkin_friends" />
     </fragment>
 
     <fragment
@@ -129,6 +129,18 @@
         android:label="Места"
         tools:layout="@layout/fragment_places_list" >
 
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_checkin_friends"
+        android:name="com.c.v.ui.check_in_flow.friends.FriendsListFragment"
+        android:label="Друзья"
+        tools:layout="@layout/fragment_friends_list" >
+
+        <action
+            android:id="@+id/action_navigation_friends_to_navigation_profile"
+            app:destination="@id/navigation_checkin_profile" />
 
     </fragment>
 

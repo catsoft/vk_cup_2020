@@ -1,6 +1,5 @@
 ﻿package com.c.v.data.network.vkApi
 
-import android.net.Uri
 import com.c.v.data.network.vkApi.model.*
 import com.c.v.data.network.vkApi.requests.*
 import com.vk.api.sdk.VK
@@ -34,6 +33,8 @@ class VkApi : IVkApi {
             id, ownerId, title, tags
         )
     )
+
+    override fun getFriends(userId: Int) : Observable<List<VKUser>> = createObservable(VKGetFriendsListRequest(userId))
 
     private fun <T> createObservable(request: ApiCommand<T>): Observable<T> = Observable.create {
         VK.execute(request, VKApiEmittedCallback<T>(it))

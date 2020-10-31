@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.c.v.di.CustomViewModelFactory
 import com.c.v.di.ViewModelKey
-import com.c.v.ui.check_in_flow.places.PlacesListFragment
+import com.c.v.ui.check_in_flow.friends.FriendsListViewModel
 import com.c.v.ui.check_in_flow.places.PlacesListViewModel
 import com.c.v.ui.markets_flow.market_list.MarketListViewModel
 import com.c.v.ui.sharing_flow.pick_photo.PickImageViewModel
@@ -47,6 +47,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(PlacesListViewModel::class)
     abstract fun bindPlacesListViewModel(placesListViewModel: PlacesListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FriendsListViewModel::class)
+    abstract fun bindFriendsListViewModel(friendsListViewModel: FriendsListViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: CustomViewModelFactory): ViewModelProvider.Factory

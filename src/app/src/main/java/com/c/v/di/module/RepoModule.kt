@@ -1,10 +1,12 @@
 package com.c.v.di.module
 
 import android.app.Application
-import android.content.Context
 import com.c.v.data.UserGroupsRepositoryImpl
 import com.c.v.data.WallRepositoryImpl
 import com.c.v.data.db.user_groups.VKUserGroupDao
+import com.c.v.data.network.vkApi.IVkApi
+import com.c.v.domain.friends.FriendsRepository
+import com.c.v.domain.friends.FriendsRepositoryImpl
 import com.c.v.domain.userGroups.UserGroupsRepository
 import com.c.v.domain.wall.WallRepository
 import com.c.v.mapper.user_group.UserGroupApiToEntityMapper
@@ -28,6 +30,10 @@ class RepoModule {
     @Singleton
     @Provides
     fun provideWallRepo(): WallRepository = WallRepositoryImpl()
+
+    @Singleton
+    @Provides
+    fun provideFriendsRepo(vkApi: IVkApi): FriendsRepository = FriendsRepositoryImpl(vkApi)
 
     @Singleton
     @Provides

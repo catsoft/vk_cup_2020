@@ -60,7 +60,7 @@ class PlacesListRecyclerViewAdapter() : BaseAdapter<PlacesViewHolder, PlacePrese
         }
     }
 
-    fun updateDocumentsListItems(documents: List<PlacePresentationDto>) {
+    fun updateListItems(documents: List<PlacePresentationDto>) {
         val diffResult = DiffUtil.calculateDiff(WithIdDiffCallback(documents, this.items))
         this.items = documents.toMutableList()
         diffResult.dispatchUpdatesTo(this)

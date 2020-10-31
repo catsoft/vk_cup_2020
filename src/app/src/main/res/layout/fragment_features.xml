@@ -35,10 +35,10 @@
             android:text="Документы"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/features_profile_button"
+            android:id="@+id/features_friends_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="На профиль"/>
+            android:text="Мои друзья"/>
 
     </LinearLayout>
 

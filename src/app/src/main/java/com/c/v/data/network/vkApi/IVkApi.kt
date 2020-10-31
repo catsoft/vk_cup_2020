@@ -20,5 +20,7 @@ interface IVkApi {
 
     fun deleteDocument(id: Int, ownerId: Int): Observable<Boolean>
 
+    fun getFriends(userId: Int) : Observable<List<VKUser>>
+
     fun editDocument(id: Int, ownerId: Int, title: String, tags: List<String>): Observable<Boolean>
 }

@@ -11,7 +11,5 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun provideVKApi(): IVkApi {
-        return VkApi()
-    }
+    fun provideVKApi(): IVkApi = VkApi()
 }
