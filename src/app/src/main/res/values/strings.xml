@@ -8,6 +8,7 @@
     <string name="input_share_hint">Добавить комментарий</string>
     <string name="send_button_title">Отправить</string>
     <integer name="com_vk_sdk_AppId" tools:ignore="UnusedResources">7347519</integer>
+    <string name="map_api_key" translatable="false">AIzaSyBRf1146_0-Vgc2xdBWcAsay4ZYlicpOGs</string>
 
     <string name="select_city_title">Город</string>
     <string name="loading_text">Подождите, идет загрузка…</string>

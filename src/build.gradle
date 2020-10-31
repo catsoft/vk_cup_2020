@@ -6,6 +6,8 @@ buildscript {
         lifecycle_version = "2.2.0"
         room_version = '2.2.5'
         dagger_version = "2.26"
+        gms_version = "17.0.0"
+        gson_version = "2.8.5"
     }
 
     repositories {

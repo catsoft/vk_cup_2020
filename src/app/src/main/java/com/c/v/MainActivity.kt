@@ -12,7 +12,6 @@ import com.c.v.databinding.ActivityMainBinding
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.VKApiConfig
 import com.vk.api.sdk.VKDefaultValidationHandler
-import com.vk.api.sdk.utils.VKUtils
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -39,6 +38,8 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
 
         setupVKConfig()
 
+        setupMap()
+
         setupNavController()
     }
 
@@ -49,6 +50,10 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
         navController.addOnDestinationChangedListener { _, _, _ ->
             viewBinding.mainAppbar.setExpanded(true)
         }
+    }
+
+    private fun setupMap() {
+//        GoogleMap.In
     }
 
     private fun setupVKConfig() {

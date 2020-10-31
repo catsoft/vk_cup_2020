@@ -25,29 +25,17 @@ object AppInjector {
                     handleActivity(activity)
                 }
 
-                override fun onActivityStarted(activity: Activity) {
+                override fun onActivityStarted(activity: Activity) = Unit
 
-                }
+                override fun onActivityResumed(activity: Activity) = Unit
 
-                override fun onActivityResumed(activity: Activity) {
+                override fun onActivityPaused(activity: Activity) = Unit
 
-                }
+                override fun onActivityStopped(activity: Activity) = Unit
 
-                override fun onActivityPaused(activity: Activity) {
+                override fun onActivitySaveInstanceState(p0: Activity, p1: Bundle) = Unit
 
-                }
-
-                override fun onActivityStopped(activity: Activity) {
-
-                }
-
-                override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle?) {
-
-                }
-
-                override fun onActivityDestroyed(activity: Activity) {
-
-                }
+                override fun onActivityDestroyed(activity: Activity) = Unit
             })
     }
 

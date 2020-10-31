@@ -10,6 +10,9 @@ import com.c.v.databinding.CellPlaceBinding
 import com.c.v.ui.WithIdDiffCallback
 import com.c.v.ui.base.BaseAdapter
 import com.c.v.ui.check_in_flow.places.dto.PlacePresentationDto
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
 
@@ -43,6 +46,16 @@ class PlacesListRecyclerViewAdapter() : BaseAdapter<PlacesViewHolder, PlacePrese
                 Glide.with(holder.itemView.context)
                     .load(item.icon)
                     .into(icon)
+            }
+
+            mapView.onCreate(null)
+
+            mapView.getMapAsync {
+                val latLng = LatLng(item.latitude, item.longitude)
+                it.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+
+                val marker = MarkerOptions().position(latLng).title(item.title)
+                it.addMarker(marker)
             }
         }
     }
