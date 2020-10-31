@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.c.v.databinding.FragmentFriendsListBinding
 import com.c.v.databinding.FragmentsStatesEmptyBinding
@@ -63,6 +64,7 @@ class FriendsListFragment : StateFragment<FragmentFriendsListBinding>(), Injecta
         val adapter = FriendsListRecyclerViewAdapter(viewModel)
         val layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
         val list = viewBinding.listRecyclerView
+        list.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         list.layoutManager = layoutManager
         list.adapter = adapter
 
