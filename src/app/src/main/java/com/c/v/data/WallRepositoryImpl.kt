@@ -2,7 +2,7 @@ package com.c.v.data
 
 import android.net.Uri
 import com.c.v.data.network.vkApi.model.VKPost
-import com.c.v.data.network.vkApi.requests.VKGetAllPostsInWallRequest
+import com.c.v.data.network.vkApi.requests.VKGetPostsInWallRequest
 import com.c.v.data.network.vkApi.requests.VKWallPostRequest
 import com.c.v.domain.wall.WallRepository
 import com.vk.api.sdk.VK
@@ -16,5 +16,5 @@ class WallRepositoryImpl(private val scheduler: Scheduler = Schedulers.io()) : W
         Completable.fromCallable { VK.executeSync(VKWallPostRequest(string, images)) }.subscribeOn(scheduler)
 
     override fun getAll(ownerId: Int): Observable<List<VKPost>> =
-        Observable.fromCallable { VK.executeSync(VKGetAllPostsInWallRequest(ownerId)) }.subscribeOn(scheduler)
+        Observable.fromCallable { VK.executeSync(VKGetPostsInWallRequest(ownerId)) }.subscribeOn(scheduler)
 }

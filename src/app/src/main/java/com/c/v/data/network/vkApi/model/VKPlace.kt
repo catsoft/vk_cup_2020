@@ -1,25 +1,19 @@
 package com.c.v.data.network.vkApi.model
 
 import com.c.v.data.IWithIdModel
-import org.json.JSONObject
-import java.util.*
 
-data class VKPlace(val date: Calendar, override val id: Int) : IWithIdModel {
+data class VKPlace(
+    override val id: Int,
+    val title: String,
+    val latitude: Double,
+    val longitude: Double,
+    val created: Int,
+    val icon: String?,
+    val checkins: Int,
+    val updated: Int,
+    val type: Int,
+    val country: Int,
+    val city: Int,
+    val address: String
+) : IWithIdModel
 
-    companion object {
-
-        fun parse(jsonObject: JSONObject) : VKPlace {
-            return VKPlace(
-                getCalendarFromMilliSec(jsonObject.optLong("date") * 1000),
-                0
-            )
-        }
-
-        private fun getCalendarFromMilliSec(milliSec: Long): Calendar {
-            val calendar = Calendar.getInstance()
-            calendar.timeInMillis = milliSec
-
-            return calendar
-        }
-    }
-}

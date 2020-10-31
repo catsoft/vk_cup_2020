@@ -2,6 +2,7 @@ package com.c.v.di
 
 import java.lang.reflect.Type
 
+@Deprecated("Использовать даггер", level = DeprecationLevel.WARNING)
 class SimpleDi private constructor() {
 
     private val references = mutableMapOf<Type, Any>()
