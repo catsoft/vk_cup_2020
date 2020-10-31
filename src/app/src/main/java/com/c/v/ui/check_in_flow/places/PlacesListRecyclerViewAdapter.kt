@@ -12,7 +12,6 @@ import com.c.v.ui.base.BaseAdapter
 import com.c.v.ui.check_in_flow.places.dto.PlacePresentationDto
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.jakewharton.rxbinding2.view.RxView
 import io.reactivex.rxkotlin.addTo
@@ -55,12 +54,10 @@ class PlacesListRecyclerViewAdapter() : BaseAdapter<PlacesViewHolder, PlacePrese
 
             mapView.getMapAsync {
                 val latLng = LatLng(item.latitude, item.longitude)
-                it.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 8F))
+                it.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12F))
 
                 val marker = MarkerOptions().position(latLng).title(item.title)
                 it.addMarker(marker)
-
-                it.setMapStyle(MapStyleOptions("bd2d314efbe95a23"))
             }
         }
     }

@@ -14,6 +14,6 @@ data class VKPlace(
     val type: Int,
     val country: String?,
     val city: String?,
-    val address: String
+    val address: String?
 ) : IWithIdModel
 

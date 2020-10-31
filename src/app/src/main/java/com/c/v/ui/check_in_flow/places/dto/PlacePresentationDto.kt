@@ -14,7 +14,10 @@ data class PlacePresentationDto(
 ) : IWithIdModel {
     companion object {
         fun fromVKGeo(geo: VKGeo) : PlacePresentationDto {
-            val subtitle = geo.place!!.checkins.toString() + " " + geo.place.address
+            var subtitle = "Кол-во отметок: " + geo.place!!.checkins.toString()
+            if (geo.place!!.address.orEmpty().isNotEmpty()) {
+                subtitle += "   адрес: " + geo.place.address
+            }
             val icon = geo.place.icon.orEmpty()
             val (latitude, longitude) = geo.coordinates.split(" ").map { it.toDouble() }
             return PlacePresentationDto(geo.place.id, geo.place.title, subtitle, icon, latitude, longitude)
